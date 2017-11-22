@@ -1,7 +1,7 @@
-package fr.flin;
+package fr.ip;
 
-import fr.flin.model.core.Game;
-import fr.flin.model.goose.GooseGame;
+import fr.ip.model.core.Game;
+import fr.ip.model.goose.GooseGame;
 
 
 public class Main {

@@ -1,4 +1,4 @@
-package fr.flin.model.core;
+package fr.ip.model.core;
 
 @FunctionalInterface
 public interface ActionEvent<T extends Event> {

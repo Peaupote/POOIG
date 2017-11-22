@@ -1,8 +1,8 @@
-package fr.flin.model.goose;
+package fr.ip.model.goose;
 
-import fr.flin.model.core.Cell;
-import fr.flin.model.core.Event;
-import fr.flin.model.core.Game;
+import fr.ip.model.core.Cell;
+import fr.ip.model.core.Event;
+import fr.ip.model.core.Game;
 
 public class GooseCell extends Cell {
 

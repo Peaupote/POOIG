@@ -1,8 +1,8 @@
-package fr.flin.model.goose;
+package fr.ip.model.goose;
 
-import fr.flin.model.core.Event;
-import fr.flin.model.core.Pawn;
-import fr.flin.model.core.Player;
+import fr.ip.model.core.Event;
+import fr.ip.model.core.Pawn;
+import fr.ip.model.core.Player;
 
 import java.util.Random;
 

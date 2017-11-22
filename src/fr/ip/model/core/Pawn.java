@@ -1,4 +1,4 @@
-package fr.flin.model.core;
+package fr.ip.model.core;
 
 public abstract class Pawn {
 

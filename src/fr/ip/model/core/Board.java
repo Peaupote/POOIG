@@ -1,4 +1,4 @@
-package fr.flin.model.core;
+package fr.ip.model.core;
 
 import java.util.Iterator;
 import java.util.LinkedList;

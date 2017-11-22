@@ -1,7 +1,7 @@
-package fr.flin.model.goose;
+package fr.ip.model.goose;
 
-import fr.flin.model.core.Game;
-import fr.flin.model.core.Player;
+import fr.ip.model.core.Game;
+import fr.ip.model.core.Player;
 
 public class GooseGame extends Game {
 
