@@ -1,12 +1,12 @@
 package fr.ip.model.goose;
 
-import fr.ip.model.core.Cell;
 import fr.ip.model.core.Game;
 import fr.ip.model.core.Player;
 
 public class GooseGame extends Game {
 
     private GooseCell first;
+    public static final int LENGTH = 7;
 
     public GooseGame() {
         super();
@@ -19,7 +19,7 @@ public class GooseGame extends Game {
     protected void setup () {
         // setup cells
         first = new GooseCell();
-        for (int i = 0; i < 63; i++)
+        for (int i = 0; i < LENGTH - 1; i++)
             new GooseCell();
 
         for (Player p: ps)

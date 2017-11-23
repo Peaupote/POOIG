@@ -24,7 +24,7 @@ public class GoosePlayer extends Player {
             listener().add("play", new EndIfOnLastCell(pawn));
 
             listener().add("pass", (Event event) -> {
-                System.out.println("pass");
+                // System.out.println("pass");
             });
 
             listener().add("play", (Event event) -> {

@@ -9,6 +9,36 @@ public abstract class Cell {
     private static ArrayList<Cell> cells = new ArrayList<Cell>();
     private Listener listener;
 
+    public static class SinglePawnCase {
+
+        private boolean empty = false;
+        public final Enter enter;
+        public final Leave leave;
+
+        public SinglePawnCase() {
+            empty = true;
+            enter = new Enter();
+            leave = new Leave();
+        }
+
+        public class Enter implements ActionEvent<Event.CellEvent> {
+            @Override
+            public void run(Event.CellEvent event) {
+                if (!empty) {
+                    event.getPawn().goToCell(Cell.get(event.getTarget().id - 1));
+                } else empty = false;
+            }
+        }
+
+        public class Leave implements ActionEvent<Event.CellEvent> {
+            @Override
+            public void run(Event.CellEvent event) {
+                empty = true;
+            }
+        }
+
+    }
+
     public class Listener implements EventListener<Event.CellEvent> {
 
         private LinkedList<ActionEvent<Event.CellEvent>> enter, stay, leave;
@@ -49,15 +79,6 @@ public abstract class Cell {
         id = cells.size();
 
         listener = new Listener();
-    }
-
-    public void move (Pawn p, Cell dest) {
-        try {
-            listener.trigger(new Event.CellEvent("enter", dest, p));
-            listener.trigger(new Event.CellEvent("leave", this, p));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public Cell next (int incr) {
