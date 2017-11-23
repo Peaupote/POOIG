@@ -12,28 +12,21 @@ public abstract class Cell {
     public static class SinglePawnCase {
 
         private boolean empty = false;
-        public final Enter enter;
-        public final Leave leave;
 
-        public SinglePawnCase() {
+        public SinglePawnCase(Cell cell) {
             empty = true;
-            enter = new Enter();
-            leave = new Leave();
-        }
+            try {
+                cell.listener().add("enter", (Event.CellEvent event) -> {
+                    if (!empty) {
+                        event.getPawn().goToCell(Cell.get(event.getTarget().id - 1));
+                    } else empty = false;
+                });
 
-        public class Enter implements ActionEvent<Event.CellEvent> {
-            @Override
-            public void run(Event.CellEvent event) {
-                if (!empty) {
-                    event.getPawn().goToCell(Cell.get(event.getTarget().id - 1));
-                } else empty = false;
-            }
-        }
-
-        public class Leave implements ActionEvent<Event.CellEvent> {
-            @Override
-            public void run(Event.CellEvent event) {
-                empty = true;
+                cell.listener().add("leave", (Event.CellEvent event) -> {
+                    empty = true;
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
