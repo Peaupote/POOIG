@@ -28,6 +28,20 @@ public class Event {
         }
     }
 
+    public static class EventType<T> extends Event {
+
+        private final T element;
+
+        public EventType (String name, T element) {
+            super(name);
+            this.element = element;
+        }
+
+        public T getElement() {
+            return element;
+        }
+    }
+
     public String getName() { return name; }
 
 }

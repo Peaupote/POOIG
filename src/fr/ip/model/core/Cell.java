@@ -41,6 +41,7 @@ public abstract class Cell {
                 default: throw new Exception();
             }
         }
+
     }
 
     protected Cell() {
@@ -67,8 +68,12 @@ public abstract class Cell {
         return get(id + ((forward) ? incr : -incr));
     }
 
-    protected Cell get (int index) {
-        return cells.get(Math.min(index, cells.size() - 1));
+    public static Cell get (int index) {
+        return cells.get(index - 1);
+    }
+
+    public static int size() {
+        return cells.size();
     }
 
     public Listener listener() {
