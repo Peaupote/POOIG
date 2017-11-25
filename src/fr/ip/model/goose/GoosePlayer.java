@@ -4,8 +4,6 @@ import fr.ip.model.core.Event;
 import fr.ip.model.core.Pawn;
 import fr.ip.model.core.Player;
 
-import java.util.Random;
-
 public class GoosePlayer extends Player {
 
     private Pawn pawn;
@@ -30,6 +28,7 @@ public class GoosePlayer extends Player {
             listener().add("play", (Event event) -> {
                 System.out.println(name + " playing");
                 System.out.println(pawn.getLocation());
+                System.out.println("-------------");
             });
         } catch (Exception e) {
             e.printStackTrace();

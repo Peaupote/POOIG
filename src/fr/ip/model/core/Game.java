@@ -1,6 +1,5 @@
 package fr.ip.model.core;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public abstract class Game {
@@ -12,14 +11,22 @@ public abstract class Game {
 
     public static class State {
 
-        private Iterator<Player> p;
+        private Board.Cycle p;
 
-        public State (Iterator<Player> p) {
+        public State (Board.Cycle p) {
             this.p = p;
         }
 
         public void removePlayer () {
-            this.p.remove();
+            p.remove();
+        }
+
+        public void add () {
+            p.add();
+        }
+
+        public void add(Player player) {
+            p.add(player);
         }
 
     }
@@ -34,7 +41,7 @@ public abstract class Game {
 
     public void play () {
         board = new Board(ps.toArray(new Player[0]));
-        Iterator<Player> p = board.iterator();
+        Board.Cycle p = board.iterator();
         instance = new State(p);
         setup();
 

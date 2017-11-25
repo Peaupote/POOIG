@@ -32,6 +32,25 @@ public abstract class Cell {
 
     }
 
+    public static class TrapCell {
+
+        private Player player;
+
+        public TrapCell(Cell cell) {
+            player = null;
+            try {
+                cell.listener.add("enter", (Event.CellEvent event) -> {
+                    if (player != null)
+                        Game.getInstance().add(player);
+                    player = event.getPawn().getPlayer();
+                    Game.getInstance().removePlayer();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public class Listener implements EventListener<Event.CellEvent> {
 
         private LinkedList<ActionEvent<Event.CellEvent>> enter, stay, leave;
@@ -82,7 +101,7 @@ public abstract class Cell {
         return get(id + ((forward) ? incr : -incr));
     }
 
-    public static Cell get (int index) {
+    static Cell get (int index) {
         return cells.get(index - 1);
     }
 

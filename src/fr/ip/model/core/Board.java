@@ -1,11 +1,10 @@
 package fr.ip.model.core;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
-public class Board implements Iterable<Player> {
+public class Board {
 
-    private static class Cycle implements Iterator<Player> {
+    public static class Cycle {
 
         private Player[] ps;
         private int index;
@@ -22,20 +21,31 @@ public class Board implements Iterable<Player> {
         }
 
         public Player next () {
+            index = (index + 1) % ps.length;
             while (removed.indexOf(index) != -1) {
                 try {
                     ps[index].listener().trigger(new Event("pass"));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                index++;
+                index = (index + 1) % ps.length;
             }
-            index = (index + 1) % ps.length;
             return ps[index];
         }
 
         public void remove () {
-            removed.add(index - 1);
+            removed.add(index);
+        }
+
+        public void add () {
+            removed.add(index);
+        }
+
+        public void add (Player player) {
+            int i;
+            for (i = 0; i < ps.length; i++)
+                if (player == ps[i])
+                    removed.remove(new Integer(i));
         }
 
     }
@@ -46,8 +56,7 @@ public class Board implements Iterable<Player> {
         players = new Cycle(ps);
     }
 
-    @Override
-    public Iterator<Player> iterator() {
+    public Cycle iterator() {
         return players;
     }
 }
