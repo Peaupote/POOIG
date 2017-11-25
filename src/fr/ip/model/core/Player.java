@@ -14,6 +14,14 @@ public abstract class Player {
 
         public PawnAction(Pawn pawn) {
             this.pawn = pawn;
+            try {
+                pawn.getPlayer().listener.add("end", (Event event) -> {
+                    if (pawn.getLocation().id == Cell.size())
+                        Game.getInstance().removePlayer();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public abstract void run(Event event);
@@ -31,7 +39,6 @@ public abstract class Player {
             int target = locate.id + (new Random()).nextInt(6);
             System.out.println("--> target: " + target);
             if (target < Cell.size()) pawn.goToCell(Cell.get(target));
-            else Game.getInstance().removePlayer();
         }
 
     }
@@ -47,22 +54,19 @@ public abstract class Player {
             Cell locate = pawn.getLocation();
             int target = locate.id + (new Random()).nextInt(5) + 1;
             // System.out.println("--> target: " + target);
-            if (target < Cell.size()) pawn.goToCell(Cell.get(target));
+            if (target <= Cell.size()) pawn.goToCell(Cell.get(target));
             else if (target > Cell.size()) pawn.goToCell(Cell.get(2 * Cell.size() - target));
-            else {
-                pawn.goToCell(Cell.get(target));
-                Game.getInstance().removePlayer();
-            }
         }
     }
 
     public class Listener implements EventListener<Event> {
 
-        private LinkedList<ActionEvent<Event>> passEvent, startEvent;
+        private LinkedList<ActionEvent<Event>> passEvent, startEvent, endEvent;
 
         public Listener() {
             passEvent  = new LinkedList<ActionEvent<Event>>();
             startEvent = new LinkedList<ActionEvent<Event>>();
+            endEvent = new LinkedList<ActionEvent<Event>>();
         }
 
         @Override
@@ -71,6 +75,7 @@ public abstract class Player {
             switch (event.getName()) {
                 case "pass": list = passEvent;break;
                 case "play": list = startEvent;break;
+                case "end" : list = endEvent; break;
                 default: throw new Exception();
             }
 
@@ -82,6 +87,7 @@ public abstract class Player {
             switch (name) {
                 case "pass": passEvent.add(event);break;
                 case "play": startEvent.add(event);break;
+                case "end": endEvent.add(event);break;
                 default: throw new Exception();
             }
         }

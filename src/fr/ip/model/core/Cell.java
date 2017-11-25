@@ -53,6 +53,22 @@ public abstract class Cell {
         }
     }
 
+    public static class JumpCell {
+
+        public JumpCell (Cell cell, int targetid) {
+            try {
+                cell.listener.add("enter", (Event.CellEvent event) -> {
+                    System.out.println("JUMP TO " + targetid);
+                    event.getPawn().goToCell(Cell.get(targetid));
+                    event.stopPropagation();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     public static class CounterCell {
 
         private HashMap<Player, Integer> map;

@@ -11,6 +11,7 @@ public class GooseCell extends Cell {
 
         if (id == 5) new TrapCell(this);
         if (id == 6) new CounterCell(this, 2);
+        if (id == 7) new JumpCell(this, GooseGame.LENGTH);
     }
 
 

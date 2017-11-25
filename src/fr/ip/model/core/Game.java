@@ -47,7 +47,9 @@ public abstract class Game {
 
         while(!isEnd() && p.hasNext())
             try {
-                p.next().listener().trigger(new Event("play"));
+                Player player = p.next();
+                player.listener().trigger(new Event("play"));
+                player.listener().trigger(new Event("end"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
