@@ -6,7 +6,7 @@ import fr.ip.model.core.Player;
 public class GooseGame extends Game {
 
     private GooseCell first;
-    public static final int LENGTH = 7;
+    public static final int LENGTH = 15;
 
     public GooseGame() {
         super();

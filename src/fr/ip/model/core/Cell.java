@@ -1,6 +1,7 @@
 package fr.ip.model.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public abstract class Cell {
@@ -17,7 +18,6 @@ public abstract class Cell {
             empty = true;
             try {
                 cell.listener().add("enter", (Event.CellEvent event) -> {
-                    System.out.println("Single pawn cell event");
                     if (!empty) {
                         event.getPawn().goToCell(Cell.get(event.getTarget().id - 1));
                         event.stopPropagation();
@@ -42,7 +42,6 @@ public abstract class Cell {
             player = null;
             try {
                 cell.listener.add("enter", (Event.CellEvent event) -> {
-                    System.out.println("Trap cell event");
                     if (player != null)
                         Game.getInstance().add(player);
                     player = event.getPawn().getPlayer();
@@ -52,6 +51,33 @@ public abstract class Cell {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static class CounterCell {
+
+        private HashMap<Player, Integer> map;
+
+        public CounterCell (Cell cell, int i) {
+            map = new HashMap<>();
+            try {
+                cell.listener.add("enter", (Event.CellEvent event) -> {
+                    map.put(event.getPawn().getPlayer(), i);
+                    Game.getInstance().removePlayer();
+                });
+
+                cell.listener.add("stay", (Event.CellEvent event) -> {
+                    Player player = event.getPawn().getPlayer();
+                    map.compute(player, (p, j) -> j - 1);
+                    if (map.get(player) == 0) {
+                        map.remove(player);
+                        Game.getInstance().add(player);
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public class Listener implements EventListener<Event.CellEvent> {

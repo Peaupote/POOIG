@@ -1,5 +1,6 @@
 package fr.ip.model.goose;
 
+import fr.ip.model.core.Cell;
 import fr.ip.model.core.Event;
 import fr.ip.model.core.Pawn;
 import fr.ip.model.core.Player;
@@ -22,7 +23,12 @@ public class GoosePlayer extends Player {
             listener().add("play", new EndIfOnLastCell(pawn));
 
             listener().add("pass", (Event event) -> {
-                // System.out.println("pass");
+                Cell c = pawn.getLocation();
+                try {
+                    c.listener().trigger(new Event.CellEvent("stay", c, pawn));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             });
 
             listener().add("play", (Event event) -> {

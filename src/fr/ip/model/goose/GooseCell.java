@@ -10,6 +10,7 @@ public class GooseCell extends Cell {
             new SinglePawnCase(this);
 
         if (id == 5) new TrapCell(this);
+        if (id == 6) new CounterCell(this, 2);
     }
 
 
