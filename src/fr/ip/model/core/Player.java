@@ -58,23 +58,23 @@ public abstract class Player {
 
     public class Listener implements EventListener<Event> {
 
-        private LinkedList<ActionEvent> passEvent, startEvent;
+        private LinkedList<ActionEvent<Event>> passEvent, startEvent;
 
         public Listener() {
-            passEvent  = new LinkedList<ActionEvent>();
-            startEvent = new LinkedList<ActionEvent>();
+            passEvent  = new LinkedList<ActionEvent<Event>>();
+            startEvent = new LinkedList<ActionEvent<Event>>();
         }
 
         @Override
         public void trigger(Event event) throws Exception {
-            LinkedList<ActionEvent> list = null;
+            LinkedList<ActionEvent<Event>> list = null;
             switch (event.getName()) {
                 case "pass": list = passEvent;break;
                 case "play": list = startEvent;break;
                 default: throw new Exception();
             }
 
-            for (ActionEvent e: list) e.run(event);
+            runAll(list, event);
         }
 
         @Override

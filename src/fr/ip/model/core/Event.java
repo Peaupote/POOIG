@@ -4,7 +4,10 @@ public class Event {
 
     public final String name;
 
+    private boolean propagate;
+
     public Event(String name) {
+        propagate = true;
         this.name = name;
     }
 
@@ -43,5 +46,13 @@ public class Event {
     }
 
     public String getName() { return name; }
+
+    public boolean isPropagate() {
+        return propagate;
+    }
+
+    public void stopPropagation () {
+        propagate = false;
+    }
 
 }

@@ -6,9 +6,10 @@ public class GooseCell extends Cell {
 
     public GooseCell () {
         super();
+        if (id != 1 && id != GooseGame.LENGTH)
+            new SinglePawnCase(this);
+
         if (id == 5) new TrapCell(this);
-
-
     }
 
 

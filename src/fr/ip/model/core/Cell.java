@@ -17,8 +17,10 @@ public abstract class Cell {
             empty = true;
             try {
                 cell.listener().add("enter", (Event.CellEvent event) -> {
+                    System.out.println("Single pawn cell event");
                     if (!empty) {
                         event.getPawn().goToCell(Cell.get(event.getTarget().id - 1));
+                        event.stopPropagation();
                     } else empty = false;
                 });
 
@@ -40,6 +42,7 @@ public abstract class Cell {
             player = null;
             try {
                 cell.listener.add("enter", (Event.CellEvent event) -> {
+                    System.out.println("Trap cell event");
                     if (player != null)
                         Game.getInstance().add(player);
                     player = event.getPawn().getPlayer();
@@ -71,7 +74,7 @@ public abstract class Cell {
                 default: throw new Exception();
             }
 
-            for (ActionEvent e: list) e.run(event);
+            runAll(list, event);
         }
 
         @Override
