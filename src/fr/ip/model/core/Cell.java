@@ -3,6 +3,8 @@ package fr.ip.model.core;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Scanner;
+import java.util.function.Predicate;
 
 public abstract class Cell {
 
@@ -10,91 +12,92 @@ public abstract class Cell {
     private static ArrayList<Cell> cells = new ArrayList<Cell>();
     private Listener listener;
 
-    public static class SinglePawnCase {
+    protected class SinglePawnCase {
 
         private boolean empty = false;
 
-        public SinglePawnCase(Cell cell) {
+        public SinglePawnCase() {
             empty = true;
-            try {
-                cell.listener().add("enter", (Event.CellEvent event) -> {
-                    if (!empty) {
-                        event.getPawn().goToCell(Cell.get(event.getTarget().id - 1));
-                        event.stopPropagation();
-                    } else empty = false;
-                });
+            Cell.this.listener().add("enter", (Event.CellEvent event) -> {
+                if (!empty) {
+                    event.getPawn().goToCell(Cell.get(event.getTarget().id - 1));
+                    event.stopPropagation();
+                } else empty = false;
+            });
 
-                cell.listener().add("leave", (Event.CellEvent event) -> {
-                    empty = true;
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Cell.this.listener().add("leave", (Event.CellEvent event) -> {
+                empty = true;
+            });
         }
 
     }
 
-    public static class TrapCell {
+    protected class TrapCell {
 
         private Player player;
 
-        public TrapCell(Cell cell) {
+        public TrapCell() {
             player = null;
-            try {
-                cell.listener.add("enter", (Event.CellEvent event) -> {
-                    if (player != null)
-                        Game.getInstance().add(player);
-                    player = event.getPawn().getPlayer();
-                    Game.getInstance().removePlayer();
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Cell.this.listener.add("enter", (Event.CellEvent event) -> {
+                if (player != null)
+                    Game.getInstance().add(player);
+                player = event.getPawn().getPlayer();
+                Game.getInstance().removePlayer();
+            });
         }
     }
 
-    public static class JumpCell {
+    public class JumpCell {
 
-        public JumpCell (Cell cell, int targetid) {
-            try {
-                cell.listener.add("enter", (Event.CellEvent event) -> {
-                    System.out.println("JUMP TO " + targetid);
-                    event.getPawn().goToCell(Cell.get(targetid));
-                    event.stopPropagation();
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        public JumpCell (int target) {
+            Cell.this.listener.add("enter", (Event.CellEvent event) -> {
+                System.out.println("JUMP TO " + target);
+                event.getPawn().goToCell(Cell.get(target));
+                event.stopPropagation();
+            });
         }
 
     }
 
-    public static class CounterCell {
+    protected class CounterCell {
 
         private HashMap<Player, Integer> map;
 
-        public CounterCell (Cell cell, int i) {
+        public CounterCell (int i) {
             map = new HashMap<>();
-            try {
-                cell.listener.add("enter", (Event.CellEvent event) -> {
-                    map.put(event.getPawn().getPlayer(), i);
-                    Game.getInstance().removePlayer();
-                });
+            Cell.this.listener.add("enter", (Event.CellEvent event) -> {
+                map.put(event.getPawn().getPlayer(), i);
+                Game.getInstance().removePlayer();
+            });
 
-                cell.listener.add("stay", (Event.CellEvent event) -> {
-                    Player player = event.getPawn().getPlayer();
-                    map.compute(player, (p, j) -> j - 1);
-                    if (map.get(player) == 0) {
-                        map.remove(player);
-                        Game.getInstance().add(player);
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Cell.this.listener.add("stay", (Event.CellEvent event) -> {
+                Player player = event.getPawn().getPlayer();
+                map.compute(player, (p, j) -> j - 1);
+                if (map.get(player) == 0) {
+                    map.remove(player);
+                    Game.getInstance().add(player);
+                }
+            });
         }
 
     }
+
+    protected class QuestionCell {
+
+        public QuestionCell (Predicate<String> isCorrect, ActionEvent<Event.CellEvent> success) {
+            this (isCorrect, success, (Event.CellEvent event) -> {});
+        }
+
+        public QuestionCell (Predicate<String> isCorrect, ActionEvent<Event.CellEvent> success, ActionEvent<Event.CellEvent> fail) {
+            Cell.this.listener().add("enter", (Event.CellEvent event) -> {
+                String answer = new Scanner(System.in).nextLine();
+                if (isCorrect.test(answer)) success.run(event);
+                else fail.run(event);
+            });
+        }
+
+    }
+
 
     public class Listener implements EventListener<Event.CellEvent> {
 
@@ -107,25 +110,24 @@ public abstract class Cell {
         }
 
         @Override
-        public void trigger(Event.CellEvent event) throws Exception {
+        public void trigger(Event.CellEvent event) {
             LinkedList<ActionEvent<Event.CellEvent>> list = null;
             switch (event.getName()) {
                 case "enter": list = enter;break;
                 case "stay": list = stay;break;
                 case "leave": list = leave;break;
-                default: throw new Exception();
+                default: return;
             }
 
             runAll(list, event);
         }
 
         @Override
-        public void add(String name, ActionEvent<Event.CellEvent> event) throws Exception {
+        public void add(String name, ActionEvent<Event.CellEvent> event) {
             switch (name) {
                 case "enter": enter.add(event);break;
                 case "stay": stay.add(event);break;
                 case "leave": leave.add(event);break;
-                default: throw new Exception();
             }
         }
 

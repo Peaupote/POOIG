@@ -4,9 +4,9 @@ import java.util.LinkedList;
 
 public interface EventListener<T extends Event> {
 
-    void trigger (T event) throws Exception;
+    void trigger (T event);
 
-    void add (String name, ActionEvent<T> event) throws Exception;
+    void add (String name, ActionEvent<T> event);
 
     default void runAll (LinkedList<ActionEvent<T>> list, T event) {
 

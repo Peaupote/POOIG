@@ -14,14 +14,10 @@ public abstract class Player {
 
         public PawnAction(Pawn pawn) {
             this.pawn = pawn;
-            try {
-                pawn.getPlayer().listener.add("end", (Event event) -> {
-                    if (pawn.getLocation().id == Cell.size())
-                        Game.getInstance().removePlayer();
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            pawn.getPlayer().listener.add("end", (Event event) -> {
+                if (pawn.getLocation().id == Cell.size())
+                    Game.getInstance().removePlayer();
+            });
         }
 
         public abstract void run(Event event);
@@ -70,25 +66,24 @@ public abstract class Player {
         }
 
         @Override
-        public void trigger(Event event) throws Exception {
+        public void trigger(Event event) {
             LinkedList<ActionEvent<Event>> list = null;
             switch (event.getName()) {
                 case "pass": list = passEvent;break;
                 case "play": list = startEvent;break;
                 case "end" : list = endEvent; break;
-                default: throw new Exception();
+                default: return;
             }
 
             runAll(list, event);
         }
 
         @Override
-        public void add(String name, ActionEvent event) throws Exception {
+        public void add(String name, ActionEvent event) {
             switch (name) {
                 case "pass": passEvent.add(event);break;
                 case "play": startEvent.add(event);break;
                 case "end": endEvent.add(event);break;
-                default: throw new Exception();
             }
         }
     }
