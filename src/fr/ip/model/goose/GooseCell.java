@@ -13,11 +13,11 @@ public class GooseCell extends Cell {
         if (id == 5) new TrapCell();
         if (id == 6) new CounterCell(2);
         if (id == 7) new JumpCell(GooseGame.LENGTH);
-        if (id % 3 == 0) new QuestionCell((String s) -> s.equals("true"), (Event.CellEvent event) -> {
-            System.out.println("Correct answer");
-        }, (Event.CellEvent event) -> {
-            System.out.println("It's a fail loser !");
-        });
+        if (id % 3 == 0)
+            new QuestionCell(
+                    (String s) -> s.equals("true"),
+                    (Event.CellEvent event) -> System.out.println("Correct answer"),
+                    (Event.CellEvent event) -> System.out.println("It's a fail loser !"));
     }
 
 

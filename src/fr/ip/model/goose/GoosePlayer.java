@@ -19,27 +19,18 @@ public class GoosePlayer extends Player {
             }
         };
 
-        try {
-            listener().add("play", new EndIfOnLastCell(pawn));
+        listener().add("play", new EndIfOnLastCell(pawn));
 
-            listener().add("pass", (Event event) -> {
-                Cell c = pawn.getLocation();
-                try {
-                    c.listener().trigger(new Event.CellEvent("stay", c, pawn));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+        listener().add("pass", (Event event) -> {
+            Cell c = pawn.getLocation();
+            c.listener().trigger(new Event.CellEvent("stay", c, pawn));
+        });
 
-            listener().add("play", (Event event) -> {
-                System.out.println(name + " playing");
-                System.out.println(pawn.getLocation());
-                System.out.println("-------------");
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        listener().add("play", (Event event) -> {
+            System.out.println(name + " playing");
+            System.out.println(pawn.getLocation());
+            System.out.println("-------------");
+        });
     }
 
     public Pawn getPawn() {

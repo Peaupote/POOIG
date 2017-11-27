@@ -67,7 +67,7 @@ public abstract class Player {
 
         @Override
         public void trigger(Event event) {
-            LinkedList<ActionEvent<Event>> list = null;
+            LinkedList<ActionEvent<Event>> list;
             switch (event.getName()) {
                 case "pass": list = passEvent;break;
                 case "play": list = startEvent;break;

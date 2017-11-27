@@ -45,14 +45,11 @@ public abstract class Game {
         instance = new State(p);
         setup();
 
-        while(!isEnd() && p.hasNext())
-            try {
-                Player player = p.next();
-                player.listener().trigger(new Event("play"));
-                player.listener().trigger(new Event("end"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        while(!isEnd() && p.hasNext()) {
+            Player player = p.next();
+            player.listener().trigger(new Event("play"));
+            player.listener().trigger(new Event("end"));
+        }
     }
 
     protected abstract void setup ();

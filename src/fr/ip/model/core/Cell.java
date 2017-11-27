@@ -111,7 +111,7 @@ public abstract class Cell {
 
         @Override
         public void trigger(Event.CellEvent event) {
-            LinkedList<ActionEvent<Event.CellEvent>> list = null;
+            LinkedList<ActionEvent<Event.CellEvent>> list;
             switch (event.getName()) {
                 case "enter": list = enter;break;
                 case "stay": list = stay;break;
