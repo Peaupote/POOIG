@@ -8,7 +8,7 @@ import fr.ip.model.numeri.NumeriGame;
 public class Main {
 
     public static void main(String[] args) {
-        Game g = new NumeriGame();
+        Game g = new GooseGame();
         g.play();
     }
 }

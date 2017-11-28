@@ -12,7 +12,7 @@ public class NumeriPlayer extends Player {
 
     private class NumeriPawn extends Pawn {
 
-        private final int id;
+        public final int id;
 
         public NumeriPawn(int id) {
             this.id = id;
@@ -29,7 +29,7 @@ public class NumeriPlayer extends Player {
 
         pawns = new NumeriPawn[6];
         for (int i = 0; i < 6; i++)
-            pawns[i] = new NumeriPawn(i + 1);
+            pawns[i] = new NumeriPawn(i);
 
         listener().add("play", (Event event) -> {
             System.out.println(this);
@@ -48,7 +48,19 @@ public class NumeriPlayer extends Player {
                 System.out.println("Wrong combinaison");
             }
 
+            for (int id: ids)
+                pawns[id - 1].goToCell(pawns[id].getLocation().next(1));
+
+            System.out.println(name + " playing");
+            for (Pawn pawn: pawns)
+                System.out.println(pawn.getLocation());
+            System.out.println("-------------");
+
         });
+    }
+
+    public Pawn[] pawns () {
+        return pawns;
     }
 
 }

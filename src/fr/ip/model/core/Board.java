@@ -23,11 +23,7 @@ public class Board {
         public Player next () {
             index = (index + 1) % ps.length;
             while (removed.indexOf(index) != -1) {
-                try {
-                    ps[index].listener().trigger(new Event("pass"));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                ps[index].listener().trigger(new Event("pass"));
                 index = (index + 1) % ps.length;
             }
             return ps[index];

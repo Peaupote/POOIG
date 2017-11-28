@@ -20,7 +20,7 @@ public abstract class Cell {
             empty = true;
             Cell.this.listener().add("enter", (Event.CellEvent event) -> {
                 if (!empty) {
-                    event.getPawn().goToCell(Cell.get(event.getTarget().id - 1));
+                    event.getPawn().goToCell(next(1, false));
                     event.stopPropagation();
                 } else empty = false;
             });
@@ -148,7 +148,7 @@ public abstract class Cell {
         return get(id + ((forward) ? incr : -incr));
     }
 
-    static Cell get (int index) {
+    public static Cell get (int index) {
         return cells.get(index - 1);
     }
 
