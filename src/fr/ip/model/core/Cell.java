@@ -12,20 +12,21 @@ public abstract class Cell {
     private static ArrayList<Cell> cells = new ArrayList<Cell>();
     private Listener listener;
 
-    protected class SinglePawnCase {
+    public class SinglePawnCell {
 
-        private boolean empty = false;
+        private boolean empty;
 
-        public SinglePawnCase() {
+        public SinglePawnCell(boolean forward) {
             empty = true;
-            Cell.this.listener().add("enter", (Event.CellEvent event) -> {
+            listener.add("enter", (Event.CellEvent event) -> {
+                System.out.println(empty);
                 if (!empty) {
-                    event.getPawn().goToCell(next(1, false));
+                    event.getPawn().goToCell(next(1, forward));
                     event.stopPropagation();
                 } else empty = false;
             });
 
-            Cell.this.listener().add("leave", (Event.CellEvent event) -> {
+            listener.add("leave", (Event.CellEvent event) -> {
                 empty = true;
             });
         }
@@ -145,7 +146,7 @@ public abstract class Cell {
     }
 
     public Cell next (int incr, boolean forward) {
-        return get(id + ((forward) ? incr : -incr));
+        return get(id + (forward ? incr : -incr));
     }
 
     public static Cell get (int index) {
