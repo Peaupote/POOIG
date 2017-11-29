@@ -52,7 +52,7 @@ public abstract class Game {
         }
     }
 
-    protected abstract void setup ();
+    public abstract void setup ();
     public abstract boolean isEnd ();
 
     public static State getInstance() {

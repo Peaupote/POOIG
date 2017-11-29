@@ -1,47 +1,55 @@
 package fr.ip.model.core;
 
-import java.util.LinkedList;
+import fr.ip.model.util.Tuple;
+
 
 public class Board {
 
     public static class Cycle {
 
-        private Player[] ps;
+        private Tuple<Player, Boolean>[] ps;
         private int index;
-        private LinkedList<Integer> removed;
+        int removed;
 
         public Cycle (Player[] ps) {
             index = ps.length - 1;
-            this.ps = ps;
-            this.removed = new LinkedList<Integer>();
+            this.ps = new Tuple[ps.length];
+
+            for(int i = 0; i < ps.length; i++) {
+                this.ps[i].x = ps[i];
+                this.ps[i].y = true;
+            }
+
+            this.removed = 0;
         }
 
         public boolean hasNext() {
-            return ps.length != 0 && removed.size() != ps.length;
+            return ps.length != 0 && removed != ps.length;
         }
 
         public Player next () {
             index = (index + 1) % ps.length;
-            while (removed.indexOf(index) != -1) {
-                ps[index].listener().trigger(new Event("pass"));
+            while (!ps[index].y) {
+                ps[index].x.listener().trigger(new Event("pass"));
                 index = (index + 1) % ps.length;
             }
-            return ps[index];
+            return ps[index].x;
         }
 
         public void remove () {
-            removed.add(index);
+            ps[index].y = false;
+            removed ++;
         }
 
         public void add () {
-            removed.add(index);
+            remove();
         }
 
         public void add (Player player) {
             int i;
             for (i = 0; i < ps.length; i++)
-                if (player == ps[i])
-                    removed.remove(new Integer(i));
+                if (player == ps[i].x)
+                    ps[i].y = true;
         }
 
     }
