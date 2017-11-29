@@ -14,7 +14,7 @@ public abstract class Cell {
 
     protected class SinglePawnCase {
 
-        private boolean empty = false;
+        private boolean empty;
 
         public SinglePawnCase() {
             empty = true;

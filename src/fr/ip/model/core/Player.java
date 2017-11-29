@@ -49,7 +49,7 @@ public abstract class Player {
         public void run(Event event) {
             Cell locate = pawn.getLocation();
             int target = locate.id + (new Random()).nextInt(5) + 1;
-            // System.out.println("--> target: " + target);
+            System.out.println("--> target: " + target);
             if (target <= Cell.size()) pawn.goToCell(Cell.get(target));
             else if (target > Cell.size()) pawn.goToCell(Cell.get(2 * Cell.size() - target));
         }
