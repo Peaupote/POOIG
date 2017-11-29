@@ -15,10 +15,8 @@ public class Board {
             index = ps.length - 1;
             this.ps = new Tuple[ps.length];
 
-            for(int i = 0; i < ps.length; i++) {
-                this.ps[i].x = ps[i];
-                this.ps[i].y = true;
-            }
+            for(int i = 0; i < ps.length; i++)
+                this.ps[i] = new Tuple<>(ps[i], true);
 
             this.removed = 0;
         }
