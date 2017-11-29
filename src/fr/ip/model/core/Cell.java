@@ -18,9 +18,7 @@ public abstract class Cell {
 
         public SinglePawnCell(boolean forward) {
             empty = true;
-            System.out.println("onon");
             listener.add("enter", (Event.CellEvent event) -> {
-                System.out.println(empty);
                 if (!empty) {
                     event.getPawn().goToCell(next(1, forward));
                     event.stopPropagation();
