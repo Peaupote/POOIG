@@ -37,19 +37,28 @@ public class Board {
         }
 
         public void remove () {
+            if(!ps[index].y)
+                return;
             ps[index].y = false;
             removed ++;
         }
 
         public void add () {
-            remove();
+            if(ps[index].y)
+                return;
+            ps[index].y = true;
+            removed --;
         }
 
         public void add (Player player) {
             int i;
             for (i = 0; i < ps.length; i++)
-                if (player == ps[i].x)
+                if (player == ps[i].x){
+                    if(ps[i].y)
+                        return;
                     ps[i].y = true;
+                    removed --;
+                }
         }
 
     }
