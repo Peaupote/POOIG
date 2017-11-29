@@ -4,12 +4,11 @@ import fr.ip.model.core.Cell;
 
 public class NumeriCell extends Cell {
 
-    private boolean empty;
-
     public NumeriCell () {
         super();
-        if (id != 1 && id != Cell.size())
+        if (id != 1 && id != Cell.size() - 1)
             new SinglePawnCell(true);
+
     }
 
 }
