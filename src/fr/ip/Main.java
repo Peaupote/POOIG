@@ -12,7 +12,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Game g;
 
-        System.out.println("Goose : 1\nNumeri : 2\nExit : 0");
+        System.out.println("1 : Goose\n2 : Numeri\n0 : Exit");
 
         switch (sc.nextInt()) {
             case 0 : System.exit(0); return;
