@@ -59,6 +59,11 @@ public class Board {
                 }
         }
 
+        public void previous () {
+            index = (index - 1) % ps.length;
+            if (index < 0) index += ps.length;
+        }
+
     }
 
     private Cycle players;

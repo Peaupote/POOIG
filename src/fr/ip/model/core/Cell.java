@@ -14,19 +14,19 @@ public abstract class Cell {
 
     public class SinglePawnCell {
 
-        private boolean empty;
+        private Pawn pawn;
 
         public SinglePawnCell(boolean forward) {
-            empty = true;
+            pawn = null;
             listener.add("enter", (Event.CellEvent event) -> {
-                if (!empty) {
+                if (pawn != null) {
                     event.getPawn().goToCell(next(1, forward));
                     event.stopPropagation();
-                } else empty = false;
+                } else pawn = event.getPawn();
             });
 
             listener.add("leave", (Event.CellEvent event) -> {
-                empty = true;
+                if (pawn == event.getPawn()) pawn = null;
             });
         }
 

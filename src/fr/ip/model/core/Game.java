@@ -29,6 +29,10 @@ public abstract class Game {
             p.add(player);
         }
 
+        public void playAgain () {
+            p.previous();
+        }
+
     }
 
     public Game () {
