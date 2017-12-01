@@ -1,8 +1,6 @@
 package fr.ip.model.numeri;
 
-import fr.ip.model.core.Event;
-import fr.ip.model.core.Pawn;
-import fr.ip.model.core.Player;
+import fr.ip.model.core.*;
 
 import java.util.*;
 
@@ -56,6 +54,21 @@ public class NumeriPlayer extends Player {
                 System.out.println(pawn.getLocation());
             System.out.println("-------------");
 
+        });
+
+        listener().add("end", (Event e) -> {
+            for (NumeriPawn p: pawns) {
+                int c = 0;
+                for (NumeriPawn i: pawns)
+                    if (i.id != p.id) {
+                        c++;
+                        if (c == 2) {
+                            Game.getInstance().playAgain();
+                            e.stopPropagation();
+                            return;
+                        }
+                    }
+            }
         });
     }
 
