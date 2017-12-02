@@ -1,13 +1,13 @@
 package fr.ip.model.util;
 
-public enum ErrorType {
+public enum MessageType {
     INFORMATION("Information : "),
     WARNING("Warning : "),
     ERROR("Error : ");
 
     private String toString;
 
-    ErrorType(String toString) {
+    MessageType(String toString) {
         this.toString = toString;
     }
 

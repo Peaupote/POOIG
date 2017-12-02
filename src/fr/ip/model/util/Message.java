@@ -1,11 +1,11 @@
 package fr.ip.model.util;
 
 
-public class ErrorMessage {
-    public final ErrorType t;
+public class Message {
+    public final MessageType t;
     public final String content;
 
-    public ErrorMessage(ErrorType t, String content) {
+    public Message(MessageType t, String content) {
         this.t = t;
         this.content = content;
     }

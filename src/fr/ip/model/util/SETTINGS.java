@@ -26,7 +26,7 @@ public final class SETTINGS {
         try {
             sc = new Scanner(f);
         } catch (FileNotFoundException e) {
-            new ErrorMessage(ErrorType.WARNING, "No SETTINGS.config file found - default settings applied.").print();
+            new Message(MessageType.WARNING, "No SETTINGS.config file found - default settings applied.").print();
             return defaultSettings();
         }
 
