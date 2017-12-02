@@ -1,9 +1,9 @@
 package fr.ip.model.util;
 
 public enum ErrorType {
-    INFORMATION("II : "),
-    WARNING("WW : "),
-    ERROR("EE : ");
+    INFORMATION("Information : "),
+    WARNING("Warning : "),
+    ERROR("Error : ");
 
     private String toString;
 

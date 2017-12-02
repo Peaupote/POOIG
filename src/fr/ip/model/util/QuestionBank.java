@@ -56,24 +56,6 @@ public class QuestionBank {
         }
     }
 
-    public enum Level {
-        BEGINNER("Débutant"),
-        INTERMEDIATE("Intermédiaire"),
-        EXPERT("Expert"),
-        ANY("Mixte");
-
-        private String name;
-
-        Level(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
-
     public class QuestionMC extends Question implements Iterable<Tuple<Answer, String>>{
         private ArrayList<Tuple<Answer, String>> as;
 
@@ -108,8 +90,8 @@ public class QuestionBank {
             new ErrorMessage(ErrorType.ERROR, "Le dossier des questions est introuvable, existe-t-il ?").print();
             System.exit(2);
         }
-        File[] filesList = folder.listFiles();
-        if(filesList == null) {
+        File[] fileList = folder.listFiles();
+        if(fileList == null) {
             new ErrorMessage(ErrorType.ERROR, "Aucun fichier dans le dossier questions.").print();
             System.exit(3);
         }
@@ -119,5 +101,8 @@ public class QuestionBank {
         this(Level.ANY);
     }
 
+    private ArrayList<Question> parse(File[] fileList) {
+
+    }
 
 }
