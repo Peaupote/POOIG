@@ -97,11 +97,27 @@ public class QuestionBank {
     private File folder;
 
     public QuestionBank(Level level) {
-        this.level = level;
-        this.folder =
+        if(SETTINGS.instance.getSetting("ANY_LEVEL_OVERRIDE") != null)
+            this.level = (boolean) SETTINGS.instance.getSetting("ANY_LEVEL_OVERRIDE").value ? Level.ANY : level;
+        else {
+            System.out.println("");
+        }
+        try {
+            this.folder = new File((String) SETTINGS.instance.getSetting("PATH_TO_QUESTIONS_FOLDER").value);
+        } catch (NullPointerException e) {
+            new ErrorMessage(ErrorType.ERROR, "Le dossier des questions est introuvable, existe-t-il ?").print();
+            System.exit(2);
+        }
+        File[] filesList = folder.listFiles();
+        if(filesList == null) {
+            new ErrorMessage(ErrorType.ERROR, "Aucun fichier dans le dossier questions.").print();
+            System.exit(3);
+        }
     }
 
     public QuestionBank() {
         this(Level.ANY);
     }
+
+
 }
