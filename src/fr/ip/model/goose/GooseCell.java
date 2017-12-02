@@ -25,7 +25,4 @@ public class GooseCell extends Cell {
                     (Event.CellEvent event) -> System.out.println("Correct answer"),
                     (Event.CellEvent event) -> System.out.println("It's a fail loser !"));
     }
-
-
-
 }
