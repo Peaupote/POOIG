@@ -36,6 +36,7 @@ public abstract class Game {
     }
 
     public Game () {
+        instance = null;
         ps = new LinkedList<Player>();
     }
 
@@ -56,7 +57,7 @@ public abstract class Game {
         }
     }
 
-    protected abstract void setup ();
+    public abstract void setup ();
     public abstract boolean isEnd ();
 
     public static State getInstance() {

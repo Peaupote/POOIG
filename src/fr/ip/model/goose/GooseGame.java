@@ -16,7 +16,7 @@ public class GooseGame extends Game {
         addPlayer(new GoosePlayer("j3"));
     }
 
-    protected void setup () {
+    public void setup () {
         // setup cells
         first = new GooseCell();
         for (int i = 0; i < LENGTH - 1; i++)

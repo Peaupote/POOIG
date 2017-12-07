@@ -17,7 +17,7 @@ public class NumeriGame extends Game {
     }
 
     @Override
-    protected void setup() {
+    public void setup() {
         NumeriCell first = new NumeriCell();
         for (int i = 0; i < LENGTH; i++)
             new NumeriCell();
