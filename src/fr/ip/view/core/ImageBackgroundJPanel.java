@@ -11,6 +11,15 @@ public class ImageBackgroundJPanel extends JPanel {
 
     private BufferedImage image;
 
+    public ImageBackgroundJPanel(LayoutManager layout) {
+        super(layout);
+        setBackground(new Color(0,0,0,0));
+    }
+
+    public ImageBackgroundJPanel() {
+        this (new GridBagLayout());
+    }
+
     public void setImage(String filepath) {
         try {
             image = ImageIO.read(new File(filepath));

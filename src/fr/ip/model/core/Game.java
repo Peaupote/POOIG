@@ -1,8 +1,9 @@
 package fr.ip.model.core;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
-public abstract class Game {
+public abstract class Game implements Iterable<Player> {
 
     protected LinkedList<Player> ps;
     protected Board board;
@@ -10,6 +11,8 @@ public abstract class Game {
     private static State instance;
 
     public static class State {
+
+        private Player currentPlayer;
 
         private Board.Cycle p;
 
@@ -33,6 +36,10 @@ public abstract class Game {
             p.previous();
         }
 
+        public Player getCurrentPlayer () {
+            return currentPlayer;
+        }
+
     }
 
     public Game () {
@@ -44,21 +51,37 @@ public abstract class Game {
         ps.add(p);
     }
 
-    public void play () {
+    public void start () {
         board = new Board(ps.toArray(new Player[0]));
         Board.Cycle p = board.iterator();
         instance = new State(p);
-        setup();
+    }
 
-        while(!isEnd() && p.hasNext()) {
-            Player player = p.next();
-            player.listener().trigger(new Event("play"));
-            player.listener().trigger(new Event("end"));
-        }
+    public void playTurn () {
+        Player player = instance.p.next();
+        instance.currentPlayer = player;
+        player.listener().trigger(new Event("play"));
+        player.listener().trigger(new Event("end"));
+    }
+
+    public void play () {
+        setup();
+        start();
+        while(!isEnd() && instance.p.hasNext())
+            playTurn();
     }
 
     public abstract void setup ();
     public abstract boolean isEnd ();
+
+    @Override
+    public Iterator<Player> iterator() {
+        return ps.iterator();
+    }
+
+    public int size() {
+        return ps.size();
+    }
 
     public static State getInstance() {
         return instance;
