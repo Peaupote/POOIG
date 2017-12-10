@@ -1,7 +1,6 @@
 package fr.ip.view.core;
 
 import fr.ip.model.core.Player;
-import fr.ip.model.goose.GoosePlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,10 +9,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class GameModalBox extends JDialog{
+public abstract class GameModalBox<T extends Player> extends JDialog{
 
-    public class Output implements Iterable<Player> {
-        private final ArrayList<Player> players;
+    public class Output implements Iterable<T> {
+        private final ArrayList<T> players;
         private boolean cancel;
 
         public Output () {
@@ -22,7 +21,7 @@ public class GameModalBox extends JDialog{
         }
 
         @Override
-        public Iterator<Player> iterator() {
+        public Iterator<T> iterator() {
             return players.iterator();
         }
 
@@ -42,6 +41,7 @@ public class GameModalBox extends JDialog{
             name = new JTextField(10);
             add = new JButton("+");
             rm = new JButton("-");
+            rm.setEnabled(false);
 
             JPanel in = new JPanel();
             in.add(name);
@@ -109,7 +109,7 @@ public class GameModalBox extends JDialog{
                             return;
                         }
 
-                    Player p = new GoosePlayer(name);
+                    T p = construct(name);
                     out.players.add(p);
                     form.listModel.addElement(p);
                     form.name.setText("");
@@ -152,5 +152,7 @@ public class GameModalBox extends JDialog{
         setVisible(true);
         return out;
     }
+
+    protected abstract T construct (String name);
 
 }

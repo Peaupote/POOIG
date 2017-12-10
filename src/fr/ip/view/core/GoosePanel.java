@@ -54,14 +54,14 @@ public class GoosePanel extends ImageBackgroundJPanel implements SingleView {
             for (Player player: game)
                 add(new PlayerLabel(player.name));
 
-            playButton = new JButton("Start");
+            playButton = new JButton("Roll dice");
             add(playButton);
         }
     }
 
     public void onOpen () {
-        GameModalBox modal = new GameModalBox(MainFrame.instance, "Add players", true);
-        GameModalBox.Output out = modal.showGameModalBox();
+        GooseModalBox modal = new GooseModalBox(MainFrame.instance, "Add players", true);
+        GooseModalBox.Output out = modal.showGameModalBox();
 
         if (out.isCancel()) {
             MainFrame.set("menu");
@@ -70,38 +70,32 @@ public class GoosePanel extends ImageBackgroundJPanel implements SingleView {
         removeAll();
 
         game = new GooseGame();
-        for(Player player : out)
+        for(GoosePlayer player : out)
             game.addPlayer(player);
 
         game.setup();
+        game.start();
         buttons = new ArrayList<>();
 
         setLayout(new BorderLayout());
         add(new GameControlPanel(), BorderLayout.EAST);
         add(new BoardPanel(), BorderLayout.CENTER);
 
-        hasStart = false;
         playButton.addActionListener(e -> {
-            if (hasStart) {
-                game.playTurn();
-                GoosePlayer p = (GoosePlayer)Game.getInstance().getCurrentPlayer();
+            game.playTurn();
+            GoosePlayer p = (GoosePlayer)Game.getInstance().getCurrentPlayer();
 
-                for (int i = 0; i < Cell.size(); i++) {
-                    JButton btn = buttons.get(i);
-                    if (btn.getText().equals(p.name)) {
-                        btn.setEnabled(true);
-                        btn.setText((i + 1) + "");
-                    }
+            for (int i = 0; i < Cell.size(); i++) {
+                JButton btn = buttons.get(i);
+                if (btn.getText().equals(p.name)) {
+                    btn.setEnabled(true);
+                    btn.setText((i + 1) + "");
                 }
-
-                JButton btn = buttons.get(p.getPawn().getLocation().id - 1);
-                btn.setText(p.name);
-                btn.setEnabled(false);
-            } else {
-                playButton.setText("Play turn");
-                game.start();
-                hasStart = true;
             }
+
+            JButton btn = buttons.get(p.getPawn().getLocation().id - 1);
+            btn.setText(p.name);
+            btn.setEnabled(false);
         });
 
         revalidate();
