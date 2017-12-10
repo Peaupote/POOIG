@@ -10,10 +10,6 @@ public class GooseGame extends Game {
 
     public GooseGame() {
         super();
-
-        addPlayer(new GoosePlayer("j1"));
-        addPlayer(new GoosePlayer("j2"));
-        addPlayer(new GoosePlayer("j3"));
     }
 
     public void setup () {

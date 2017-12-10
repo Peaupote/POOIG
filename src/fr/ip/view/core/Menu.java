@@ -13,8 +13,8 @@ public class Menu extends ImageBackgroundJPanel implements SingleView {
         numeri = new MenuButton("Play Numeri");
         goose = new MenuButton("Play Goose");
 
-        goose.addActionListener(e -> MainFrame.instance.set("goose"));
-        numeri.addActionListener(e -> MainFrame.instance.set("numeri"));
+        goose.addActionListener(e -> MainFrame.set("goose"));
+        numeri.addActionListener(e -> MainFrame.set("numeri"));
 
         setLayout(new GridLayout(3, 1));
         JPanel labelPanel = new JPanel(new GridBagLayout());

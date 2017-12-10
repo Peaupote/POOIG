@@ -43,7 +43,6 @@ public abstract class Game implements Iterable<Player> {
     }
 
     public Game () {
-        instance = null;
         ps = new LinkedList<Player>();
     }
 

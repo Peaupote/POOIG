@@ -60,8 +60,19 @@ public class GoosePanel extends ImageBackgroundJPanel implements SingleView {
     }
 
     public void onOpen () {
+        GameModalBox modal = new GameModalBox(MainFrame.instance, "Add players", true);
+        GameModalBox.Output out = modal.showGameModalBox();
+
+        if (out.isCancel()) {
+            MainFrame.set("menu");
+            return;
+        }
         removeAll();
+
         game = new GooseGame();
+        for(Player player : out)
+            game.addPlayer(player);
+
         game.setup();
         buttons = new ArrayList<>();
 

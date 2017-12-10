@@ -44,13 +44,13 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    public <T extends Component & SingleView> void addView (String name, T c) {
-        getContentPane().add(name, c);
-        map.put(name, c);
+    public static <T extends Component & SingleView> void addView (String name, T c) {
+        instance.getContentPane().add(name, c);
+        instance.map.put(name, c);
     }
 
-    public void set (String name) {
-        map.get(name).onOpen();
-        cl.show(getContentPane(), name);
+    public static void set (String name) {
+        instance.map.get(name).onOpen();
+        instance.cl.show(instance.getContentPane(), name);
     }
 }
