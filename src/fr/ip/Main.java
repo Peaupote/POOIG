@@ -2,11 +2,14 @@ package fr.ip;
 
 import fr.ip.model.core.Game;
 import fr.ip.model.goose.GooseGame;
+import fr.ip.model.goose.GoosePlayer;
 import fr.ip.model.numeri.NumeriGame;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Scanner;
+
+import fr.ip.model.numeri.NumeriPlayer;
 import fr.ip.view.core.MainFrame;
 
 import javax.swing.*;
@@ -30,6 +33,16 @@ public class Main {
     }
 
     public static void playInConsole (Game game) {
+        if (game instanceof GooseGame) {
+            game.addPlayer(new GoosePlayer("j1"));
+            game.addPlayer(new GoosePlayer("j2"));
+            game.addPlayer(new GoosePlayer("j3"));
+        } else if (game instanceof NumeriGame) {
+            game.addPlayer(new NumeriPlayer("j1"));
+            game.addPlayer(new NumeriPlayer("j2"));
+            game.addPlayer(new NumeriPlayer("j3"));
+        }
+
         game.play();
     }
 

@@ -8,7 +8,7 @@ public class NumeriPlayer extends Player {
 
     private NumeriPawn[] pawns;
 
-    private class NumeriPawn extends Pawn {
+    public class NumeriPawn extends Pawn {
 
         public final int id;
 
@@ -72,7 +72,7 @@ public class NumeriPlayer extends Player {
         });
     }
 
-    public Pawn[] pawns () {
+    public NumeriPawn[] pawns () {
         return pawns;
     }
 
