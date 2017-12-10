@@ -1,5 +1,7 @@
 package fr.ip.model.core;
 
+import fr.ip.model.util.Facade;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -51,7 +53,7 @@ public abstract class Cell {
 
         public JumpCell (int target) {
             Cell.this.listener.add("enter", (Event.CellEvent event) -> {
-                System.out.println("JUMP TO " + target);
+                Facade.show("JUMP TO " + target);
                 event.getPawn().goToCell(Cell.get(target));
                 event.stopPropagation();
             });
@@ -90,7 +92,7 @@ public abstract class Cell {
 
         public QuestionCell (Predicate<String> isCorrect, ActionEvent<Event.CellEvent> success, ActionEvent<Event.CellEvent> fail) {
             Cell.this.listener().add("enter", (Event.CellEvent event) -> {
-                String answer = new Scanner(System.in).nextLine();
+                String answer = Facade.read();
                 if (isCorrect.test(answer)) success.run(event);
                 else fail.run(event);
             });

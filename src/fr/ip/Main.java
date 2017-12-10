@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.util.Scanner;
 
 import fr.ip.model.numeri.NumeriPlayer;
+import fr.ip.model.util.Facade;
 import fr.ip.view.core.MainFrame;
 
 import javax.swing.*;
@@ -33,6 +34,8 @@ public class Main {
     }
 
     public static void playInConsole (Game game) {
+        new Facade.CommandLine();
+
         if (game instanceof GooseGame) {
             game.addPlayer(new GoosePlayer("j1"));
             game.addPlayer(new GoosePlayer("j2"));
@@ -47,6 +50,7 @@ public class Main {
     }
 
     public static void playGUI () {
+        new Facade.Gui();
         EventQueue.invokeLater(() -> new MainFrame());
     }
 }

@@ -1,6 +1,7 @@
 package fr.ip.model.numeri;
 
 import fr.ip.model.core.*;
+import fr.ip.model.util.Facade;
 
 import java.util.*;
 
@@ -30,30 +31,29 @@ public class NumeriPlayer extends Player {
             pawns[i] = new NumeriPawn(i);
 
         listener().add("play", (Event event) -> {
-            System.out.println(this);
             int number = new Random().nextInt(5) + 1;
-            System.out.println("You made " + number);
-            System.out.println("Select your pawns: ");
             int[] ids;
 
             while (true) {
-                ids = Arrays.stream(new Scanner(System.in).nextLine().split(","))
-                        .map(Integer::parseInt)
-                        .mapToInt(Integer::intValue)
-                        .distinct()
-                        .toArray();
-                if (Arrays.stream(ids).sum() == number) break;
-                System.out.println("Wrong combinaison");
+                String ans = Facade.read(this + "\nYou made " + number + "\nSelect your pawns: ");
+                if (ans != null) {
+                    ids = Arrays.stream(ans.split(","))
+                            .map(Integer::parseInt)
+                            .mapToInt(Integer::intValue)
+                            .distinct()
+                            .toArray();
+                    if (Arrays.stream(ids).sum() == number) break;
+                }
+                Facade.show("Wrong combinaison");
             }
 
             for (int id: ids)
                 pawns[id - 1].goToCell(pawns[id].getLocation().next(1));
 
-            System.out.println(name + " playing");
+            String show = "";
             for (Pawn pawn: pawns)
-                System.out.println(pawn.getLocation());
-            System.out.println("-------------");
-
+                show += pawn.getLocation() + "\n";
+            Facade.show(show);
         });
 
         listener().add("end", (Event e) -> {
