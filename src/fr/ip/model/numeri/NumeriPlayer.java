@@ -56,20 +56,6 @@ public class NumeriPlayer extends Player {
             Facade.show(show);
         });
 
-        listener().add("end", (Event e) -> {
-            for (NumeriPawn p: pawns) {
-                int c = 0;
-                for (NumeriPawn i: pawns)
-                    if (i.id != p.id) {
-                        c++;
-                        if (c == 2) {
-                            Game.getInstance().playAgain();
-                            e.stopPropagation();
-                            return;
-                        }
-                    }
-            }
-        });
     }
 
     public NumeriPawn[] pawns () {

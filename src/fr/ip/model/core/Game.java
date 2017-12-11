@@ -44,6 +44,7 @@ public abstract class Game implements Iterable<Player> {
 
     public Game () {
         ps = new LinkedList<Player>();
+        Cell.flush();
     }
 
     public void addPlayer (Player p) {

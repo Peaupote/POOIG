@@ -1,5 +1,6 @@
 package fr.ip.view.core;
 
+import fr.ip.model.core.Cell;
 import fr.ip.model.core.Game;
 import fr.ip.model.numeri.NumeriGame;
 import fr.ip.model.numeri.NumeriPlayer;
@@ -8,6 +9,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class NumeriPanel extends GameBoardPanel implements SingleView {
+
+    public NumeriPanel () {
+        setImage("./assets/bkg.png");
+    }
 
     public void onOpen () {
         NumeriModalBox modal = new NumeriModalBox(MainFrame.instance, "Add players", true);
@@ -35,16 +40,18 @@ public class NumeriPanel extends GameBoardPanel implements SingleView {
             game.playTurn();
             NumeriPlayer player = (NumeriPlayer) Game.getInstance().getCurrentPlayer();
 
-            for (int i = 0; i < buttons.size(); i++)
+            for (int i = 1; i < buttons.size() - 1; i++)
                 if (buttons.get(i).getText().startsWith(player.name))
                     buttons.get(i).setText(i + "");
 
             for (NumeriPlayer.NumeriPawn p : player.pawns())
-                buttons.get(p.getLocation().id - 1).setText(player.name + "(" + (p.id + 1) + ")");
+                if (p.getLocation().id != 1 && p.getLocation().id != Cell.size())
+                    buttons.get(p.getLocation().id - 1).setText(player.name + "(" + (p.id + 1) + ")");
 
 
         });
 
+        MainFrame.canRestart(true);
         revalidate();
     }
 

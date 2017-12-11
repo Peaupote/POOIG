@@ -54,6 +54,7 @@ public class GoosePanel extends GameBoardPanel implements SingleView {
             btn.setEnabled(false);
         });
 
+        MainFrame.canRestart(true);
         revalidate();
     }
 }

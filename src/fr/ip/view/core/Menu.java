@@ -41,6 +41,6 @@ public class Menu extends ImageBackgroundJPanel implements SingleView {
 
     @Override
     public void onOpen() {
-
+        MainFrame.canRestart(false);
     }
 }

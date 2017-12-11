@@ -115,7 +115,9 @@ public abstract class GameModalBox<T extends Player> extends JDialog{
                     form.name.setText("");
                     form.rm.setEnabled(true);
                     control.done.setEnabled(true);
-                }
+                } else if (!out.players.isEmpty())
+                    control.done.doClick();
+
             }
         };
 

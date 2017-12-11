@@ -10,10 +10,11 @@ import java.io.IOException;
 public class ImageBackgroundJPanel extends JPanel {
 
     private BufferedImage image;
+    public final static Color TRANSPARENT = new Color(0,0,0,0);
 
     public ImageBackgroundJPanel(LayoutManager layout) {
         super(layout);
-        setBackground(new Color(0,0,0,0));
+        setBackground(TRANSPARENT);
     }
 
     public ImageBackgroundJPanel() {

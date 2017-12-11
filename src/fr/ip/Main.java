@@ -51,6 +51,6 @@ public class Main {
 
     public static void playGUI () {
         new Facade.Gui();
-        EventQueue.invokeLater(() -> new MainFrame());
+        EventQueue.invokeLater(() -> new MainFrame().set("menu"));
     }
 }

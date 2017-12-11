@@ -5,7 +5,6 @@ import fr.ip.model.util.Facade;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Scanner;
 import java.util.function.Predicate;
 
 public abstract class Cell {
@@ -140,6 +139,10 @@ public abstract class Cell {
         id = cells.size();
 
         listener = new Listener();
+    }
+
+    public static void flush () {
+        cells = new ArrayList<>();
     }
 
     public Cell next (int incr) {

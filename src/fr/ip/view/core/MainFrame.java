@@ -8,6 +8,8 @@ public class MainFrame extends JFrame {
     private HashMap<String, SingleView> map;
     private CardLayout cl;
     public static MainFrame instance = null;
+    private String current;
+    private final JMenuItem restart;
 
     public MainFrame() {
         super();
@@ -22,20 +24,27 @@ public class MainFrame extends JFrame {
         addView("menu", new Menu());
         addView("numeri", new NumeriPanel());
         addView("goose", new GoosePanel());
-        set("menu");
 
         JMenuBar bar = new JMenuBar();
         JMenu game = new JMenu("Game");
+        restart = new JMenuItem("Restart");
         JMenuItem menu = new JMenuItem("Menu"),
                   goose = new JMenuItem("Goose game"),
                   numeri = new JMenuItem("Numeri game");
 
+        game.add(restart);
         game.add(menu);
         game.add(goose);
         game.add(numeri);
         bar.add(game);
         setJMenuBar(bar);
 
+        restart.setEnabled(false);
+        restart.addActionListener(e -> {
+            String tmp = current;
+            set("menu");
+            set(tmp);
+        });
         menu.addActionListener(e -> set("menu"));
         goose.addActionListener(e -> set("goose"));
         numeri.addActionListener(e -> set("numeri"));
@@ -44,12 +53,18 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
+    public static void canRestart (boolean can) {
+        instance.restart.setEnabled(can);
+    }
+
     public static <T extends Component & SingleView> void addView (String name, T c) {
         instance.getContentPane().add(name, c);
         instance.map.put(name, c);
     }
 
     public static void set (String name) {
+        instance.current = name;
+        instance.setTitle("Game - " + name);
         instance.map.get(name).onOpen();
         instance.cl.show(instance.getContentPane(), name);
     }
