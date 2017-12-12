@@ -1,6 +1,5 @@
 package fr.ip.model.util;
 
-
 public class Message {
     public final MessageType t;
     public final String content;
@@ -16,6 +15,16 @@ public class Message {
     }
 
     public void print() {
-        System.out.println(toString());
+        print(false);
+    }
+
+    public void print(boolean graphic) {
+        if(!graphic)
+            System.out.println(toString());
+        else {
+            // ADD GUI FOR MESSAGE. (JDialog)
+        }
+
+
     }
 }
