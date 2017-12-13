@@ -12,6 +12,7 @@ import java.util.Scanner;
 import fr.ip.model.numeri.NumeriPlayer;
 import fr.ip.model.util.Facade;
 import fr.ip.view.core.MainFrame;
+import fr.ip.model.util.SETTINGS;
 
 import javax.swing.*;
 
@@ -20,8 +21,11 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Settings_dev
+        Game g;
+        SETTINGS s = new SETTINGS();
 
-        System.out.println("1 : Goose\n2 : Numeri\n3 : GUI test\n0 : Exit");
+        System.out.println("1 : Goose\n2 : Numeri\n3 : GUI test\n4 : Question test\n0 : Exit");
 
         switch (sc.nextInt()) {
             case 0 : System.exit(0); return;
