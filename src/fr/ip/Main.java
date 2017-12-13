@@ -21,9 +21,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Settings_dev
         Game g;
-        SETTINGS s = new SETTINGS();
 
         System.out.println("1 : Goose\n2 : Numeri\n3 : GUI test\n4 : Question test\n0 : Exit");
 
@@ -39,6 +37,7 @@ public class Main {
 
     public static void playInConsole (Game game) {
         new Facade.CommandLine();
+        new SETTINGS();
 
         if (game instanceof GooseGame) {
             game.addPlayer(new GoosePlayer("j1"));
@@ -55,6 +54,8 @@ public class Main {
 
     public static void playGUI () {
         new Facade.Gui();
+        new SETTINGS();
+
         EventQueue.invokeLater(() -> new MainFrame().set("menu"));
     }
 }

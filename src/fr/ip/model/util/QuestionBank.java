@@ -1,5 +1,6 @@
 package fr.ip.model.util;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
@@ -23,12 +24,12 @@ public class QuestionBank {
         try {
             this.folder = new File((String) settings.getSetting("PATH_TO_QUESTIONS_FOLDER").value());
         } catch (NullPointerException e) {
-            new Message(MessageType.ERROR, "Le dossier des questions est introuvable, existe-t-il ?").print();
+            Facade.show(new Message("Le dossier des questions est introuvable, existe-t-il ?", JOptionPane.ERROR_MESSAGE));
             System.exit(2);
         }
         File[] fileList = folder.listFiles();
         if(fileList == null) {
-            new Message(MessageType.ERROR, "Aucun fichier dans le dossier questions.").print();
+            Facade.show(new Message("Aucun fichier dans le dossier questions.", JOptionPane.ERROR_MESSAGE));
             System.exit(3);
         }
     }
@@ -58,10 +59,10 @@ public class QuestionBank {
 
         try {
             canonicalPath = f.getCanonicalPath();
-            new Message(MessageType.INFORMATION, "Opening" + canonicalPath).print();
+            Facade.show(new Message("Opening" + canonicalPath, JOptionPane.INFORMATION_MESSAGE));
             sc = new Scanner(f);
         } catch (IOException e) {
-            new Message(MessageType.ERROR, "Wrong file path").print();
+            Facade.show(new Message("Wrong file path", JOptionPane.ERROR_MESSAGE));
             return null;
         }
 
@@ -117,14 +118,14 @@ public class QuestionBank {
                 questionType = Question.QuestionType.questionTypeFromString(line.next());
 
                 if(questionType != Question.QuestionType.NONE) {
-                    new Message(MessageType.INFORMATION, path + " : " + questionType.toString() + " questions file.").print();
+                    Facade.show(new Message(path + " : " + questionType.toString() + " questions file.", JOptionPane.INFORMATION_MESSAGE));
                     return questionType;
                 } else
-                    new Message(MessageType.WARNING, "Question type not recognized at line " + lineNb + ".").print();
+                    Facade.show(new Message("Question type not recognized at line " + lineNb + ".", JOptionPane.WARNING_MESSAGE));
             }
         }
 
-        new Message(MessageType.ERROR, path + " : No question type for file.").print();
+        Facade.show(new Message(path + " : No question type for file.", JOptionPane.INFORMATION_MESSAGE));
         return Question.QuestionType.NONE;
     }
 
@@ -132,7 +133,7 @@ public class QuestionBank {
         String sLevel = StringUtil.removeWhiteSpace(line);
         sLevel = sLevel.substring(1, sLevel.length() - 2);
 
-        new Message(MessageType.INFORMATION, "Ligne de niveau minimisée: " + sLevel).print();
+        Facade.show(new Message("Ligne de niveau minimisée: " + sLevel, JOptionPane.INFORMATION_MESSAGE));
 
         return Level.levelFromString(sLevel);
     }

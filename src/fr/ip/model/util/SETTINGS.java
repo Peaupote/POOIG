@@ -1,5 +1,6 @@
 package fr.ip.model.util;
 
+import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,12 +17,12 @@ public final class SETTINGS {
 
     public SETTINGS() {
         if(instance == null) {
-            new Message(MessageType.INFORMATION, "Creating an instance of SETTINGS.").print();
+            Facade.show(new Message("Creating an instance of SETTINGS.", JOptionPane.INFORMATION_MESSAGE));
             instance = this;
             this.settings = parse(new File("SETTINGS.config"));
             addSettings(defaultSettings());
         } else {
-            new Message(MessageType.INFORMATION, "SETTINGS already has an instance.").print();
+            Facade.show(new Message("SETTINGS already has an instance.", JOptionPane.INFORMATION_MESSAGE));
             settings = getInstanceSettings();
             return;
         }
@@ -29,14 +30,14 @@ public final class SETTINGS {
     }
 
     private ArrayList<SETTING> parse(File f) {
-        new Message(MessageType.INFORMATION, "SETTINGS.parse(File f) called.").print();
+        Facade.show(new Message("SETTINGS.parse(File f) called.", JOptionPane.INFORMATION_MESSAGE));
 
         Scanner sc;
 
         try {
             sc = new Scanner(f);
         } catch (FileNotFoundException e) {
-            new Message(MessageType.WARNING, "No SETTINGS.config file found - default settings applied.").print();
+            Facade.show(new Message("No SETTINGS.config file found - default settings applied.", JOptionPane.INFORMATION_MESSAGE));
             return defaultSettings();
         }
 
@@ -114,7 +115,7 @@ public final class SETTINGS {
     }
 
     public boolean write(String pathToFile) {
-        new Message(MessageType.INFORMATION, "SETTINGS.write() called.").print();
+        Facade.show(new Message("SETTINGS.write() called.", JOptionPane.INFORMATION_MESSAGE));
 
         Charset charset = Charset.forName("UTF-8");
         Path path = Paths.get(pathToFile);
@@ -124,7 +125,7 @@ public final class SETTINGS {
                 writer.newLine();
             }
         } catch (IOException e) {
-            new Message(MessageType.ERROR, "Error while writing " + pathToFile).print();
+            Facade.show(new Message("Error while writing " + pathToFile, JOptionPane.ERROR_MESSAGE));
             return false;
         }
 
@@ -203,7 +204,7 @@ public final class SETTINGS {
             if(addSetting(s, force, sameTypeCheck))
                 out ++;
         }
-        new Message(MessageType.INFORMATION, out + " SETTING(s) were added.").print();
+        Facade.show(new Message(out + " SETTING(s) were added.", JOptionPane.INFORMATION_MESSAGE));
         return out;
     }
 
@@ -249,7 +250,7 @@ public final class SETTINGS {
             else if(value instanceof String && setting.value() instanceof String && value.equals(setting.value()))
                 return true;
             else {
-                new Message(MessageType.WARNING, "The setting " + name + " or " + setting.name + " isn't of a valid type.").print();
+                Facade.show(new Message("The setting " + name + " or " + setting.name + " isn't of a valid type.", JOptionPane.INFORMATION_MESSAGE));
                 return false;
             }
         }

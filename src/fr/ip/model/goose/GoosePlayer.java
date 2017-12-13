@@ -5,6 +5,9 @@ import fr.ip.model.core.Event;
 import fr.ip.model.core.Pawn;
 import fr.ip.model.core.Player;
 import fr.ip.model.util.Facade;
+import fr.ip.model.util.Message;
+
+import javax.swing.*;
 
 public class GoosePlayer extends Player {
 
@@ -28,7 +31,7 @@ public class GoosePlayer extends Player {
         });
 
         listener().add("play", (Event event) -> {
-            Facade.show(name + " playing\n" + pawn.getLocation());
+            Facade.show(new Message(name + " playing\n" + pawn.getLocation(), JOptionPane.INFORMATION_MESSAGE));
         });
     }
 

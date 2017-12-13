@@ -18,13 +18,13 @@ public abstract class Facade {
         }
 
         @Override
-        protected void showEntry(Object object) {
-            System.out.println(object);
+        protected void showEntry(Message message) {
+            System.out.println(message);
         }
 
         @Override
         protected String readEntry(String head) {
-            showEntry(head);
+            System.out.println(head);
             return scanner.nextLine();
         }
     }
@@ -32,8 +32,11 @@ public abstract class Facade {
     public static class Gui extends Facade {
 
         @Override
-        protected void showEntry(Object object) {
-            JOptionPane.showMessageDialog(MainFrame.instance, object.toString());
+        protected void showEntry(Message message) {
+            String[] options = {"OK"};
+            JOptionPane.showOptionDialog(MainFrame.instance,
+                    message.toString(), "Title", JOptionPane.DEFAULT_OPTION,
+                    message.type, null, options, options[0]);
         }
 
         @Override
@@ -47,12 +50,12 @@ public abstract class Facade {
             instance = this;
     }
 
-    protected abstract void showEntry (Object object);
+    protected abstract void showEntry (Message message);
 
     protected abstract String readEntry (String head);
 
-    public static void show (Object object) {
-        instance.showEntry(object);
+    public static void show (Message message) {
+        instance.showEntry(message);
     }
 
     public static String read (String head) {

@@ -2,7 +2,9 @@ package fr.ip.model.numeri;
 
 import fr.ip.model.core.*;
 import fr.ip.model.util.Facade;
+import fr.ip.model.util.Message;
 
+import javax.swing.*;
 import java.util.*;
 
 public class NumeriPlayer extends Player {
@@ -44,7 +46,7 @@ public class NumeriPlayer extends Player {
                             .toArray();
                     if (Arrays.stream(ids).sum() == number) break;
                 }
-                Facade.show("Wrong combinaison");
+                Facade.show(new Message("Wrong combinaison", JOptionPane.ERROR_MESSAGE));
             }
 
             for (int id: ids)
@@ -53,7 +55,7 @@ public class NumeriPlayer extends Player {
             String show = "";
             for (Pawn pawn: pawns)
                 show += pawn.getLocation() + "\n";
-            Facade.show(show);
+            Facade.show(new Message(show, JOptionPane.INFORMATION_MESSAGE));
         });
 
     }

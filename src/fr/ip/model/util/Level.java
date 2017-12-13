@@ -1,5 +1,7 @@
 package fr.ip.model.util;
 
+import javax.swing.*;
+
 public enum Level {
     BEGINNER("Débutant"),
     INTERMEDIATE("Intermédiaire"),
@@ -37,7 +39,7 @@ public enum Level {
             case "mixte":
                 return Level.ANY;
             default:
-                new Message(MessageType.WARNING, "Niveau de question non spécifié ou incorrect.").print();
+                Facade.show(new Message("Niveau de question non spécifié ou incorrect.", JOptionPane.WARNING_MESSAGE));
                 return null;
         }
     }

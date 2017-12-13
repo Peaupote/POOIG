@@ -1,7 +1,9 @@
 package fr.ip.model.core;
 
 import fr.ip.model.util.Facade;
+import fr.ip.model.util.Message;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -52,7 +54,7 @@ public abstract class Cell {
 
         public JumpCell (int target) {
             Cell.this.listener.add("enter", (Event.CellEvent event) -> {
-                Facade.show("JUMP TO " + target);
+                Facade.show(new Message("JUMP TO " + target, JOptionPane.INFORMATION_MESSAGE));
                 event.getPawn().goToCell(Cell.get(target));
                 event.stopPropagation();
             });
