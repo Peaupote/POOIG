@@ -10,13 +10,9 @@ public class GooseGame extends Game {
 
     public GooseGame() {
         super();
-
-        addPlayer(new GoosePlayer("j1"));
-        addPlayer(new GoosePlayer("j2"));
-        addPlayer(new GoosePlayer("j3"));
     }
 
-    protected void setup () {
+    public void setup () {
         // setup cells
         first = new GooseCell();
         for (int i = 0; i < LENGTH - 1; i++)

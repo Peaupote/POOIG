@@ -10,14 +10,10 @@ public class NumeriGame extends Game {
 
     public NumeriGame () {
         super();
-
-        addPlayer(new NumeriPlayer("j1"));
-        addPlayer(new NumeriPlayer("j2"));
-        addPlayer(new NumeriPlayer("j3"));
     }
 
     @Override
-    protected void setup() {
+    public void setup() {
         NumeriCell first = new NumeriCell();
         for (int i = 0; i < LENGTH; i++)
             new NumeriCell();
