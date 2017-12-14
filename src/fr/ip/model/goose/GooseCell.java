@@ -19,14 +19,14 @@ public class GooseCell extends Cell {
         if (id == 6) new CounterCell(2);
         if (id == 7) new JumpCell(GooseGame.LENGTH);
         if (id % 4 == 0) listener().add("enter", (Event.CellEvent e) -> {
-            Facade.show(new Message("Play again", JOptionPane.INFORMATION_MESSAGE));
+            Facade.show(new Message("Play again"));
             Game.getInstance().playAgain();
             e.stopPropagation();
         });
         if (id == 10)
             new QuestionCell(
                     (String s) -> s.equals("true"),
-                    (Event.CellEvent event) -> Facade.show(new Message("Correct answer", JOptionPane.PLAIN_MESSAGE)),
-                    (Event.CellEvent event) -> Facade.show(new Message("It's a fail loser !", JOptionPane.PLAIN_MESSAGE)));
+                    (Event.CellEvent event) -> Facade.show(new Message("Correct answer")),
+                    (Event.CellEvent event) -> Facade.show(new Message("It's a fail loser !")));
     }
 }

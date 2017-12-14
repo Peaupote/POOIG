@@ -48,15 +48,15 @@ public final class Settings {
 
         while(sc.hasNextLine()) {
             sLine = sc.nextLine();
-            if(StringUtil.removeWhiteSpace(sLine).startsWith("#"))
+            if(sLine.trim().startsWith("#"))
                 continue; // Checks if comment line.
 
             line = new Scanner(sLine);
             line.useDelimiter("=");
 
             setting = settingFromString(
-                    StringUtil.removeWhiteSpace(line.next()),
-                    StringUtil.removeWhiteSpace(line.next())
+                    line.next().trim(),
+                    line.next().trim()
             );
 
             if(setting != null)

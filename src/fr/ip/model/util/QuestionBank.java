@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.io.File;
 import java.util.Scanner;
 
-
 public class QuestionBank {
 
     private ArrayList<Question> questions;
@@ -83,13 +82,13 @@ public class QuestionBank {
 
             sLine = sc.nextLine();
 
-            if(!valid && StringUtil.isEmpty(sLine))
+            if(!valid && sLine.isEmpty())
                 valid = true;
             else
                 continue;
-            if(StringUtil.removeWhiteSpace(sLine).startsWith("**"))
+            if(sLine.trim().startsWith("**"))
                 continue; // Checks if comment line.
-            if(StringUtil.removeWhiteSpace(sLine).startsWith("[") && !isRightLevel(levelFromLine(sLine))) {
+            if(sLine.trim().startsWith("[") && !isRightLevel(levelFromLine(sLine))) {
                 valid = false;
                 continue;
             }
@@ -112,8 +111,8 @@ public class QuestionBank {
         while(sc.hasNextLine()) {
             sLine = sc.nextLine();
             lineNb ++;
-            if(StringUtil.removeWhiteSpace(sLine).startsWith("!!")) {
-                line = new Scanner(StringUtil.removeWhiteSpace(sLine));
+            if(sLine.trim().startsWith("!!")) {
+                line = new Scanner(sLine.trim());
                 line.useDelimiter("!!");
                 questionType = Question.QuestionType.questionTypeFromString(line.next());
 
@@ -130,7 +129,7 @@ public class QuestionBank {
     }
 
     private Level levelFromLine(String line) {
-        String sLevel = StringUtil.removeWhiteSpace(line);
+        String sLevel = line.trim();
         sLevel = sLevel.substring(1, sLevel.length() - 2);
 
         Facade.show(new Message("Ligne de niveau minimisée: " + sLevel, JOptionPane.INFORMATION_MESSAGE));
