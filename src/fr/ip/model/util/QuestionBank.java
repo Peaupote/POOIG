@@ -14,7 +14,7 @@ public class QuestionBank {
     private File folder;
 
     public QuestionBank(Level level) {
-        SETTINGS settings = new SETTINGS();
+        Settings settings = new Settings();
 
         if(settings.isSetting("ANY_LEVEL_OVERRIDE"))
             this.level = (boolean) settings.getSetting("ANY_LEVEL_OVERRIDE").value() ? Level.ANY : level;

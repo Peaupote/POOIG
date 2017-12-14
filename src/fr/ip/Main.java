@@ -6,15 +6,12 @@ import fr.ip.model.goose.GoosePlayer;
 import fr.ip.model.numeri.NumeriGame;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.Scanner;
 
 import fr.ip.model.numeri.NumeriPlayer;
 import fr.ip.model.util.Facade;
+import fr.ip.model.util.Settings;
 import fr.ip.view.core.MainFrame;
-import fr.ip.model.util.SETTINGS;
-
-import javax.swing.*;
 
 
 public class Main {
@@ -37,7 +34,7 @@ public class Main {
 
     public static void playInConsole (Game game) {
         new Facade.CommandLine();
-        new SETTINGS();
+        new Settings();
 
         if (game instanceof GooseGame) {
             game.addPlayer(new GoosePlayer("j1"));
@@ -54,7 +51,7 @@ public class Main {
 
     public static void playGUI () {
         new Facade.Gui();
-        new SETTINGS();
+        new Settings();
 
         EventQueue.invokeLater(() -> new MainFrame().set("menu"));
     }

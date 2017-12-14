@@ -11,18 +11,18 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public final class SETTINGS {
+public final class Settings {
     private ArrayList<SETTING> settings;
-    public static SETTINGS instance = null;
+    public static Settings instance = null;
 
-    public SETTINGS() {
+    public Settings() {
         if(instance == null) {
-            Facade.show(new Message("Creating an instance of SETTINGS.", JOptionPane.INFORMATION_MESSAGE));
+            Facade.show(new Message("Creating an instance of Settings.", JOptionPane.INFORMATION_MESSAGE));
             instance = this;
-            this.settings = parse(new File("SETTINGS.config"));
+            this.settings = parse(new File("Settings.config"));
             addSettings(defaultSettings());
         } else {
-            Facade.show(new Message("SETTINGS already has an instance.", JOptionPane.INFORMATION_MESSAGE));
+            Facade.show(new Message("Settings already has an instance.", JOptionPane.INFORMATION_MESSAGE));
             settings = getInstanceSettings();
             return;
         }
@@ -30,14 +30,14 @@ public final class SETTINGS {
     }
 
     private ArrayList<SETTING> parse(File f) {
-        Facade.show(new Message("SETTINGS.parse(File f) called.", JOptionPane.INFORMATION_MESSAGE));
+        Facade.show(new Message("Settings.parse(File f) called.", JOptionPane.INFORMATION_MESSAGE));
 
         Scanner sc;
 
         try {
             sc = new Scanner(f);
         } catch (FileNotFoundException e) {
-            Facade.show(new Message("No SETTINGS.config file found - default settings applied.", JOptionPane.INFORMATION_MESSAGE));
+            Facade.show(new Message("No Settings.config file found - default settings applied.", JOptionPane.INFORMATION_MESSAGE));
             return defaultSettings();
         }
 
@@ -115,7 +115,7 @@ public final class SETTINGS {
     }
 
     public boolean write(String pathToFile) {
-        Facade.show(new Message("SETTINGS.write() called.", JOptionPane.INFORMATION_MESSAGE));
+        Facade.show(new Message("Settings.write() called.", JOptionPane.INFORMATION_MESSAGE));
 
         Charset charset = Charset.forName("UTF-8");
         Path path = Paths.get(pathToFile);
@@ -133,7 +133,7 @@ public final class SETTINGS {
     }
 
     public boolean write() {
-        return write("SETTINGS.config");
+        return write("Settings.config");
     }
 
     @Override
@@ -153,7 +153,7 @@ public final class SETTINGS {
 
     private ArrayList<SETTING> defaultSettings() {
 
-        // ADD ALL DEFAULT SETTINGS HERE.
+        // ADD ALL DEFAULT Settings HERE.
 
         ArrayList<SETTING> s = new ArrayList<>();
         s.add(new SETTING<>("PATH_TO_QUESTION_FOLDER", "data/questions"));
