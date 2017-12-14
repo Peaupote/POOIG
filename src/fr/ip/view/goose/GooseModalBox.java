@@ -1,6 +1,7 @@
-package fr.ip.view.core;
+package fr.ip.view.goose;
 
 import fr.ip.model.goose.GoosePlayer;
+import fr.ip.view.core.GameModalBox;
 
 import java.awt.*;
 

@@ -1,9 +1,13 @@
-package fr.ip.view.core;
+package fr.ip.view.numeri;
 
 import fr.ip.model.core.Cell;
 import fr.ip.model.core.Game;
 import fr.ip.model.numeri.NumeriGame;
 import fr.ip.model.numeri.NumeriPlayer;
+import fr.ip.view.core.GameBoardPanel;
+import fr.ip.view.core.MainFrame;
+import fr.ip.view.core.SingleView;
+import fr.ip.view.numeri.NumeriModalBox;
 
 import java.awt.*;
 import java.util.ArrayList;

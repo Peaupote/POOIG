@@ -1,4 +1,7 @@
 package fr.ip.view.core;
+import fr.ip.view.goose.GoosePanel;
+import fr.ip.view.numeri.NumeriPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;

@@ -1,6 +1,7 @@
-package fr.ip.view.core;
+package fr.ip.view.numeri;
 
 import fr.ip.model.numeri.NumeriPlayer;
+import fr.ip.view.core.GameModalBox;
 
 import java.awt.*;
 

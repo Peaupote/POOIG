@@ -1,14 +1,16 @@
-package fr.ip.view.core;
+package fr.ip.view.goose;
 
 import fr.ip.model.core.Cell;
 import fr.ip.model.core.Game;
 import fr.ip.model.goose.GooseGame;
 import fr.ip.model.goose.GoosePlayer;
+import fr.ip.view.core.GameBoardPanel;
+import fr.ip.view.core.MainFrame;
+import fr.ip.view.core.SingleView;
+import fr.ip.view.goose.GooseModalBox;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class GoosePanel extends GameBoardPanel implements SingleView {
