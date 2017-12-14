@@ -3,11 +3,26 @@ package fr.ip.model.core;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * Class representing a player
+ */
 public abstract class Player {
 
+    /**
+     * Name of the player
+     */
     public final String name;
+
+    /**
+     * Listener
+     * @see Listener
+     */
     private Listener listener;
 
+    /**
+     * Action event to run on a pawn
+     * And game if on last cell
+     */
     public static abstract class PawnAction implements ActionEvent {
 
         protected Pawn pawn;
@@ -24,6 +39,9 @@ public abstract class Player {
 
     }
 
+    /**
+     * End the game if over last cell
+     */
     public static class EndIfOverLastCell extends PawnAction {
 
         public EndIfOverLastCell(Pawn pawn) {
@@ -39,6 +57,9 @@ public abstract class Player {
 
     }
 
+    /**
+     * If over last cell, go backward
+     */
     public static class EndIfOnLastCell extends PawnAction {
 
         public EndIfOnLastCell(Pawn pawn) {
@@ -55,8 +76,17 @@ public abstract class Player {
         }
     }
 
+    /**
+     * Player events listener
+     */
     public class Listener implements EventListener<Event> {
 
+        /**
+         * List of events for:
+         *   - pass turn
+         *   - start turn
+         *   - end turn
+         */
         private LinkedList<ActionEvent<Event>> passEvent, startEvent, endEvent;
 
         public Listener() {
@@ -65,6 +95,10 @@ public abstract class Player {
             endEvent = new LinkedList<ActionEvent<Event>>();
         }
 
+        /**
+         * Run action for the triggered event
+         * @param event
+         */
         @Override
         public void trigger(Event event) {
             LinkedList<ActionEvent<Event>> list;
@@ -78,6 +112,11 @@ public abstract class Player {
             runAll(list, event);
         }
 
+        /**
+         * Add the given action for the given event
+         * @param name
+         * @param event
+         */
         @Override
         public void add(String name, ActionEvent event) {
             switch (name) {

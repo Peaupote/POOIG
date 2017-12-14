@@ -7,6 +7,8 @@ import fr.ip.model.goose.GoosePlayer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class GoosePanel extends GameBoardPanel implements SingleView {

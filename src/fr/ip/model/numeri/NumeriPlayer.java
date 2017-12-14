@@ -15,14 +15,11 @@ public class NumeriPlayer extends Player {
 
         public final int id;
 
-        public NumeriPawn(int id) {
+        public NumeriPawn(Player p, int id) {
+            super(p);
             this.id = id;
         }
 
-        @Override
-        public Player getPlayer() {
-            return NumeriPlayer.this;
-        }
     }
 
     public NumeriPlayer (String name) {
@@ -30,7 +27,7 @@ public class NumeriPlayer extends Player {
 
         pawns = new NumeriPawn[6];
         for (int i = 0; i < 6; i++)
-            pawns[i] = new NumeriPawn(i);
+            pawns[i] = new NumeriPawn(this, i);
 
         listener().add("play", (Event event) -> {
             int number = new Random().nextInt(5) + 1;

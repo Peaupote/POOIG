@@ -16,12 +16,7 @@ public class GoosePlayer extends Player {
     public GoosePlayer (String name) {
         super(name);
 
-        pawn = new Pawn() {
-            @Override
-            public Player getPlayer() {
-                return GoosePlayer.this;
-            }
-        };
+        pawn = new Pawn(this);
 
         listener().add("play", new EndIfOnLastCell(pawn));
 

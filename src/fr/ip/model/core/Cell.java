@@ -9,16 +9,41 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.function.Predicate;
 
+/**
+ * Abstract class representing a cell/square
+ */
 public abstract class Cell {
 
+    /**
+     * Represent the position of the cell on the board
+     */
     public final int id;
+
+    /**
+     * List of all cells created for the game
+     */
     private static ArrayList<Cell> cells = new ArrayList<Cell>();
+
+    /**
+     * Event listener of cells
+     * @see EventListener
+     */
     private Listener listener;
 
+    /**
+     *  Intern class setting up a cell to allow only one pawn at the time
+     */
     public class SinglePawnCell {
 
+        /**
+         * Pawn on the cell
+         */
         private Pawn pawn;
 
+        /**
+         * Constructor.
+         * @param forward if the cell is already took send the pawn forward or backward
+         */
         public SinglePawnCell(boolean forward) {
             pawn = null;
             listener.add("enter", (Event.CellEvent event) -> {
@@ -35,8 +60,14 @@ public abstract class Cell {
 
     }
 
+    /**
+     * Intern class setting up a cell to trap players on this cell while no other player come to take their place
+     */
     protected class TrapCell {
 
+        /**
+         * Trapped player
+         */
         private Player player;
 
         public TrapCell() {
@@ -50,8 +81,15 @@ public abstract class Cell {
         }
     }
 
+    /**
+     * When a pawn enter this cell, he jump to a new location
+     */
     public class JumpCell {
 
+        /**
+         * Constructor.
+         * @param target id of the new cell
+         */
         public JumpCell (int target) {
             Cell.this.listener.add("enter", (Event.CellEvent event) -> {
                 Facade.show(new Message("JUMP TO " + target, JOptionPane.INFORMATION_MESSAGE));
@@ -62,10 +100,20 @@ public abstract class Cell {
 
     }
 
+    /**
+     * When a player enter this cell, he must stay for a define number of turns
+     */
     protected class CounterCell {
 
+        /**
+         * List of players and the count of their remaining turn
+         */
         private HashMap<Player, Integer> map;
 
+        /**
+         * Constructor.
+         * @param i Number of turn a player must wait
+         */
         public CounterCell (int i) {
             map = new HashMap<>();
             Cell.this.listener.add("enter", (Event.CellEvent event) -> {
@@ -85,12 +133,26 @@ public abstract class Cell {
 
     }
 
+    /**
+     * When a player enter the cell, he must answer a question
+     */
     protected class QuestionCell {
 
+        /**
+         * Constructor. Do nothing if the answer is wrong
+         * @param isCorrect Predicate to say if the answer s correct
+         * @param success Event to run if the answer is correct
+         */
         public QuestionCell (Predicate<String> isCorrect, ActionEvent<Event.CellEvent> success) {
             this (isCorrect, success, (Event.CellEvent event) -> {});
         }
 
+        /**
+         * Constructor.
+         * @param isCorrect Predicate to say if the answer s correct
+         * @param success Event to run if the answer is correct
+         * @param fail Event ti run if the answer is wrong
+         */
         public QuestionCell (Predicate<String> isCorrect, ActionEvent<Event.CellEvent> success, ActionEvent<Event.CellEvent> fail) {
             Cell.this.listener().add("enter", (Event.CellEvent event) -> {
                 String answer = Facade.read();
@@ -101,9 +163,19 @@ public abstract class Cell {
 
     }
 
-
+    /**
+     * Event Listener for cells
+     * @see fr.ip.model.core.Event.CellEvent
+     * @see EventListener
+     */
     public class Listener implements EventListener<Event.CellEvent> {
 
+        /**
+         * List of events to run on a cell when a pawn
+         *   - enter
+         *   - stay
+         *   - leave
+         */
         private LinkedList<ActionEvent<Event.CellEvent>> enter, stay, leave;
 
         public Listener() {
@@ -112,6 +184,10 @@ public abstract class Cell {
             leave = new LinkedList<>();
         }
 
+        /**
+         * Trigger events on the cell
+         * @param event Triggered event
+         */
         @Override
         public void trigger(Event.CellEvent event) {
             LinkedList<ActionEvent<Event.CellEvent>> list;
@@ -125,6 +201,11 @@ public abstract class Cell {
             runAll(list, event);
         }
 
+        /**
+         * Add a new event to the cell
+         * @param name name of the event
+         * @param event Action to run when the corresponding event is call
+         */
         @Override
         public void add(String name, ActionEvent<Event.CellEvent> event) {
             switch (name) {
@@ -143,26 +224,49 @@ public abstract class Cell {
         listener = new Listener();
     }
 
+    /**
+     * Clear all cells
+     */
     public static void flush () {
         cells = new ArrayList<>();
     }
 
+    /**
+     * @param incr incrementation on the board
+     * @return The incr-th cell after the current cell
+     */
     public Cell next (int incr) {
         return next(incr, true);
     }
 
+    /**
+     * @param incr incrementation on the board
+     * @param forward does the incrementation go forward or backward
+     * @return The incr-th cell after or before the current cell
+     */
     public Cell next (int incr, boolean forward) {
         return get(id + (forward ? incr : -incr));
     }
 
-    public static Cell get (int index) {
+    /**
+     * @param index id of the cell
+     * @return cell for the given id
+     */
+    static Cell get (int index) {
         return cells.get(index - 1);
     }
 
+    /**
+     * Size of the board
+     * @return number of cells
+     */
     public static int size() {
         return cells.size();
     }
 
+    /**
+     * @return Listener to add or trigger event
+     */
     public Listener listener() {
         return listener;
     }

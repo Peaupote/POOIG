@@ -1,24 +1,43 @@
 package fr.ip.model.core;
 
-public abstract class Pawn {
+/**
+ * Class Representing a pawn
+ */
+public class Pawn {
 
-    Cell cell;
+    /**
+     * The location of the pawn
+     */
+    private Cell cell;
 
-    public boolean goToCell (Cell c) {
-            if (cell != null)
-                cell.listener().trigger(new Event.CellEvent("leave", cell, this));
-            setCell(c);
-            if (cell != null)
-                cell.listener().trigger(new Event.CellEvent("enter", cell, this));
-        return true;
+    /**
+     * The player that own the pawn
+     */
+    private Player player;
+
+    public Pawn(Player player) {
+        this.player = player;
     }
 
-    public boolean setCell (Cell c) {
+    /**
+     * Set pawn to a new location and trigger corresponding events
+     * @param c target location
+     */
+    public void goToCell (Cell c) {
+        if (cell != null)
+            cell.listener().trigger(new Event.CellEvent("leave", cell, this));
+        setCell(c);
+        if (cell != null)
+            cell.listener().trigger(new Event.CellEvent("enter", cell, this));
+    }
+
+    public void setCell (Cell c) {
         cell = c;
-        return true;
     }
 
-    public abstract Player getPlayer ();
+    public Player getPlayer() {
+        return player;
+    }
 
     public Cell getLocation () {
         return cell;

@@ -1,9 +1,19 @@
 package fr.ip.model.core;
 
+/**
+ * Class representing an event in-game
+ */
 public class Event {
 
+    /**
+     * Name of the event
+     * For example: enter, stay, play, endTurn
+     */
     public final String name;
 
+    /**
+     * Does the event stop the run loop
+     */
     private boolean propagate;
 
     public Event(String name) {
@@ -11,14 +21,19 @@ public class Event {
         this.name = name;
     }
 
+    /**
+     * Special kind of event for Cells
+     * @see Cell
+     */
     public static class CellEvent extends Event {
 
-        private final Cell target;
+        /**
+         * Moving pawn
+         */
         private final Pawn pawn;
 
         public CellEvent(String name, Cell target, Pawn pawn) {
             super(name);
-            this.target = target;
             this.pawn = pawn;
         }
 
@@ -26,13 +41,18 @@ public class Event {
             return pawn;
         }
 
-        public Cell getTarget() {
-            return target;
-        }
     }
 
+    /**
+     * Event for a parametric type
+     * (we never know)
+     * @param <T>
+     */
     public static class EventType<T> extends Event {
 
+        /**
+         * Element to consider for the event
+         */
         private final T element;
 
         public EventType (String name, T element) {
