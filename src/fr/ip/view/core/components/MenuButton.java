@@ -1,4 +1,4 @@
-package fr.ip.view.core;
+package fr.ip.view.core.components;
 
 import javax.swing.*;
 import java.awt.*;

@@ -3,6 +3,7 @@ package fr.ip.view.core;
 import fr.ip.model.core.Cell;
 import fr.ip.model.core.Game;
 import fr.ip.model.core.Player;
+import fr.ip.view.core.components.CellButton;
 
 import javax.swing.*;
 import java.awt.*;

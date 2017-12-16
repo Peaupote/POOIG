@@ -1,5 +1,7 @@
 package fr.ip.view.core;
 
+import fr.ip.view.core.components.MenuButton;
+
 import javax.swing.*;
 import java.awt.*;
 

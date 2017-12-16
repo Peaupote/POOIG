@@ -1,4 +1,5 @@
 package fr.ip.view.core;
+import fr.ip.view.core.components.SettingPanel;
 import fr.ip.view.goose.GoosePanel;
 import fr.ip.view.numeri.NumeriPanel;
 
@@ -27,19 +28,22 @@ public class MainFrame extends JFrame {
         addView("menu", new Menu());
         addView("numeri", new NumeriPanel());
         addView("goose", new GoosePanel());
+        addView("settings", new SettingPanel());
 
         JMenuBar bar = new JMenuBar();
         JMenu game = new JMenu("Game");
         restart = new JMenuItem("Restart");
         JMenuItem menu = new JMenuItem("Menu"),
                   goose = new JMenuItem("Goose game"),
-                  numeri = new JMenuItem("Numeri game");
+                  numeri = new JMenuItem("Numeri game"),
+                  setting = new JMenuItem("Settings");
 
         game.add(restart);
         game.add(menu);
         game.add(goose);
         game.add(numeri);
         bar.add(game);
+        bar.add(setting);
         setJMenuBar(bar);
 
         restart.setEnabled(false);
@@ -51,6 +55,7 @@ public class MainFrame extends JFrame {
         menu.addActionListener(e -> set("menu"));
         goose.addActionListener(e -> set("goose"));
         numeri.addActionListener(e -> set("numeri"));
+        setting.addActionListener(e -> set("settings"));
 
 
         setVisible(true);
