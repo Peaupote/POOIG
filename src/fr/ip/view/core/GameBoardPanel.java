@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class GameBoardPanel extends ImageBackgroundJPanel {
 
     protected Game game;
-    protected ArrayList<JButton> buttons;
+    protected ArrayList<CellButton> buttons;
     protected JButton playButton;
 
     protected class BoardPanel extends ImageBackgroundJPanel {
@@ -22,7 +22,7 @@ public class GameBoardPanel extends ImageBackgroundJPanel {
             setBackground(new Color(0,0,0,0));
 
             for (int i = 1; i <= Cell.size(); i++) {
-                JButton button = new CellButton(i + "");
+                CellButton button = new CellButton(i + "");
                 buttons.add(button);
                 add(button);
             }

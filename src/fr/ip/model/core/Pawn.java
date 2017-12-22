@@ -44,7 +44,7 @@ public class Pawn {
     }
 
     public String toString () {
-        return "pawn " + cell.id;
+        return player.toString();
     }
 
 }

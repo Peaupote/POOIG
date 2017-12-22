@@ -24,6 +24,11 @@ public abstract class Game implements Iterable<Player> {
     private static State instance;
 
     /**
+     * Default number of cell in game
+     */
+    public static final int LENGTH = 10;
+
+    /**
      * Represent game state
      * Allow you to act on the game state from anywhere "safely"
      */
@@ -82,13 +87,13 @@ public abstract class Game implements Iterable<Player> {
      * Create a game, with no cells and no players
      */
     public Game () {
-        ps = new LinkedList<Player>();
+        ps = new LinkedList<>();
         Cell.flush();
     }
 
     /**
      * Register the given player
-     * @param p
+     * @param p player to add
      */
     public void addPlayer (Player p) {
         ps.add(p);
@@ -130,7 +135,7 @@ public abstract class Game implements Iterable<Player> {
 
     /**
      * Define either if the game is end or not
-     * @return
+     * @return true if the game has end
      */
     public abstract boolean isEnd ();
 

@@ -22,12 +22,13 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
     private class BoardSettingPane extends JPanel implements ChangeListener {
 
         SpinnerNumberModel playerCount, cellCount;
+        JComboBox box;
         ArrayList<JButton> cells;
         JPanel buttonPane;
         OptionPanel opt;
 
         BoardSettingPane (OptionPanel opt) {
-            super (new GridLayout(4, 1));
+            super (new GridLayout(5, 1));
             this.opt = opt;
             cells = new ArrayList<>();
             playerCount = new SpinnerNumberModel(5,1,15,1);
@@ -39,6 +40,14 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
             playerPane.add(new JLabel("Maximum number of players"));
             playerPane.add(maxPlayer);
             add(playerPane);
+
+            JPanel comboPanel = new JPanel();
+            comboPanel.add(new JLabel("Cell order"));
+            String[] options = {"Column", "Rectangle", "Zigzag", "Spiral"};
+            box = new JComboBox(options);
+            box.setSelectedIndex(0);
+            comboPanel.add(box);
+            add(comboPanel);
 
             JPanel cellPane = new JPanel();
             cellPane.add(new JLabel("Number of cells"));
@@ -70,7 +79,7 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
          }
     }
 
-    private class OptionPanel extends JPanel implements ActionListener {
+    private abstract class OptionPanel extends JPanel implements ActionListener {
 
         JLabel btnName;
         int id;
@@ -80,17 +89,13 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
             addComponents();
         }
 
-        private void addComponents() {
-            add(btnName);
-        }
-
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             removeAll();
             repaint();
             revalidate();
 
-            id = Integer.parseInt(((JButton)actionEvent.getSource()).getText());
+            onActionPerformed(actionEvent);
             setComponents();
             addComponents();
 
@@ -98,9 +103,23 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
             revalidate();
         }
 
-        void setComponents () {
-            btnName = new JLabel("Button " + id);
+        protected void addComponents() {
+            add(btnName);
         }
+
+        protected void setComponents () {
+            btnName = new JLabel("Cell " + id);
+        }
+
+        protected void onActionPerformed(ActionEvent actionEvent) {
+            id = Integer.parseInt(((JButton)actionEvent.getSource()).getText());
+        }
+    }
+
+    private class GooseOptionPanel extends OptionPanel {
+
+
+
     }
 
     public SettingPanel() {
@@ -108,7 +127,7 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
         setImage("./assets/bkg.png");
 
         JPanel goose = new JPanel(new BorderLayout());
-        OptionPanel gooseOptionPanel = new OptionPanel();
+        OptionPanel gooseOptionPanel = new GooseOptionPanel();
         BoardSettingPane goosePane = new BoardSettingPane(gooseOptionPanel);
         goose.add(goosePane, BorderLayout.WEST);
         goose.add(gooseOptionPanel, BorderLayout.CENTER);

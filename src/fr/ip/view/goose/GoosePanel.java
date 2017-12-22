@@ -7,6 +7,7 @@ import fr.ip.model.goose.GoosePlayer;
 import fr.ip.view.core.GameBoardPanel;
 import fr.ip.view.core.MainFrame;
 import fr.ip.view.core.SingleView;
+import fr.ip.view.core.components.CellButton;
 import fr.ip.view.goose.GooseModalBox;
 
 import javax.swing.*;
@@ -46,16 +47,12 @@ public class GoosePanel extends GameBoardPanel implements SingleView {
             GoosePlayer p = (GoosePlayer)Game.getInstance().getCurrentPlayer();
 
             for (int i = 0; i < Cell.size(); i++) {
-                JButton btn = buttons.get(i);
-                if (btn.getText().equals(p.name)) {
-                    btn.setEnabled(true);
-                    btn.setText((i + 1) + "");
-                }
+                CellButton btn = buttons.get(i);
+                btn.remove(p.getPawn());
             }
 
-            JButton btn = buttons.get(p.getPawn().getLocation().id - 1);
-            btn.setText(p.name);
-            btn.setEnabled(false);
+            CellButton btn = buttons.get(p.getPawn().getLocation().id - 1);
+            btn.add(p.getPawn());
         });
 
         MainFrame.canRestart(true);

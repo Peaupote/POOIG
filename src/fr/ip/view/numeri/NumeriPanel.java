@@ -2,11 +2,13 @@ package fr.ip.view.numeri;
 
 import fr.ip.model.core.Cell;
 import fr.ip.model.core.Game;
+import fr.ip.model.core.Pawn;
 import fr.ip.model.numeri.NumeriGame;
 import fr.ip.model.numeri.NumeriPlayer;
 import fr.ip.view.core.GameBoardPanel;
 import fr.ip.view.core.MainFrame;
 import fr.ip.view.core.SingleView;
+import fr.ip.view.core.components.CellButton;
 import fr.ip.view.numeri.NumeriModalBox;
 
 import java.awt.*;
@@ -44,14 +46,10 @@ public class NumeriPanel extends GameBoardPanel implements SingleView {
             game.playTurn();
             NumeriPlayer player = (NumeriPlayer) Game.getInstance().getCurrentPlayer();
 
-            for (int i = 1; i < buttons.size() - 1; i++)
-                if (buttons.get(i).getText().startsWith(player.name))
-                    buttons.get(i).setText(i + "");
-
-            for (NumeriPlayer.NumeriPawn p : player.pawns())
-                if (p.getLocation().id != 1 && p.getLocation().id != Cell.size())
-                    buttons.get(p.getLocation().id - 1).setText(player.name + "(" + (p.id + 1) + ")");
-
+            for (Pawn pawn : player.pawns()) {
+                for (CellButton button : buttons) button.remove(pawn);
+                buttons.get(pawn.getLocation().id - 1).add(pawn);
+            }
 
         });
 
