@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
 
@@ -145,6 +146,6 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
     }
 
     @Override
-    public void onOpen() {
+    public void onOpen(HashMap<String, Object> map) {
     }
 }

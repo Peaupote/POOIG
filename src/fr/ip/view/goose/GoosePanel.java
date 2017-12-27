@@ -13,6 +13,7 @@ import fr.ip.view.goose.GooseModalBox;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GoosePanel extends GameBoardPanel implements SingleView {
 
@@ -20,7 +21,7 @@ public class GoosePanel extends GameBoardPanel implements SingleView {
         setImage("./assets/bkg.png");
     }
 
-    public void onOpen () {
+    public void onOpen (HashMap<String, Object> map) {
         GooseModalBox modal = new GooseModalBox(MainFrame.instance, "Add players", true);
         GooseModalBox.Output out = modal.showGameModalBox();
 
@@ -53,9 +54,20 @@ public class GoosePanel extends GameBoardPanel implements SingleView {
 
             CellButton btn = buttons.get(p.getPawn().getLocation().id - 1);
             btn.add(p.getPawn());
+
+            if (game.isEnd()) onEnd();
         });
 
         MainFrame.canRestart(true);
         revalidate();
+    }
+
+    private void onEnd() {
+        playButton.setEnabled(false);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("target", "goose");
+        map.put("win", Game.getInstance().getCurrentPlayer().toString());
+
+        MainFrame.set("end", map);
     }
 }

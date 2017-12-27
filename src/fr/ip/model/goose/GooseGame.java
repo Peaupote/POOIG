@@ -23,6 +23,10 @@ public class GooseGame extends Game {
     }
 
     public boolean isEnd () {
+        for (Player player : this)
+            if (((GoosePlayer)player).getPawn().getLocation().id == LENGTH)
+                return true;
         return false;
     }
+
 }

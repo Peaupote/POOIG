@@ -29,6 +29,7 @@ public class MainFrame extends JFrame {
         addView("numeri", new NumeriPanel());
         addView("goose", new GoosePanel());
         addView("settings", new SettingPanel());
+        addView("end", new EndPanel());
 
         JMenuBar bar = new JMenuBar();
         JMenu game = new JMenu("Game");
@@ -70,10 +71,14 @@ public class MainFrame extends JFrame {
         instance.map.put(name, c);
     }
 
-    public static void set (String name) {
+    public static void set (String name, HashMap<String, Object> map) {
         instance.current = name;
         instance.setTitle("Game - " + name);
-        instance.map.get(name).onOpen();
+        instance.map.get(name).onOpen(map);
         instance.cl.show(instance.getContentPane(), name);
+    }
+
+    public static void set(String name) {
+        set(name, null);
     }
 }

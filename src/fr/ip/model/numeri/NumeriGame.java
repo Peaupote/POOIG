@@ -25,6 +25,14 @@ public class NumeriGame extends Game {
 
     @Override
     public boolean isEnd() {
+        // bad implementation, to rework
+        int c = 0;
+        for (Player player : this)
+            for (Pawn p : ((NumeriPlayer)player).pawns())
+                if (p.getLocation().id > LENGTH - 3) {
+                    c++;
+                    if (c == 3) return true;
+                }
         return false;
     }
 }

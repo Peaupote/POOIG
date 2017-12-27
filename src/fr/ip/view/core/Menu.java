@@ -4,6 +4,7 @@ import fr.ip.view.core.components.MenuButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class Menu extends ImageBackgroundJPanel implements SingleView {
 
@@ -42,7 +43,7 @@ public class Menu extends ImageBackgroundJPanel implements SingleView {
     }
 
     @Override
-    public void onOpen() {
+    public void onOpen(HashMap<String, Object> map) {
         MainFrame.canRestart(false);
     }
 }
