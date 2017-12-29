@@ -2,6 +2,7 @@ package fr.ip.view.core;
 
 import fr.ip.model.core.Player;
 import fr.ip.view.core.components.SettingPanel;
+import fr.ip.view.core.components.PrimaryButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,13 +40,13 @@ public abstract class GameModalBox<T extends Player> extends JDialog{
 
         public DefaultListModel<Player> listModel;
         public JTextField name;
-        public JButton add, rm;
+        public PrimaryButton add, rm;
         public JList list;
 
         public Form() {
             name = new JTextField(10);
-            add = new JButton("+");
-            rm = new JButton("-");
+            add = new PrimaryButton("+");
+            rm = new PrimaryButton("-");
             rm.setEnabled(false);
 
             JPanel in = new JPanel();
@@ -72,11 +73,11 @@ public abstract class GameModalBox<T extends Player> extends JDialog{
 
     protected class Control extends JPanel {
 
-        public JButton done, cancel;
+        public PrimaryButton done, cancel;
 
         public Control () {
-            done = new JButton("Done");
-            cancel = new JButton("Cancel");
+            done = new PrimaryButton("Done");
+            cancel = new PrimaryButton("Cancel");
             done.setEnabled(false);
             add(done);
             add(cancel);

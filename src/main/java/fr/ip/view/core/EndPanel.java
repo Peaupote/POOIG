@@ -1,5 +1,7 @@
 package fr.ip.view.core;
 
+import fr.ip.view.core.components.PrimaryButton;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -22,8 +24,8 @@ public class EndPanel extends ImageBackgroundJPanel.ImageBackgroundView {
         add(new JLabel(gif), BorderLayout.CENTER);
 
         JPanel footer = new JPanel();
-        JButton menuButton = new JButton("Menu"),
-                again      = new JButton("Play again");
+        PrimaryButton menuButton = new PrimaryButton("Menu"),
+                again      = new PrimaryButton("Play again");
         footer.add(menuButton);
         footer.add(again);
         add(footer, BorderLayout.SOUTH);

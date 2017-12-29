@@ -2,6 +2,7 @@ package fr.ip.view.core.components;
 
 import fr.ip.view.core.ImageBackgroundJPanel;
 import fr.ip.view.core.SingleView;
+import fr.ip.view.core.components.PrimaryButton;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -26,7 +27,7 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
 
         SpinnerNumberModel playerCount, cellCount;
         JComboBox cellOrder;
-        ArrayList<JButton> cells;
+        ArrayList<PrimaryButton> cells;
         JPanel buttonPane;
         OptionPanel opt;
 
@@ -71,7 +72,7 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
             int borderSize = (int)Math.sqrt(cellCount.getNumber().doubleValue());
             buttonPane.setLayout(new GridLayout(borderSize, borderSize, 10, 10));
             for (int i = 1; i <= cellCount.getNumber().intValue(); i++) {
-                JButton btn = new JButton(i + "");
+                PrimaryButton btn = new PrimaryButton(i + "");
                 cells.add(btn);
                 buttonPane.add(btn);
                 btn.addActionListener(opt);
@@ -114,7 +115,7 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
         }
 
         protected void onActionPerformed(ActionEvent actionEvent) {
-            id = Integer.parseInt(((JButton)actionEvent.getSource()).getText());
+            id = Integer.parseInt(((PrimaryButton)actionEvent.getSource()).getText());
         }
     }
 

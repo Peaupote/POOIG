@@ -1,6 +1,6 @@
 package fr.ip.view.core;
 
-import fr.ip.view.core.components.MenuButton;
+import fr.ip.view.core.components.PrimaryButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +13,8 @@ public class Menu extends ImageBackgroundJPanel.ImageBackgroundView {
     public Menu () {
         setImage("./assets/bkg.png");
 
-        numeri = new MenuButton("Play Numeri");
-        goose = new MenuButton("Play Goose");
+        numeri = new PrimaryButton("Play Numeri");
+        goose = new PrimaryButton("Play Goose");
 
         goose.addActionListener(e -> MainFrame.set("goose"));
         numeri.addActionListener(e -> MainFrame.set("numeri"));

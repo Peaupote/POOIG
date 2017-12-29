@@ -4,6 +4,7 @@ import fr.ip.model.core.Cell;
 import fr.ip.model.core.Game;
 import fr.ip.model.core.Player;
 import fr.ip.view.core.components.CellButton;
+import fr.ip.view.core.components.PrimaryButton;
 import fr.ip.view.core.components.Configuration;
 import fr.ip.view.core.components.SettingPanel;
 
@@ -15,7 +16,7 @@ public class GameBoardPanel extends ImageBackgroundJPanel.ImageBackgroundView {
 
     protected Game game;
     protected ArrayList<CellButton> buttons;
-    protected JButton playButton;
+    protected PrimaryButton playButton;
 
     protected class BoardPanel extends ImageBackgroundJPanel {
 
@@ -50,7 +51,7 @@ public class GameBoardPanel extends ImageBackgroundJPanel.ImageBackgroundView {
             for (Player player: game)
                 add(new PlayerLabel(player.name));
 
-            playButton = new JButton("Roll dice");
+            playButton = new PrimaryButton("Roll dice");
             add(playButton);
         }
     }
