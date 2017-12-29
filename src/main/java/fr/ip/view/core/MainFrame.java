@@ -72,6 +72,9 @@ public class MainFrame extends JFrame {
     }
 
     public static void set (String name, HashMap<String, Object> map) {
+				if (instance.map.get(instance.current) != null)
+						instance.map.get(instance.current).onClose();
+
         instance.current = name;
         instance.setTitle("Game - " + name);
         instance.map.get(name).onOpen(map);

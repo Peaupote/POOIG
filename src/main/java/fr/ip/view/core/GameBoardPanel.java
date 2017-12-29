@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GameBoardPanel extends ImageBackgroundJPanel {
+public class GameBoardPanel extends ImageBackgroundJPanel.ImageBackgroundView {
 
     protected Game game;
     protected ArrayList<CellButton> buttons;

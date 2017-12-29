@@ -15,13 +15,15 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class GoosePanel extends GameBoardPanel implements SingleView {
+public class GoosePanel extends GameBoardPanel {
 
     public GoosePanel () {
         setImage("./assets/bkg.png");
     }
 
+		@Override
     public void onOpen (HashMap<String, Object> map) {
+				super.onOpen(map);
         GooseModalBox modal = new GooseModalBox(MainFrame.instance, "Add players", true);
         GooseModalBox.Output out = modal.showGameModalBox();
 

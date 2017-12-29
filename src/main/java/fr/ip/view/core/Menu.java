@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
-public class Menu extends ImageBackgroundJPanel implements SingleView {
+public class Menu extends ImageBackgroundJPanel.ImageBackgroundView {
 
     JButton numeri, goose;
 
@@ -44,6 +44,8 @@ public class Menu extends ImageBackgroundJPanel implements SingleView {
 
     @Override
     public void onOpen(HashMap<String, Object> map) {
+				super.onOpen(map);
         MainFrame.canRestart(false);
     }
+
 }

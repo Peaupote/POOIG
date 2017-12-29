@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
-public class EndPanel extends ImageBackgroundJPanel implements SingleView {
+public class EndPanel extends ImageBackgroundJPanel.ImageBackgroundView {
 
     private String target = "goose";
     private JLabel win;
@@ -34,9 +34,11 @@ public class EndPanel extends ImageBackgroundJPanel implements SingleView {
 
     @Override
     public void onOpen(HashMap<String, Object> map) {
+				super.onOpen(map);
         target = map.get("target").toString();
         win.setText(map.get("win").toString() + " won !");
 
         MainFrame.canRestart(false);
     }
+
 }

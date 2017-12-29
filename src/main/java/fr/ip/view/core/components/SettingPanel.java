@@ -126,6 +126,7 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
     private SettingPanel() {
         super(new GridLayout(1,1));
         setImage("./assets/bkg.png");
+				clouds = new ArrayList();
 
         JPanel goose = new JPanel(new BorderLayout());
         OptionPanel gooseOptionPanel = new GooseOptionPanel();
@@ -168,4 +169,7 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
     @Override
     public void onOpen(HashMap<String, Object> map) {
     }
+
+		@Override
+		public void onClose () {}
 }
