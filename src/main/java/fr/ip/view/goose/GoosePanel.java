@@ -44,7 +44,7 @@ public class GoosePanel extends GameBoardPanel {
 
         setLayout(new BorderLayout());
         add(new GameControlPanel(), BorderLayout.EAST);
-        add(new BoardPanel(), BorderLayout.CENTER);
+        add(new BoardPanel(Configuration.configuration.goose.getCellOrder()), BorderLayout.CENTER);
 
         playButton.addActionListener(e -> {
             game.playTurn();

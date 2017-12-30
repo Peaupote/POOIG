@@ -41,7 +41,7 @@ public class NumeriPanel extends GameBoardPanel {
 
         setLayout(new BorderLayout());
         add(new GameControlPanel(), BorderLayout.EAST);
-        add(new BoardPanel(), BorderLayout.CENTER);
+        add(new BoardPanel(Configuration.configuration.numeri.getCellOrder()), BorderLayout.CENTER);
 
         playButton.addActionListener(e -> {
             game.playTurn();

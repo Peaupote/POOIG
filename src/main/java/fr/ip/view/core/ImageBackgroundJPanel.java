@@ -15,44 +15,78 @@ import java.util.HashMap;
 public class ImageBackgroundJPanel extends JPanel {
 
     protected BufferedImage image;
-		protected ArrayList<Cloud> clouds;
-		protected Thread cloudManager; 
     public final static Color TRANSPARENT = new Color(0,0,0,0);
 		private final static Random rand = new Random();
 
-		private class Cloud {
-				
-				private BufferedImage image;
-				private int x, y, speed;
-				private final static int max = 350, maxSpeed = 2;
+		public static class ImageBackgroundView extends ImageBackgroundJPanel implements SingleView {
 
-				public Cloud (String path) {
-						try {
-								image = ImageIO.read(new File(path));
-						} catch (IOException e) {
-								e.printStackTrace();
+				private class Cloud {
+						
+						private BufferedImage image;
+						private int x, y, speed;
+						private final static int max = 350, maxSpeed = 2;
+
+						public Cloud (String path) {
+								try {
+										image = ImageIO.read(new File(path));
+								} catch (IOException e) {
+										e.printStackTrace();
+								}
+
+								x = - image.getWidth() - rand.nextInt(300);
+								y = rand.nextInt(max);
+								speed = 1;
+
 						}
 
-						x = - image.getWidth() - rand.nextInt(300);
-						y = rand.nextInt(max);
-						speed = 1;
+						public void draw (Graphics graphics) {
+								graphics.drawImage(image, x, y, ImageBackgroundView.this);
+						}
 
 				}
 
-				public void draw (Graphics graphics) {
-						graphics.drawImage(image, x, y, ImageBackgroundJPanel.this);
-				}
-
-		}
-
-		public static class ImageBackgroundView extends ImageBackgroundJPanel implements SingleView {
+				protected ArrayList<Cloud> clouds;
+				protected Thread cloudManager; 
 
 				public ImageBackgroundView (LayoutManager layout) {
 						super(layout);
-				}
+						clouds = new ArrayList<>();
+						clouds.add(new Cloud("./assets/cloud1.png"));
+						clouds.add(new Cloud("./assets/cloud2.png"));
+						clouds.add(new Cloud("./assets/cloud2.png"));
+
+						cloudManager = new Thread(() -> {
+								while (true) {
+										for (Cloud cloud : clouds) {
+												cloud.x += cloud.speed;
+												if (cloud.x >= getWidth()) { 
+														cloud.x = -cloud.image.getWidth() - rand.nextInt(300);
+														cloud.y = rand.nextInt(Cloud.max);
+														cloud.speed = rand.nextInt(Cloud.maxSpeed - 1) + 1;
+												}
+
+										}
+
+										try {
+												Thread.sleep(15);
+										} catch (InterruptedException e) {
+												e.printStackTrace();
+										}
+
+										repaint();
+								}
+						});
+						}
 
 				public ImageBackgroundView () {
-						super();
+						this(new GridBagLayout());
+				}
+
+				@Override
+				public void paintComponent(Graphics graphics) {
+						super.paintComponent(graphics);
+						for (Cloud cloud: clouds)
+							cloud.draw(graphics);
 				}
 				
 				public void onOpen (HashMap<String, Object> map) {
@@ -69,32 +103,6 @@ public class ImageBackgroundJPanel extends JPanel {
         super(layout);
         setBackground(TRANSPARENT);
 				
-				clouds = new ArrayList<>();
-				clouds.add(new Cloud("./assets/cloud1.png"));
-				clouds.add(new Cloud("./assets/cloud2.png"));
-				clouds.add(new Cloud("./assets/cloud2.png"));
-
-				cloudManager = new Thread(() -> {
-						while (true) {
-								for (Cloud cloud : clouds) {
-										cloud.x += cloud.speed;
-										if (cloud.x >= ImageBackgroundJPanel.this.getWidth()) { 
-												cloud.x = -cloud.image.getWidth() - rand.nextInt(300);
- 												cloud.y = rand.nextInt(Cloud.max);
-												cloud.speed = rand.nextInt(Cloud.maxSpeed - 1) + 1;
-										}
-
-								}
-
-								try {
-										Thread.sleep(5);
-								} catch (InterruptedException e) {
-										e.printStackTrace();
-								}
-
-								repaint();
-						}
-				});
     }
 
     public ImageBackgroundJPanel() {
@@ -127,7 +135,5 @@ public class ImageBackgroundJPanel extends JPanel {
 						graphics.drawImage(image, 0, 0, w, h, this);
 				}
 
-				for (Cloud cloud: clouds)
-					cloud.draw(graphics);
     }
 }

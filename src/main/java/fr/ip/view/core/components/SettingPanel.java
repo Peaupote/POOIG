@@ -128,7 +128,6 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
     public SettingPanel() {
         super(new GridLayout(1,1));
         setImage("./assets/bkg.png");
-				clouds = new ArrayList();
 
         JPanel goose = new JPanel(new BorderLayout());
         OptionPanel gooseOptionPanel = new GooseOptionPanel();

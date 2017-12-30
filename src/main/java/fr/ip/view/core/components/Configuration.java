@@ -56,8 +56,8 @@ public class Configuration {
     public final Game goose, numeri;
 
     public Configuration () {
-        this.goose = new Game(15, 5, 0);
-        this.numeri = new Game(11, 5, 0);
+        this.goose = new Game(15, 5, 3);
+        this.numeri = new Game(11, 5, 3);
     }
 
 }
