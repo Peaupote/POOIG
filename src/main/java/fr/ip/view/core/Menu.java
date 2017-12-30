@@ -22,9 +22,8 @@ public class Menu extends ImageBackgroundJPanel.ImageBackgroundView {
         setLayout(new GridLayout(3, 1));
         JPanel labelPanel = new JPanel(new GridBagLayout());
         labelPanel.setBackground(new Color(0,0,0,0));
-        JLabel title = new JLabel("Numeri & Goose game");
-        title.setForeground(Color.white);
-        title.setFont(new Font("Helvetica", Font.BOLD, 40));
+        JLabel title = new JLabel();
+        title.setIcon(new ImageIcon("./assets/Goose--Numeri.png"));
         labelPanel.add(title);
         add(labelPanel);
 

@@ -61,7 +61,6 @@ public class GameBoardPanel extends ImageBackgroundJPanel.ImageBackgroundView {
 										while (it.hasNext()) {
 												while (it.hasNext() && left <= j && j < right && top <= i && i < bottom) {
 														grid[i][j] = it.next();
-														System.out.println(i + ", " + j + ": " + grid[i][j].getText());
 														switch (direction) {
 																case 0: j++;break;
 																case 1: i++;break;
@@ -82,7 +81,7 @@ public class GameBoardPanel extends ImageBackgroundJPanel.ImageBackgroundView {
 										for (int x = 0; x < grid.length; x++)
 												for (int y = 0; y < grid[0].length; y++)
 														if (grid[x][y] != null) add(grid[x][y]);
-														else add(new JButton());
+														else add(new JLabel());
 								break;
 						}
         }
