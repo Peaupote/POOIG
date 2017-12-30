@@ -6,16 +6,17 @@ import fr.ip.model.core.Player;
 public class GooseGame extends Game {
 
     private GooseCell first;
-    public static final int LENGTH = 15;
+		private static int length;
 
-    public GooseGame() {
-        super();
+    public GooseGame(int length) {
+        super(length);
+				GooseGame.length = length;
     }
 
     public void setup () {
         // setup cells
         first = new GooseCell();
-        for (int i = 0; i < LENGTH - 1; i++)
+        for (int i = 0; i < length - 1; i++)
             new GooseCell();
 
         for (Player p: ps)
@@ -24,9 +25,13 @@ public class GooseGame extends Game {
 
     public boolean isEnd () {
         for (Player player : this)
-            if (((GoosePlayer)player).getPawn().getLocation().id == LENGTH)
+            if (((GoosePlayer)player).getPawn().getLocation().id == length)
                 return true;
         return false;
     }
+
+		public static int getSize() {
+				return length;
+		}
 
 }

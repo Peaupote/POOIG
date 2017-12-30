@@ -24,9 +24,9 @@ public abstract class Game implements Iterable<Player> {
     private static State instance;
 
     /**
-     * Default number of cell in game
+     * Number of cell in game
      */
-    public static final int LENGTH = 10;
+    public final int length;
 
     /**
      * Represent game state
@@ -86,9 +86,10 @@ public abstract class Game implements Iterable<Player> {
     /**
      * Create a game, with no cells and no players
      */
-    public Game () {
+    public Game (int length) {
         ps = new LinkedList<>();
         Cell.flush();
+				this.length = length;
     }
 
     /**

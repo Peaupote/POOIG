@@ -6,7 +6,7 @@ public class NumeriCell extends Cell {
 
     public NumeriCell () {
         super();
-        if (id != 1 && id != NumeriGame.LENGTH)
+        if (id != 1 && id != NumeriGame.getSize())
             new SinglePawnCell(true);
 
     }

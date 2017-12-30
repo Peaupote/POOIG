@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
         addView("menu", new Menu());
         addView("numeri", new NumeriPanel());
         addView("goose", new GoosePanel());
-        addView("settings", SettingPanel.instance);
+        addView("settings", new SettingPanel());
         addView("end", new EndPanel());
 
         JMenuBar bar = new JMenuBar();

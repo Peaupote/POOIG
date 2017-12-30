@@ -1,7 +1,7 @@
 package fr.ip.view.core;
 
 import fr.ip.model.core.Player;
-import fr.ip.view.core.components.SettingPanel;
+import fr.ip.view.core.components.Configuration;
 import fr.ip.view.core.components.PrimaryButton;
 
 import javax.swing.*;
@@ -104,7 +104,7 @@ public abstract class GameModalBox<T extends Player> extends JDialog{
         control = new Control();
 
         ActionListener add = e -> {
-            String name = form.name.getText();
+            String name = form.name.getText().trim();
             if (!name.isEmpty()) {
                 for (Player p : out.players)
                     if (p.name.equals(name)) {
@@ -129,17 +129,22 @@ public abstract class GameModalBox<T extends Player> extends JDialog{
         form.name.addActionListener(add);
         form.rm.addActionListener(e -> {
             int index = form.list.getSelectedIndex();
-            form.listModel.remove(index);
-            out.players.remove(index);
+						if (index != -1) {
+								form.listModel.remove(index);
+								out.players.remove(index);
 
-            if (form.listModel.getSize() == 0) {
-                form.rm.setEnabled(false);
-                control.done.setEnabled(false);
-            } else if (index == form.listModel.getSize()) {
-                index--;
-                form.list.setSelectedIndex(index);
-                form.list.ensureIndexIsVisible(index);
-            }
+								if (form.listModel.getSize() == 0) {
+										form.rm.setEnabled(false);
+										control.done.setEnabled(false);
+								} else if (index == form.listModel.getSize()) {
+										index--;
+										form.list.setSelectedIndex(index);
+										form.list.ensureIndexIsVisible(index);
+								}
+
+								form.add.setEnabled(true);
+								form.name.setEnabled(true);
+						}
         });
 
         control.done.addActionListener(e -> {
@@ -160,5 +165,14 @@ public abstract class GameModalBox<T extends Player> extends JDialog{
     }
 
     protected abstract T construct (String name);
+
+		protected ActionListener getMax (Configuration.Game game) {
+				return e -> {
+						if (out.size() + 1 == game.getNumberOfPlayers()) {
+								form.add.setEnabled(false);
+								form.name.setEnabled(false);
+						}
+				};
+		}
 
 }

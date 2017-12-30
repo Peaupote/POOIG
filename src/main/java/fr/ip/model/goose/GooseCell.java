@@ -12,12 +12,12 @@ public class GooseCell extends Cell {
 
     public GooseCell () {
         super();
-        if (id != 1 && id != GooseGame.LENGTH)
+        if (id != 1 && id != GooseGame.getSize())
             new SinglePawnCell(false);
 
         if (id == 5) new TrapCell();
         if (id == 6) new CounterCell(2);
-        if (id == 7) new JumpCell(GooseGame.LENGTH);
+        if (id == 7) new JumpCell(GooseGame.getSize());
         if (id % 4 == 0) listener().add("enter", (Event.CellEvent e) -> {
             Facade.show(new Message("Play again"));
             Game.getInstance().playAgain();

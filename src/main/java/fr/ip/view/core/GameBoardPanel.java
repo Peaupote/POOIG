@@ -58,7 +58,6 @@ public class GameBoardPanel extends ImageBackgroundJPanel.ImageBackgroundView {
 
     public GameBoardPanel() {
         super();
-        SettingPanel.instance.flush();
     }
 
 }

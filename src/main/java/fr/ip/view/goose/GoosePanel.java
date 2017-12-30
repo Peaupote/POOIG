@@ -8,6 +8,7 @@ import fr.ip.view.core.GameBoardPanel;
 import fr.ip.view.core.MainFrame;
 import fr.ip.view.core.SingleView;
 import fr.ip.view.core.components.CellButton;
+import fr.ip.view.core.components.Configuration;
 import fr.ip.view.goose.GooseModalBox;
 
 import javax.swing.*;
@@ -33,7 +34,7 @@ public class GoosePanel extends GameBoardPanel {
         }
         removeAll();
 
-        game = new GooseGame();
+        game = new GooseGame(Configuration.configuration.goose.getNumberOfCells());
         for(GoosePlayer player : out)
             game.addPlayer(player);
 

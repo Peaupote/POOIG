@@ -23,8 +23,8 @@ public class App {
 
         switch (sc.nextInt()) {
             case 0 : System.exit(0); return;
-            case 1 : playInConsole(new GooseGame()); break;
-            case 2 : playInConsole(new NumeriGame()); break;
+            case 1 : playInConsole(new GooseGame(15)); break;
+            case 2 : playInConsole(new NumeriGame(11)); break;
             case 3 : playGUI();break;
             default: System.exit(1); return;
         }

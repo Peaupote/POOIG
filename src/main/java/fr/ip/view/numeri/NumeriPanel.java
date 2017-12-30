@@ -8,6 +8,7 @@ import fr.ip.view.core.GameBoardPanel;
 import fr.ip.view.core.MainFrame;
 import fr.ip.view.core.SingleView;
 import fr.ip.view.core.components.CellButton;
+import fr.ip.view.core.components.Configuration;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class NumeriPanel extends GameBoardPanel {
         }
         removeAll();
 
-        game = new NumeriGame();
+        game = new NumeriGame(Configuration.configuration.numeri.getNumberOfCells());
         for(NumeriPlayer player : out)
             game.addPlayer(player);
 

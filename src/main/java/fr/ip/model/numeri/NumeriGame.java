@@ -6,16 +6,17 @@ import fr.ip.model.core.Player;
 
 public class NumeriGame extends Game {
 
-    public static final int LENGTH = 10;
+		private static int length;
 
-    public NumeriGame () {
-        super();
+    public NumeriGame (int length) {
+        super(length);
+				NumeriGame.length = length;
     }
 
     @Override
     public void setup() {
         NumeriCell first = new NumeriCell();
-        for (int i = 0; i < LENGTH; i++)
+        for (int i = 0; i < length; i++)
             new NumeriCell();
 
         for (Player p: ps)
@@ -29,10 +30,14 @@ public class NumeriGame extends Game {
         int c = 0;
         for (Player player : this)
             for (Pawn p : ((NumeriPlayer)player).pawns())
-                if (p.getLocation().id > LENGTH - 3) {
+                if (p.getLocation().id > length - 3) {
                     c++;
                     if (c == 3) return true;
                 }
         return false;
     }
+
+		public static int getSize() {
+				return length;
+		}
 }
