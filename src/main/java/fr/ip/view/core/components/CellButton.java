@@ -22,13 +22,14 @@ public class CellButton extends JButton {
     private BufferedImage image;
 
     private final static String[] paths = {
-        "./assets/earth.png",
+        "./assets/terre.png",
         "./assets/jupiter.png",
         "./assets/mars.png",
-        "./assets/mercury.png",
+        "./assets/mercure.png",
         "./assets/neptune.png",
         "./assets/moon.png",
-        "./assets/saturn.png",
+        "./assets/saturne.png",
+        "./assets/venus.png",
         "./assets/death-star.png",
         "./assets/uranus.png"
     };
@@ -62,7 +63,7 @@ public class CellButton extends JButton {
                 repaint();
 
                 try {
-                    Thread.sleep(15);
+                    Thread.sleep(20);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -93,7 +94,7 @@ public class CellButton extends JButton {
         graphics.drawString(getText(), getWidth() / 2, getHeight());
         String s = "";
         for (int i = 0; i < pawns.size(); i++)
-            pawns.get(i).draw(graphics, x + i * 10, y + 30);
+            pawns.get(i).draw(graphics, 0, 0 + (i + 1) * 10);
     }
 
     public void add (Pawn pawn) {

@@ -6,6 +6,10 @@ import fr.ip.view.numeri.NumeriPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 
 public class MainFrame extends JFrame {
 
@@ -26,6 +30,16 @@ public class MainFrame extends JFrame {
         setMinimumSize(new Dimension(650, 500));
         getContentPane().setLayout(cl);
 
+        try {
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("./assets/theme.wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         addView("menu", new Menu());
         addView("numeri", new NumeriPanel());
         addView("goose", new GoosePanel());

@@ -19,10 +19,6 @@ import java.util.HashMap;
 
 public class GoosePanel extends GameBoardPanel {
 
-    public GoosePanel () {
-        setImage("./assets/bkg.png");
-    }
-
 		@Override
     public void onOpen (HashMap<String, Object> map) {
 				super.onOpen(map);

@@ -114,12 +114,13 @@ public class GameBoardPanel extends ImageBackgroundJPanel.ImageBackgroundView {
                 super(p.name);
                 int index = rand.nextInt(icons.length);
                 while (used.indexOf(index) != -1) index = rand.nextInt(icons.length);
-                setIcon(new ImageIcon(icons[index]));
+                setIcon(new ImageIcon(new ImageIcon(icons[index]).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT)));
                 p.setIcon(icons[index]);
                 used.add(index);
                 setHorizontalAlignment(SwingConstants.CENTER);
                 setVerticalAlignment(SwingConstants.CENTER);
-                setHorizontalTextPosition(SwingConstants.RIGHT);
+                setVerticalTextPosition(JLabel.BOTTOM);
+                setHorizontalTextPosition(JLabel.CENTER);
                 setForeground(Color.WHITE);
                 setFont(new Font("Helvetica", Font.PLAIN, 20));
             }
@@ -127,13 +128,20 @@ public class GameBoardPanel extends ImageBackgroundJPanel.ImageBackgroundView {
 
         public GameControlPanel () {
             setLayout(new GridLayout(game.size() + 1, 1, 0, 10));
-            setBackground(ImageBackgroundJPanel.TRANSPARENT);
+            setImage("./assets/bar.png");
             for (Player player: game)
                 add(new PlayerLabel(player));
 
             playButton = new PrimaryButton("Roll dice");
             add(playButton);
         }
+
+    }
+
+
+    public GameBoardPanel () {
+        super();
+        setImage("./assets/bkg.png");
     }
 
 }

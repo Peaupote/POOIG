@@ -17,10 +17,6 @@ import java.util.HashMap;
 
 public class NumeriPanel extends GameBoardPanel {
 
-    public NumeriPanel () {
-        setImage("./assets/bkg.png");
-    }
-
     public void onOpen (HashMap<String, Object> map) {
 				super.onOpen(map);
         NumeriModalBox modal = new NumeriModalBox(MainFrame.instance, "Add players", true);

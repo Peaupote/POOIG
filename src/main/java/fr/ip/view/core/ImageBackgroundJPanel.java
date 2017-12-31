@@ -24,7 +24,7 @@ public class ImageBackgroundJPanel extends JPanel {
 						
 						private BufferedImage image;
 						private int x, y, speed;
-						private final static int max = 350, maxSpeed = 2;
+						private final static int max = 350, maxSpeed = 4;
 
 						public Cloud (String path) {
 								try {
@@ -33,11 +33,16 @@ public class ImageBackgroundJPanel extends JPanel {
 										e.printStackTrace();
 								}
 
-								x = - image.getWidth() - rand.nextInt(300);
-								y = rand.nextInt(max);
-								speed = 1;
-
+                x = rand.nextInt(250) + 100;
+                y = - image.getHeight() - rand.nextInt(300);
+                speed = rand.nextInt(Cloud.maxSpeed - 1) + 1;
 						}
+
+            public void initPosition () {
+                x = rand.nextInt(getWidth() - 250);
+                y = - image.getHeight() - rand.nextInt(300);
+                speed = rand.nextInt(Cloud.maxSpeed - 1) + 3;
+            }
 
 						public void draw (Graphics graphics) {
 								graphics.drawImage(image, x, y, ImageBackgroundView.this);
@@ -46,24 +51,23 @@ public class ImageBackgroundJPanel extends JPanel {
 				}
 
 				protected ArrayList<Cloud> clouds;
-				protected Thread cloudManager; 
+				protected Thread cloudManager, bkgManager; 
+        private int offset = 0;
 
 				public ImageBackgroundView (LayoutManager layout) {
 						super(layout);
 						clouds = new ArrayList<>();
-						clouds.add(new Cloud("./assets/cloud1.png"));
-						clouds.add(new Cloud("./assets/cloud2.png"));
-						clouds.add(new Cloud("./assets/cloud2.png"));
+						clouds.add(new Cloud("./assets/meteor_groupe.png"));
+						clouds.add(new Cloud("./assets/meteor_seul.png"));
+						clouds.add(new Cloud("./assets/meteor_seul.png"));
 
 						cloudManager = new Thread(() -> {
 								while (true) {
 										for (Cloud cloud : clouds) {
 												cloud.x += cloud.speed;
-												if (cloud.x >= getWidth()) { 
-														cloud.x = -cloud.image.getWidth() - rand.nextInt(300);
-														cloud.y = rand.nextInt(Cloud.max);
-														cloud.speed = rand.nextInt(Cloud.maxSpeed - 1) + 1;
-												}
+                        cloud.y += cloud.speed;
+												if (cloud.x >= getWidth() || cloud.y >= getHeight())
+                            cloud.initPosition();
 
 										}
 
@@ -76,7 +80,19 @@ public class ImageBackgroundJPanel extends JPanel {
 										repaint();
 								}
 						});
-						}
+
+            bkgManager = new Thread(() -> {
+                while(true) {
+                    offset = (offset + 1) % getWidth();
+
+                    try {
+                        Thread.sleep(25);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
 
 				public ImageBackgroundView () {
 						this(new GridBagLayout());
@@ -84,7 +100,11 @@ public class ImageBackgroundJPanel extends JPanel {
 
 				@Override
 				public void paintComponent(Graphics graphics) {
-						super.paintComponent(graphics);
+            super.paintComponent(graphics);
+            if (image != null) {
+                this.drawSafeResize(graphics, image, offset, 0);
+                this.drawSafeResize(graphics, image, offset - getWidth(), 0);
+            }
 						for (Cloud cloud: clouds)
 							cloud.draw(graphics);
 				}
@@ -92,6 +112,9 @@ public class ImageBackgroundJPanel extends JPanel {
 				public void onOpen (HashMap<String, Object> map) {
 						if (cloudManager.getState() == Thread.State.NEW)
 							cloudManager.start();
+
+						if (bkgManager.getState() == Thread.State.NEW)
+							bkgManager.start();
 				}
 
 				public void onClose () {
@@ -120,20 +143,21 @@ public class ImageBackgroundJPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-				if (image != null) {
-						int w = image.getWidth(), h = image.getHeight();
-						if (getWidth() > w) {
-								w = getWidth();
-								h *= getWidth() / w;
-						}
+        if (image != null) drawSafeResize(graphics, image, 0, 0);
+    }
 
-						if (getHeight() > h) {
-								h = getHeight();
-								w *= getHeight() / h;
-						}
+    protected void drawSafeResize(Graphics graphics, BufferedImage img, int x, int y) {
+        int w = img.getWidth(), h = img.getHeight();
+        if (getWidth() > w) {
+            w = getWidth();
+            h *= getWidth() / w;
+        }
 
-						graphics.drawImage(image, 0, 0, w, h, this);
-				}
+        if (getHeight() > h) {
+            h = getHeight();
+            w *= getHeight() / h;
+        }
 
+        graphics.drawImage(img, x, y, w, h, this);
     }
 }
