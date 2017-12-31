@@ -3,6 +3,7 @@ package fr.ip.view.goose;
 import fr.ip.model.core.Cell;
 import fr.ip.model.core.Game;
 import fr.ip.model.goose.GooseGame;
+import fr.ip.model.core.Player;
 import fr.ip.model.goose.GoosePlayer;
 import fr.ip.view.core.GameBoardPanel;
 import fr.ip.view.core.MainFrame;
@@ -40,11 +41,16 @@ public class GoosePanel extends GameBoardPanel {
 
         game.setup();
         game.start();
-        buttons = new ArrayList<>();
+        buttons = new ArrayList<CellButton>();
 
         setLayout(new BorderLayout());
         add(new GameControlPanel(), BorderLayout.EAST);
         add(new BoardPanel(Configuration.configuration.goose.getCellOrder()), BorderLayout.CENTER);
+
+        for (Player player: game) {
+            GoosePlayer p = (GoosePlayer)player;
+            buttons.get(p.getPawn().getLocation().id - 1).add(p.getPawn());
+        }
 
         playButton.addActionListener(e -> {
             game.playTurn();

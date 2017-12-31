@@ -20,7 +20,6 @@ public class GameBoardPanel extends ImageBackgroundJPanel.ImageBackgroundView {
     protected ArrayList<CellButton> buttons;
     protected PrimaryButton playButton;
 
-
     private static LinkedList<Integer> used = new LinkedList<>();
 
     private final static Random rand = new Random();

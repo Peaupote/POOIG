@@ -34,6 +34,7 @@ public class CellButton extends JButton {
     };
 
     private static final Random rand = new Random();
+    private static final Font font = new Font ("Helvetica", Font.BOLD, 20);
     private int rotation, direction; 
 
     public CellButton (String name) {
@@ -87,7 +88,9 @@ public class CellButton extends JButton {
         int x = (int)(getWidth() / 2 - locationX), y = (int)(getHeight() / 2 - locationY);
         ((Graphics2D)graphics).drawImage(op.filter(image, null), x, y, null);
 
-        graphics.drawString(getText(), getWidth() / 2, getHeight() / 2);
+        graphics.setColor(Color.white);
+        graphics.setFont(font);
+        graphics.drawString(getText(), getWidth() / 2, getHeight());
         String s = "";
         for (int i = 0; i < pawns.size(); i++)
             pawns.get(i).draw(graphics, x + i * 10, y + 30);

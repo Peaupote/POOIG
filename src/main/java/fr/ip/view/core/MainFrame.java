@@ -23,6 +23,7 @@ public class MainFrame extends JFrame {
 
         setTitle("Game");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new Dimension(650, 500));
         getContentPane().setLayout(cl);
 
         addView("menu", new Menu());

@@ -2,6 +2,7 @@ package fr.ip.view.numeri;
 
 import fr.ip.model.core.Game;
 import fr.ip.model.core.Pawn;
+import fr.ip.model.core.Player;
 import fr.ip.model.numeri.NumeriGame;
 import fr.ip.model.numeri.NumeriPlayer;
 import fr.ip.view.core.GameBoardPanel;
@@ -42,6 +43,10 @@ public class NumeriPanel extends GameBoardPanel {
         setLayout(new BorderLayout());
         add(new GameControlPanel(), BorderLayout.EAST);
         add(new BoardPanel(Configuration.configuration.numeri.getCellOrder()), BorderLayout.CENTER);
+
+        for (Player player: game)
+            for (Pawn pawn: ((NumeriPlayer)player).pawns())
+                buttons.get(pawn.getLocation().id - 1).add(pawn);
 
         playButton.addActionListener(e -> {
             game.playTurn();

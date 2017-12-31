@@ -29,7 +29,7 @@ public class NumeriPlayer extends Player {
         
         public void draw(Graphics graphics, int x, int y) {
             super.draw(graphics, x, y);
-            graphics.drawString(id + "", x, y);
+            graphics.drawString(id + "", x + 25, y + 60);
         }
     }
 
