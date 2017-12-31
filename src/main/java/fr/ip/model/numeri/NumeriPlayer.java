@@ -6,6 +6,7 @@ import fr.ip.model.util.Message;
 
 import javax.swing.*;
 import java.util.*;
+import java.awt.Graphics;
 
 public class NumeriPlayer extends Player {
 
@@ -23,6 +24,12 @@ public class NumeriPlayer extends Player {
         @Override
         public String toString() {
             return NumeriPlayer.this.toString() + "(" + id + ")";
+        }
+
+        
+        public void draw(Graphics graphics, int x, int y) {
+            super.draw(graphics, x, y);
+            graphics.drawString(id + "", x, y);
         }
     }
 

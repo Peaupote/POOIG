@@ -1,6 +1,7 @@
 package fr.ip.view.core.components;
 
 import fr.ip.view.core.ImageBackgroundJPanel;
+import fr.ip.view.core.GameBoardPanel;
 import fr.ip.view.core.SingleView;
 import fr.ip.view.core.components.PrimaryButton;
 
@@ -33,7 +34,7 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
             super (new GridLayout(5, 1));
             this.opt = opt;
             cells = new ArrayList<>();
-            playerCount = new SpinnerNumberModel(game.getNumberOfPlayers(),1,15,1);
+            playerCount = new SpinnerNumberModel(game.getNumberOfPlayers(),1,GameBoardPanel.icons.length - 1,1);
             cellCount = new SpinnerNumberModel(game.getNumberOfCells(),2,100,1);
             JSpinner maxPlayer = new JSpinner(playerCount),
                     cellNumber = new JSpinner(cellCount);
@@ -58,11 +59,11 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
             buttonPane = new JPanel();
             stateChanged(null);
             add(buttonPane);
-
-						playerCount.addChangeListener(e -> game.setNumberOfPlayers(playerCount.getNumber().intValue()));
-						cellOrder.addActionListener(e -> game.setCellOrder(cellOrder.getSelectedIndex()));
+            
+            playerCount.addChangeListener(e -> game.setNumberOfPlayers(playerCount.getNumber().intValue()));
+            cellOrder.addActionListener(e -> game.setCellOrder(cellOrder.getSelectedIndex()));
             cellCount.addChangeListener(this);
-						cellCount.addChangeListener(e -> game.setNumberOfCells(cellCount.getNumber().intValue()));
+            cellCount.addChangeListener(e -> game.setNumberOfCells(cellCount.getNumber().intValue()));
         }
 
         @Override
@@ -135,11 +136,11 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
         goose.add(goosePane, BorderLayout.WEST);
         goose.add(gooseOptionPanel, BorderLayout.CENTER);
 
-				JPanel numeri = new JPanel(new BorderLayout());
-				OptionPanel numeriOptionPanel = new OptionPanel ();
+        JPanel numeri = new JPanel(new BorderLayout());
+        OptionPanel numeriOptionPanel = new OptionPanel ();
         numeriPane = new BoardSettingPane(Configuration.configuration.numeri, numeriOptionPanel);
-				numeri.add(numeriPane, BorderLayout.WEST);
-				numeri.add(numeriOptionPanel, BorderLayout.CENTER);
+        numeri.add(numeriPane, BorderLayout.WEST);
+        numeri.add(numeriOptionPanel, BorderLayout.CENTER);
 
         GlobalPane globalPane = new GlobalPane();
 
@@ -156,6 +157,6 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
     public void onOpen(HashMap<String, Object> map) {
     }
 
-		@Override
-		public void onClose () {}
+    @Override
+    public void onClose () {}
 }

@@ -2,6 +2,11 @@ package fr.ip.model.core;
 
 import java.util.LinkedList;
 import java.util.Random;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.io.File;
 
 /**
  * Class representing a player
@@ -127,6 +132,8 @@ public abstract class Player {
         }
     }
 
+    private BufferedImage  icon;
+
     public Player (String name) {
         this.name = name;
         listener = new Listener();
@@ -139,5 +146,18 @@ public abstract class Player {
     @Override
     public String toString() {
         return name;
+    }
+
+    public void setIcon (String path) {
+        try {
+            icon = ImageIO.read(new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void draw(Graphics graphics, int x, int y) {
+       if (icon != null)
+          graphics.drawImage (icon, x, y, icon.getWidth() / 2, icon.getHeight() / 2, null);
     }
 }

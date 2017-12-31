@@ -89,9 +89,8 @@ public class CellButton extends JButton {
 
         graphics.drawString(getText(), getWidth() / 2, getHeight() / 2);
         String s = "";
-        for (Pawn pawn: pawns)
-            s += pawn + " ";
-        graphics.drawString(s, getWidth() / 2, getHeight() / 2 + 30 );
+        for (int i = 0; i < pawns.size(); i++)
+            pawns.get(i).draw(graphics, x + i * 10, y + 30);
     }
 
     public void add (Pawn pawn) {

@@ -1,5 +1,7 @@
 package fr.ip.model.core;
 
+import java.awt.Graphics;
+
 /**
  * Class Representing a pawn
  */
@@ -45,6 +47,10 @@ public class Pawn {
 
     public String toString () {
         return player.toString();
+    }
+
+    public void draw(Graphics graphics, int x, int y) {
+        player.draw(graphics, x, y);
     }
 
 }
