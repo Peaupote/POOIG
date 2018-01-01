@@ -58,7 +58,7 @@ public class NumeriPlayer extends Player {
             }
 
             for (int id: ids)
-                pawns[id - 1].goToCell(pawns[id].getLocation().next(1));
+                pawns[id - 1].goToCell(pawns[id - 1].getLocation().next(1));
 
             String show = "";
             for (Pawn pawn: pawns)

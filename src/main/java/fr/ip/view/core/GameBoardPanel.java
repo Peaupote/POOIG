@@ -62,13 +62,13 @@ public class GameBoardPanel extends ImageBackgroundJPanel.ImageBackgroundView {
                     for (int i = 0; i < borderSize; i++)
                         if (i % 2 == 0)
                             for (int j = 0; j < borderSize; j++) {
-                  int index = i * borderSize + j;
-                  if (index < buttons.size()) add(buttons.get(index));
+                                int index = i * borderSize + j;
+                                if (index < buttons.size()) add(buttons.get(index));
                             }
                         else
                             for (int j = 0; j <= borderSize; j++) {
-                  int index = (i + 1) * borderSize - j;
-                  if (index < buttons.size()) add(buttons.get(index));
+                                int index = (i + 1) * borderSize - j;
+                                if (index < buttons.size()) add(buttons.get(index));
                             }
                 break;
                 case Configuration.Game.CellOrder.SPIRAL:

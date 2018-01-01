@@ -4,6 +4,7 @@ import fr.ip.model.core.Game;
 import fr.ip.model.core.Pawn;
 import fr.ip.model.core.Player;
 import fr.ip.model.numeri.NumeriGame;
+import fr.ip.model.numeri.NumeriCell;
 import fr.ip.model.numeri.NumeriPlayer;
 import fr.ip.view.core.GameBoardPanel;
 import fr.ip.view.core.MainFrame;
@@ -62,6 +63,25 @@ public class NumeriPanel extends GameBoardPanel {
 
     private void onEnd () {
         playButton.setEnabled(false);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("target", "numeri");
+
+        int max = 0;
+        NumeriPlayer winner = null;
+        for (Player p: game) {
+            NumeriPlayer player = (NumeriPlayer)p;
+            int score = 0;
+            for (NumeriPlayer.NumeriPawn pawn: player.pawns())
+                score += pawn.id * ((NumeriCell)pawn.getLocation()).value;
+            if (score > max) {
+                max = score;
+                winner = player;
+            }
+        }
+
+        map.put("win", winner.toString());
+
+        MainFrame.set("end", map);
     }
 
 }

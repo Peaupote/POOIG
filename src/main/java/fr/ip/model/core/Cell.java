@@ -140,22 +140,24 @@ public abstract class Cell {
 
         /**
          * Constructor. Do nothing if the answer is wrong
+         * @param question The question to ask
          * @param isCorrect Predicate to say if the answer s correct
          * @param success Event to run if the answer is correct
          */
-        public QuestionCell (Predicate<String> isCorrect, ActionEvent<Event.CellEvent> success) {
-            this (isCorrect, success, (Event.CellEvent event) -> {});
+        public QuestionCell (String question, Predicate<String> isCorrect, ActionEvent<Event.CellEvent> success) {
+            this (question, isCorrect, success, (Event.CellEvent event) -> {});
         }
 
         /**
          * Constructor.
+         * @param question The question to ask
          * @param isCorrect Predicate to say if the answer s correct
          * @param success Event to run if the answer is correct
          * @param fail Event ti run if the answer is wrong
          */
-        public QuestionCell (Predicate<String> isCorrect, ActionEvent<Event.CellEvent> success, ActionEvent<Event.CellEvent> fail) {
+        public QuestionCell (String question, Predicate<String> isCorrect, ActionEvent<Event.CellEvent> success, ActionEvent<Event.CellEvent> fail) {
             Cell.this.listener().add("enter", (Event.CellEvent event) -> {
-                String answer = Facade.read();
+                String answer = Facade.read(question);
                 if (isCorrect.test(answer)) success.run(event);
                 else fail.run(event);
             });

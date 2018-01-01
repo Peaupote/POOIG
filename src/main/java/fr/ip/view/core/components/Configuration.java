@@ -57,7 +57,7 @@ public class Configuration {
 
     public Configuration () {
         this.goose = new Game(15, 5, 3);
-        this.numeri = new Game(11, 5, 3);
+        this.numeri = new Game(40, 5, 3);
     }
 
 }

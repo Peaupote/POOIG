@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
 
         setTitle("Game");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(650, 500));
+        setMinimumSize(new Dimension(750, 750));
         getContentPane().setLayout(cl);
 
         try {
