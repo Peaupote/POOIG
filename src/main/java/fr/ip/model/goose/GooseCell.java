@@ -5,6 +5,7 @@ import fr.ip.model.core.Event;
 import fr.ip.model.core.Game;
 import fr.ip.model.util.Facade;
 import fr.ip.model.util.Message;
+import fr.ip.view.core.components.Configuration;
 
 import javax.swing.*;
 
@@ -12,18 +13,19 @@ public class GooseCell extends Cell {
 
     public GooseCell () {
         super();
-        if (id != 1 && id != GooseGame.getSize() && id != 5)
-            new SinglePawnCell(false);
+        if (id != 1 && id != GooseGame.getSize() && id != 4)
+            if (!Configuration.configuration.goose.canCohabits())
+                new SinglePawnCell(false);
 
-        if (id == 5) new TrapCell();
+        if (id == 4) new TrapCell();
         if (id == 6 || id == 9) new CounterCell(2);
-        if (id % 3 == 0) new JumpCell(5);
+        if (id % 5 == 0 && id != GooseGame.getSize()) new JumpCell(1);
         if (id == 8) listener().add("enter", (Event.CellEvent e) -> {
             Facade.show(new Message("Play again"));
             Game.getInstance().playAgain();
             e.stopPropagation();
         });
-        if (id == 10)
+        if (Configuration.configuration.goose.isQuestion() && id % 10 == 0)
             new QuestionCell(
                     "Say true.",
                     (String s) -> s.equals("true"),

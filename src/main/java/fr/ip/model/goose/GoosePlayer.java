@@ -7,6 +7,8 @@ import fr.ip.model.core.Player;
 import fr.ip.model.util.Facade;
 import fr.ip.model.util.Message;
 
+import fr.ip.view.core.components.Configuration;
+
 import javax.swing.*;
 
 public class GoosePlayer extends Player {
@@ -18,7 +20,10 @@ public class GoosePlayer extends Player {
 
         pawn = new Pawn(this);
 
-        listener().add("play", new EndIfOnLastCell(pawn));
+        if (Configuration.configuration.goose.getEndMode() == Configuration.Goose.EndMode.ON_LAST)
+            listener().add("play", new EndIfOnLastCell(pawn));
+        else if (Configuration.configuration.goose.getEndMode() == Configuration.Goose.EndMode.OVER_LAST)
+            listener().add("play", new EndIfOverLastCell(pawn));
 
         listener().add("pass", (Event event) -> {
             Cell c = pawn.getLocation();

@@ -53,10 +53,55 @@ public class Configuration {
 
     }
 
-    public final Game goose, numeri;
+    public static class Goose extends Game {
+
+        public static class EndMode {
+            
+            public static final String[] modes = {
+                "Terminer quand sur la dernière case",
+                "Terminer quand dépasse la dernière case"
+            };  
+
+            public static final int 
+              ON_LAST   = 0,
+              OVER_LAST = 1;
+
+        }
+
+        private int endMode;
+        private boolean cohabits, questions;
+        
+        public Goose (int nC, int nP, int cO, int endMode, boolean cohabits, boolean questions) {
+            super (nC, nP, cO);
+            this.endMode   = endMode;
+            this.cohabits  = cohabits;
+            this.questions = questions;
+        }
+
+        public void setEndMode (int endMode) {
+            this.endMode = Math.min(0, Math.max(endMode, EndMode.modes.length));
+        }
+
+        public void setCohabits (boolean c) {
+            cohabits = c;
+        }
+
+        public void askQuestions (boolean ask) {
+            questions = ask;
+        }
+        
+        public int getEndMode() { return endMode; }
+
+        public boolean canCohabits () { return cohabits; }
+
+        public boolean isQuestion () { return questions; };
+    }
+
+    public final Goose goose;
+    public final Game numeri;
 
     public Configuration () {
-        this.goose = new Game(15, 5, 3);
+        this.goose  = new Goose(15, 5, 3, 0, false, true);
         this.numeri = new Game(40, 5, 3);
     }
 

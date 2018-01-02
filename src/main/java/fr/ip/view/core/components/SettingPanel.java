@@ -22,18 +22,17 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
         }
     }
 
-    private class BoardSettingPane extends JPanel implements ChangeListener {
+    private class BoardSettingPane extends JPanel {
 
         SpinnerNumberModel playerCount, cellCount;
         JComboBox cellOrder;
-        ArrayList<PrimaryButton> cells;
-        JPanel buttonPane;
-        OptionPanel opt;
 
-        BoardSettingPane (Configuration.Game game, OptionPanel opt) {
-            super (new GridLayout(5, 1));
-            this.opt = opt;
-            cells = new ArrayList<>();
+        BoardSettingPane (Configuration.Game game) {
+            this (new GridLayout(5,1), game);
+        }
+
+        BoardSettingPane (LayoutManager layout, Configuration.Game game) {
+            super (layout);
             playerCount = new SpinnerNumberModel(game.getNumberOfPlayers(),1,GameBoardPanel.icons.length - 1,1);
             cellCount = new SpinnerNumberModel(game.getNumberOfCells(),2,100,1);
             JSpinner maxPlayer = new JSpinner(playerCount),
@@ -56,91 +55,59 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
             cellPane.add(cellNumber);
             add(cellPane);
 
-            buttonPane = new JPanel();
-            stateChanged(null);
-            add(buttonPane);
-            
+
             playerCount.addChangeListener(e -> game.setNumberOfPlayers(playerCount.getNumber().intValue()));
             cellOrder.addActionListener(e -> game.setCellOrder(cellOrder.getSelectedIndex()));
-            cellCount.addChangeListener(this);
             cellCount.addChangeListener(e -> game.setNumberOfCells(cellCount.getNumber().intValue()));
         }
 
-        @Override
-        public void stateChanged(ChangeEvent changeEvent) {
-            buttonPane.removeAll();
-            buttonPane.repaint();
-            buttonPane.revalidate();
-            int borderSize = (int)Math.sqrt(cellCount.getNumber().doubleValue());
-            buttonPane.setLayout(new GridLayout(borderSize, borderSize, 10, 10));
-            for (int i = 1; i <= cellCount.getNumber().intValue(); i++) {
-                PrimaryButton btn = new PrimaryButton(i + "");
-                cells.add(btn);
-                buttonPane.add(btn);
-                btn.addActionListener(opt);
-            }
-            buttonPane.repaint();
-            buttonPane.revalidate();
-         }
     }
 
-    private class OptionPanel extends JPanel implements ActionListener {
+    private class GooseSettingPanel extends BoardSettingPane {
 
-        JLabel btnName;
-        int id;
+        JComboBox mode;
 
-        OptionPanel() {
-            btnName = new JLabel("Select a cell");
-            addComponents();
+        public GooseSettingPanel (Configuration.Game game) {
+            this ((Configuration.Goose)game);   
         }
 
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            removeAll();
-            repaint();
-            revalidate();
+        public GooseSettingPanel (Configuration.Goose game) {
+            super(new GridLayout(6,1), game);
 
-            onActionPerformed(actionEvent);
-            setComponents();
-            addComponents();
+            JPanel endMode = new JPanel();
+            endMode.add(new JLabel("Choose end mode"));
+            mode = new JComboBox(Configuration.Goose.EndMode.modes);
+            mode.setSelectedIndex(game.getEndMode());
+            endMode.add(mode);
+            add(endMode);
 
-            repaint();
-            revalidate();
+            JPanel canCohabits = new JPanel();
+            JCheckBox cohabits = new JCheckBox("Can cohabits");
+            cohabits.setSelected(game.canCohabits());
+            canCohabits.add(cohabits);
+            add(canCohabits);
+
+            JPanel askQuestions = new JPanel();
+            JCheckBox questions = new JCheckBox("Ask questions");
+            questions.setSelected(game.isQuestion());
+            askQuestions.add(questions);
+            add(askQuestions);
+
+            cohabits.addActionListener(e -> game.setCohabits(cohabits.isSelected()));
+            questions.addActionListener(e -> game.askQuestions(questions.isSelected()));
+            mode.addActionListener(e -> game.setEndMode(mode.getSelectedIndex()));
         }
 
-        protected void addComponents() {
-            add(btnName);
-        }
-
-        protected void setComponents () {
-            btnName = new JLabel("Cell " + id);
-        }
-
-        protected void onActionPerformed(ActionEvent actionEvent) {
-            id = Integer.parseInt(((PrimaryButton)actionEvent.getSource()).getText());
-        }
     }
 
-    private class GooseOptionPanel extends OptionPanel {
-    }
-
-    private BoardSettingPane goosePane, numeriPane;
+    private BoardSettingPane goose, numeri;
 
     public SettingPanel() {
         super(new GridLayout(1,1));
         setImage("./assets/bkg.png");
 
-        JPanel goose = new JPanel(new BorderLayout());
-        OptionPanel gooseOptionPanel = new GooseOptionPanel();
-        goosePane = new BoardSettingPane(Configuration.configuration.goose, gooseOptionPanel);
-        goose.add(goosePane, BorderLayout.WEST);
-        goose.add(gooseOptionPanel, BorderLayout.CENTER);
-
-        JPanel numeri = new JPanel(new BorderLayout());
-        OptionPanel numeriOptionPanel = new OptionPanel ();
-        numeriPane = new BoardSettingPane(Configuration.configuration.numeri, numeriOptionPanel);
-        numeri.add(numeriPane, BorderLayout.WEST);
-        numeri.add(numeriOptionPanel, BorderLayout.CENTER);
+        goose = new GooseSettingPanel(Configuration.configuration.goose);
+        numeri = new BoardSettingPane(Configuration.configuration.numeri);
 
         GlobalPane globalPane = new GlobalPane();
 
