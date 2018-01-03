@@ -255,7 +255,7 @@ public abstract class Cell {
      * @return cell for the given id
      */
     static Cell get (int index) {
-        return cells.get(index - 1);
+        return cells.get(Math.max(0, Math.min(index - 1, cells.size())));
     }
 
     /**

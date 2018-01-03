@@ -29,7 +29,7 @@ public class NumeriPanel extends GameBoardPanel {
         }
         removeAll();
 
-        game = new NumeriGame(Configuration.configuration.numeri.getNumberOfCells());
+        game = new NumeriGame(Configuration.configuration.numeri.numberOfCells);
         for(NumeriPlayer player : out)
             game.addPlayer(player);
 
@@ -39,7 +39,7 @@ public class NumeriPanel extends GameBoardPanel {
 
         setLayout(new BorderLayout());
         add(new GameControlPanel(), BorderLayout.EAST);
-        add(new BoardPanel(Configuration.configuration.numeri.getCellOrder()), BorderLayout.CENTER);
+        add(new BoardPanel(Configuration.configuration.numeri.cellOrder), BorderLayout.CENTER);
 
         for (Player player: game)
             for (Pawn pawn: ((NumeriPlayer)player).pawns())

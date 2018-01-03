@@ -32,7 +32,7 @@ public abstract class Game implements Iterable<Player> {
      * Represent game state
      * Allow you to act on the game state from anywhere "safely"
      */
-    public static class State {
+    public class State {
 
         /**
          * The last player to play
@@ -40,26 +40,17 @@ public abstract class Game implements Iterable<Player> {
         private Player currentPlayer;
 
         /**
-         * The cycle of players
-         */
-        private Board.Cycle p;
-
-        public State (Board.Cycle p) {
-            this.p = p;
-        }
-
-        /**
          * The current player can not play anymore
          */
         public void removePlayer () {
-            p.remove();
+            board.iterator().remove();
         }
 
         /**
          * The current play can now play
          */
         public void add () {
-            p.add();
+            board.iterator().add();
         }
 
         /**
@@ -67,18 +58,24 @@ public abstract class Game implements Iterable<Player> {
          * @param player
          */
         public void add(Player player) {
-            p.add(player);
+            board.iterator().add(player);
         }
 
         /**
          * The current player play again
          */
         public void playAgain () {
-            p.previous();
+            board.iterator().previous();
         }
 
         public Player getCurrentPlayer () {
             return currentPlayer;
+        }
+
+        public Player getPlayerByName (String name) {
+            for (Player p: Game.this)
+                if (p.name.equals(name)) return p;
+            return null;
         }
 
     }
@@ -101,19 +98,18 @@ public abstract class Game implements Iterable<Player> {
     }
 
     /**
-     * Create game state and board instances
+     * Create game state and board.iterator() instances
      */
     public void start () {
         board = new Board(ps.toArray(new Player[0]));
-        Board.Cycle p = board.iterator();
-        instance = new State(p);
+        instance = new State();
     }
 
     /**
      * Trigger play and end on the current player
      */
     public void playTurn () {
-        Player player = instance.p.next();
+        Player player = board.iterator().next();
         instance.currentPlayer = player;
         player.listener().trigger(new Event("play"));
         player.listener().trigger(new Event("end"));
@@ -125,7 +121,7 @@ public abstract class Game implements Iterable<Player> {
     public void play () {
         setup();
         start();
-        while(!isEnd() && instance.p.hasNext())
+        while(!isEnd() && board.iterator().hasNext())
             playTurn();
     }
 

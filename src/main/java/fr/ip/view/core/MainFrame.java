@@ -29,16 +29,6 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(750, 750));
         getContentPane().setLayout(cl);
-
-        try {
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("./assets/theme.wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioIn);
-            clip.start();
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         
         addView("menu", new Menu());
         addView("numeri", new NumeriPanel());
@@ -75,6 +65,16 @@ public class MainFrame extends JFrame {
 
 
         setVisible(true);
+
+        try {
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("./assets/theme.wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void canRestart (boolean can) {

@@ -14,7 +14,7 @@ public class GooseCell extends Cell {
     public GooseCell () {
         super();
         if (id != 1 && id != GooseGame.getSize() && id != 4)
-            if (!Configuration.configuration.goose.canCohabits())
+            if (!Configuration.configuration.goose.cohabits)
                 new SinglePawnCell(false);
 
         if (id == 4) new TrapCell();
@@ -25,7 +25,7 @@ public class GooseCell extends Cell {
             Game.getInstance().playAgain();
             e.stopPropagation();
         });
-        if (Configuration.configuration.goose.isQuestion() && id % 10 == 0)
+        if (Configuration.configuration.goose.questions && id % 10 == 0)
             new QuestionCell(
                     "Say true.",
                     (String s) -> s.equals("true"),

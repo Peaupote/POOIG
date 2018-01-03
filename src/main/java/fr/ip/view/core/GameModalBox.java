@@ -168,7 +168,7 @@ public abstract class GameModalBox<T extends Player> extends JDialog{
 
 		protected ActionListener getMax (Configuration.Game game) {
 				return e -> {
-						if (out.size() + 1 == game.getNumberOfPlayers()) {
+						if (out.size() + 1 == game.numberOfPlayers) {
 								form.add.setEnabled(false);
 								form.name.setEnabled(false);
 						}

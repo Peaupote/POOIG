@@ -20,9 +20,9 @@ public class GoosePlayer extends Player {
 
         pawn = new Pawn(this);
 
-        if (Configuration.configuration.goose.getEndMode() == Configuration.Goose.EndMode.ON_LAST)
+        if (Configuration.configuration.goose.endMode == Configuration.Goose.EndMode.ON_LAST)
             listener().add("play", new EndIfOnLastCell(pawn));
-        else if (Configuration.configuration.goose.getEndMode() == Configuration.Goose.EndMode.OVER_LAST)
+        else if (Configuration.configuration.goose.endMode == Configuration.Goose.EndMode.OVER_LAST)
             listener().add("play", new EndIfOverLastCell(pawn));
 
         listener().add("pass", (Event event) -> {

@@ -33,8 +33,8 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
 
         BoardSettingPane (LayoutManager layout, Configuration.Game game) {
             super (layout);
-            playerCount = new SpinnerNumberModel(game.getNumberOfPlayers(),1,GameBoardPanel.icons.length - 1,1);
-            cellCount = new SpinnerNumberModel(game.getNumberOfCells(),2,100,1);
+            playerCount = new SpinnerNumberModel(game.numberOfPlayers,1,GameBoardPanel.icons.length - 1,1);
+            cellCount = new SpinnerNumberModel(game.numberOfCells,2,100,1);
             JSpinner maxPlayer = new JSpinner(playerCount),
                     cellNumber = new JSpinner(cellCount);
 
@@ -46,7 +46,7 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
             JPanel comboPanel = new JPanel();
             comboPanel.add(new JLabel("Cell order"));
             cellOrder = new JComboBox(Configuration.Game.CellOrder.options);
-            cellOrder.setSelectedIndex(game.getCellOrder());
+            cellOrder.setSelectedIndex(game.cellOrder);
             comboPanel.add(cellOrder);
             add(comboPanel);
 
@@ -56,46 +56,71 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
             add(cellPane);
 
 
-            playerCount.addChangeListener(e -> game.setNumberOfPlayers(playerCount.getNumber().intValue()));
-            cellOrder.addActionListener(e -> game.setCellOrder(cellOrder.getSelectedIndex()));
-            cellCount.addChangeListener(e -> game.setNumberOfCells(cellCount.getNumber().intValue()));
+            playerCount.addChangeListener(e -> game.numberOfPlayers = playerCount.getNumber().intValue());
+            cellOrder.addActionListener(e -> game.cellOrder = cellOrder.getSelectedIndex());
+            cellCount.addChangeListener(e -> game.numberOfCells = cellCount.getNumber().intValue());
         }
 
     }
 
     private class GooseSettingPanel extends BoardSettingPane {
 
-        JComboBox mode;
-
         public GooseSettingPanel (Configuration.Game game) {
             this ((Configuration.Goose)game);   
         }
 
         public GooseSettingPanel (Configuration.Goose game) {
-            super(new GridLayout(6,1), game);
+            super(new GridLayout(8,1), game);
 
             JPanel endMode = new JPanel();
             endMode.add(new JLabel("Choose end mode"));
-            mode = new JComboBox(Configuration.Goose.EndMode.modes);
-            mode.setSelectedIndex(game.getEndMode());
+            JComboBox mode = new JComboBox(Configuration.Goose.EndMode.modes);
+            mode.setSelectedIndex(game.endMode);
             endMode.add(mode);
             add(endMode);
 
             JPanel canCohabits = new JPanel();
             JCheckBox cohabits = new JCheckBox("Can cohabits");
-            cohabits.setSelected(game.canCohabits());
+            cohabits.setSelected(game.cohabits);
             canCohabits.add(cohabits);
             add(canCohabits);
 
             JPanel askQuestions = new JPanel();
             JCheckBox questions = new JCheckBox("Ask questions");
-            questions.setSelected(game.isQuestion());
+            questions.setSelected(game.questions);
             askQuestions.add(questions);
             add(askQuestions);
 
-            cohabits.addActionListener(e -> game.setCohabits(cohabits.isSelected()));
-            questions.addActionListener(e -> game.askQuestions(questions.isSelected()));
-            mode.addActionListener(e -> game.setEndMode(mode.getSelectedIndex()));
+            cohabits.addActionListener(e -> game.cohabits = cohabits.isSelected());
+            questions.addActionListener(e -> game.questions = questions.isSelected());
+            mode.addActionListener(e -> game.endMode = mode.getSelectedIndex());
+        }
+
+    }
+
+    private class NumeriSettingPanel extends BoardSettingPane {
+
+        public NumeriSettingPanel (Configuration.Game game) {
+            this((Configuration.Numeri)game);
+        }
+
+        public NumeriSettingPanel (Configuration.Numeri game) {
+            super(new GridLayout(7, 1), game);
+            
+            JPanel alignPanel = new JPanel();
+            JCheckBox align = new JCheckBox("Replay if 3 pawns are aligns");
+            align.setSelected(false);
+            alignPanel.add(align);
+            add(alignPanel);
+
+            JPanel replayPanel = new JPanel();
+            JCheckBox replay = new JCheckBox("One more face on the pawn");
+            replay.setSelected(false);
+            replayPanel.add(replay);
+            add(replayPanel);
+
+            align.addActionListener(e -> game.align = align.isSelected());
+            replay.addActionListener(e -> game.replay = replay.isSelected());
         }
 
     }
@@ -107,7 +132,7 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
         setImage("./assets/bkg.png");
 
         goose = new GooseSettingPanel(Configuration.configuration.goose);
-        numeri = new BoardSettingPane(Configuration.configuration.numeri);
+        numeri = new NumeriSettingPanel(Configuration.configuration.numeri);
 
         GlobalPane globalPane = new GlobalPane();
 

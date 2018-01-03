@@ -31,7 +31,7 @@ public class GoosePanel extends GameBoardPanel {
         }
         removeAll();
 
-        game = new GooseGame(Configuration.configuration.goose.getNumberOfCells());
+        game = new GooseGame(Configuration.configuration.goose.numberOfCells);
         for(GoosePlayer player : out)
             game.addPlayer(player);
 
@@ -41,7 +41,7 @@ public class GoosePanel extends GameBoardPanel {
 
         setLayout(new BorderLayout());
         add(new GameControlPanel(), BorderLayout.EAST);
-        add(new BoardPanel(Configuration.configuration.goose.getCellOrder()), BorderLayout.CENTER);
+        add(new BoardPanel(Configuration.configuration.goose.cellOrder), BorderLayout.CENTER);
 
         for (Player player: game) {
             GoosePlayer p = (GoosePlayer)player;

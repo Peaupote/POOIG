@@ -37,7 +37,6 @@ public class GameBoardPanel extends ImageBackgroundJPanel.ImageBackgroundView {
         "./assets/vador.png"
     };
 
-
     protected class BoardPanel extends ImageBackgroundJPanel {
 
         public BoardPanel (int cellOrder) {
