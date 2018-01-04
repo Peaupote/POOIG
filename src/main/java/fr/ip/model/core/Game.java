@@ -11,7 +11,7 @@ public abstract class Game implements Iterable<Player> {
     /**
      * List of all registered players
      */
-    protected LinkedList<Player> ps;
+    protected LinkedList<Player> players;
 
     /**
      * Cycle of player in-game
@@ -84,7 +84,7 @@ public abstract class Game implements Iterable<Player> {
      * Create a game, with no cells and no players
      */
     public Game (int length) {
-        ps = new LinkedList<>();
+        players = new LinkedList<>();
         Cell.flush();
 				this.length = length;
     }
@@ -94,14 +94,14 @@ public abstract class Game implements Iterable<Player> {
      * @param p player to add
      */
     public void addPlayer (Player p) {
-        ps.add(p);
+        players.add(p);
     }
 
     /**
      * Create game state and board.iterator() instances
      */
     public void start () {
-        board = new Board(ps.toArray(new Player[0]));
+        board = new Board(players.toArray(new Player[0]));
         instance = new State();
     }
 
@@ -138,11 +138,11 @@ public abstract class Game implements Iterable<Player> {
 
     @Override
     public Iterator<Player> iterator() {
-        return ps.iterator();
+        return players.iterator();
     }
 
     public int size() {
-        return ps.size();
+        return players.size();
     }
 
     public static State getInstance() {
