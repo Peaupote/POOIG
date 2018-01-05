@@ -3,14 +3,16 @@ package fr.ip.view.numeri;
 import fr.ip.model.core.Game;
 import fr.ip.model.core.Pawn;
 import fr.ip.model.core.Player;
+import fr.ip.model.core.Configuration;
+
 import fr.ip.model.numeri.NumeriGame;
 import fr.ip.model.numeri.NumeriCell;
 import fr.ip.model.numeri.NumeriPlayer;
+
 import fr.ip.view.core.GameBoardPanel;
 import fr.ip.view.core.MainFrame;
 import fr.ip.view.core.SingleView;
 import fr.ip.view.core.components.CellButton;
-import fr.ip.view.core.components.Configuration;
 
 import java.awt.*;
 import java.util.ArrayList;

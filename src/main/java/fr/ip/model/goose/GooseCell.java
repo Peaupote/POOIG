@@ -5,7 +5,7 @@ import fr.ip.model.core.Event;
 import fr.ip.model.core.Game;
 import fr.ip.model.util.Facade;
 import fr.ip.model.util.Message;
-import fr.ip.view.core.components.Configuration;
+import fr.ip.model.core.Configuration;
 
 import javax.swing.*;
 

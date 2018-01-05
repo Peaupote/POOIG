@@ -3,7 +3,7 @@ package fr.ip.model.numeri;
 import fr.ip.model.core.*;
 import fr.ip.model.util.Facade;
 import fr.ip.model.util.Message;
-import fr.ip.view.core.components.Configuration;
+import fr.ip.model.core.Configuration;
 
 import javax.swing.*;
 import java.util.*;

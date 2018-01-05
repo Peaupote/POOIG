@@ -4,6 +4,7 @@ import fr.ip.view.core.ImageBackgroundJPanel;
 import fr.ip.view.core.GameBoardPanel;
 import fr.ip.view.core.SingleView;
 import fr.ip.view.core.components.PrimaryButton;
+import fr.ip.model.core.Configuration;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

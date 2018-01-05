@@ -15,6 +15,8 @@ $ mvn package # compile dans target
 $ java -jar target/project-1.0-SNAPSHOT.jar # execute le programme
 ```
 
+On peut toujours compiler soit même le projet. Il faut cependant noter que le package de base est fr.ip et pas main.java.fr.ip.
+
 ## Architecture du dépot
 ```
 .

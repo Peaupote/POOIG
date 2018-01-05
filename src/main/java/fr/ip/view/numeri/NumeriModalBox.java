@@ -2,7 +2,7 @@ package fr.ip.view.numeri;
 
 import fr.ip.model.numeri.NumeriPlayer;
 import fr.ip.view.core.GameModalBox;
-import fr.ip.view.core.components.Configuration;
+import fr.ip.model.core.Configuration;
 
 import java.awt.*;
 import java.awt.event.ActionListener;

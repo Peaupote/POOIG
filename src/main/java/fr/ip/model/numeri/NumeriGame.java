@@ -19,7 +19,7 @@ public class NumeriGame extends Game {
         for (int i = 1; i < length; i++)
             new NumeriCell();
 
-        for (Player p: ps)
+        for (Player p: players)
             for(Pawn pawn: ((NumeriPlayer)p).pawns())
                 pawn.goToCell(first);
     }

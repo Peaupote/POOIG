@@ -19,7 +19,7 @@ public class GooseGame extends Game {
         for (int i = 0; i < length - 1; i++)
             new GooseCell();
 
-        for (Player p: ps)
+        for (Player p: players)
             ((GoosePlayer)p).getPawn().goToCell(first);
     }
 

@@ -2,14 +2,16 @@ package fr.ip.view.goose;
 
 import fr.ip.model.core.Cell;
 import fr.ip.model.core.Game;
-import fr.ip.model.goose.GooseGame;
 import fr.ip.model.core.Player;
+import fr.ip.model.core.Configuration;
+
 import fr.ip.model.goose.GoosePlayer;
+import fr.ip.model.goose.GooseGame;
+
 import fr.ip.view.core.GameBoardPanel;
 import fr.ip.view.core.MainFrame;
 import fr.ip.view.core.SingleView;
 import fr.ip.view.core.components.CellButton;
-import fr.ip.view.core.components.Configuration;
 import fr.ip.view.goose.GooseModalBox;
 
 import javax.swing.*;

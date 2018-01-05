@@ -1,13 +1,15 @@
 package fr.ip.view.core;
 
 import fr.ip.model.core.Player;
-import fr.ip.view.core.components.Configuration;
+import fr.ip.model.core.Configuration;
+
 import fr.ip.view.core.components.PrimaryButton;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 

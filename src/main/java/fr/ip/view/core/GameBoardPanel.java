@@ -5,7 +5,7 @@ import fr.ip.model.core.Game;
 import fr.ip.model.core.Player;
 import fr.ip.view.core.components.CellButton;
 import fr.ip.view.core.components.PrimaryButton;
-import fr.ip.view.core.components.Configuration;
+import fr.ip.model.core.Configuration;
 
 import javax.swing.*;
 import java.awt.*;
