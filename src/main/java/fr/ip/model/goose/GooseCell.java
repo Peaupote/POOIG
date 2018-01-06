@@ -25,11 +25,12 @@ public class GooseCell extends Cell {
             Game.getInstance().playAgain();
             e.stopPropagation();
         });
-        if (Configuration.configuration.goose.questions && id % 10 == 0)
+        if (Configuration.configuration.goose.questions && id % 5 == 0)
             new QuestionCell(
-                    "Say true.",
-                    (String s) -> s.equals("true"),
-                    (Event.CellEvent event) -> Facade.show(new Message("Correct answer")),
+                    (Event.CellEvent event) -> {
+                        Facade.show(new Message("Correct answer"));
+                        Game.getInstance().playAgain();
+                    },
                     (Event.CellEvent event) -> Facade.show(new Message("It's a fail loser !")));
     }
 }

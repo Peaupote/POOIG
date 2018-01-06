@@ -2,6 +2,8 @@ package fr.ip.model.core;
 
 import fr.ip.model.util.Facade;
 import fr.ip.model.util.Message;
+import fr.ip.model.util.Question;
+import fr.ip.model.util.QuestionBank;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.util.function.Predicate;
  * Abstract class representing a cell/square
  */
 public abstract class Cell {
+    private static final QuestionBank BANK = new QuestionBank();
 
     /**
      * Represent the position of the cell on the board
@@ -139,26 +142,15 @@ public abstract class Cell {
     protected class QuestionCell {
 
         /**
-         * Constructor. Do nothing if the answer is wrong
-         * @param question The question to ask
-         * @param isCorrect Predicate to say if the answer s correct
-         * @param success Event to run if the answer is correct
-         */
-        public QuestionCell (String question, Predicate<String> isCorrect, ActionEvent<Event.CellEvent> success) {
-            this (question, isCorrect, success, (Event.CellEvent event) -> {});
-        }
-
-        /**
          * Constructor.
-         * @param question The question to ask
-         * @param isCorrect Predicate to say if the answer s correct
          * @param success Event to run if the answer is correct
          * @param fail Event ti run if the answer is wrong
          */
-        public QuestionCell (String question, Predicate<String> isCorrect, ActionEvent<Event.CellEvent> success, ActionEvent<Event.CellEvent> fail) {
+        public QuestionCell (ActionEvent<Event.CellEvent> success, ActionEvent<Event.CellEvent> fail) {
             Cell.this.listener().add("enter", (Event.CellEvent event) -> {
-                String answer = Facade.read(question);
-                if (isCorrect.test(answer)) success.run(event);
+                Question q = BANK.getRandomQuestion();
+                String answer = Facade.read(q.question);
+                if (q.test(answer)) success.run(event);
                 else fail.run(event);
             });
         }
