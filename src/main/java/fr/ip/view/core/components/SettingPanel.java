@@ -19,7 +19,7 @@ public class SettingPanel extends ImageBackgroundJPanel implements SingleView {
 
     private class GlobalPane extends JPanel {
         GlobalPane () {
-            add(new JLabel("Hello"));
+            add(new JLabel("Jeu réalisé par Maxime FLIN et Félix DESMARETZ."));
         }
     }
 
