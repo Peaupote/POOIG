@@ -36,7 +36,7 @@ public class EndPanel extends ImageBackgroundJPanel.ImageBackgroundView {
 
     @Override
     public void onOpen(HashMap<String, Object> map) {
-				super.onOpen(map);
+        super.onOpen(map);
         target = map.get("target").toString();
         win.setText(map.get("win").toString() + " won !");
 

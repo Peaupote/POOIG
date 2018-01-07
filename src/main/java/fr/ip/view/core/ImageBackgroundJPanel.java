@@ -49,23 +49,23 @@ public class ImageBackgroundJPanel extends JPanel {
       });
 
 
-				private class Meteor {
-						
-						private BufferedImage image;
-						private int x, y, speed;
-						private final static int max = 350, maxSpeed = 4;
+         private class Meteor {
+             
+             private BufferedImage image;
+             private int x, y, speed;
+             private final static int max = 350, maxSpeed = 4;
 
-						public Meteor (String path) {
-								try {
-										image = ImageIO.read(new File(path));
-								} catch (IOException e) {
-										e.printStackTrace();
-								}
+             public Meteor (String path) {
+                 try {
+                     image = ImageIO.read(new File(path));
+                 } catch (IOException e) {
+                     e.printStackTrace();
+                 }
 
                 x = rand.nextInt(250) + 100;
                 y = - image.getHeight() - rand.nextInt(300);
                 speed = rand.nextInt(Meteor.maxSpeed - 1) + 3;
-						}
+             }
 
             public void initPosition () {
                 x = rand.nextInt(getWidth() - 250);
@@ -73,15 +73,15 @@ public class ImageBackgroundJPanel extends JPanel {
                 speed = rand.nextInt(Meteor.maxSpeed - 1) + 3;
             }
 
-						public void draw (Graphics graphics) {
-								graphics.drawImage(image, x, y, ImageBackgroundView.this);
-						}
+             public void draw (Graphics graphics) {
+                 graphics.drawImage(image, x, y, ImageBackgroundView.this);
+             }
 
-				}
+         }
 
 
-				public ImageBackgroundView (LayoutManager layout) {
-						super(layout);
+         public ImageBackgroundView (LayoutManager layout) {
+             super(layout);
             if (meteors == null) {
                 meteors = Arrays.asList(
                   new Meteor("./assets/meteor_groupe.png"),
@@ -90,40 +90,40 @@ public class ImageBackgroundJPanel extends JPanel {
             }
         }
 
-				public ImageBackgroundView () {
-						this(new GridBagLayout());
-				}
+         public ImageBackgroundView () {
+             this(new GridBagLayout());
+         }
 
-				@Override
-				public void paintComponent(Graphics graphics) {
+         @Override
+         public void paintComponent(Graphics graphics) {
             super.paintComponent(graphics);
             if (image != null) {
                 this.drawSafeResize(graphics, image, offset, 0);
                 this.drawSafeResize(graphics, image, offset - getWidth(), 0);
             }
-						for (Meteor cloud: meteors)
-							cloud.draw(graphics);
-				}
+             for (Meteor cloud: meteors)
+               cloud.draw(graphics);
+         }
 
         protected void drawSafeResize(Graphics graphics, BufferedImage img, int x, int y) {
             graphics.drawImage(img, x, y, getWidth(), getHeight(), this);
         }
-				
-				public void onOpen (HashMap<String, Object> map) {
+         
+         public void onOpen (HashMap<String, Object> map) {
             instance = this;
-						if (manager.getState() == Thread.State.NEW)
-							manager.start();
-				}
+             if (manager.getState() == Thread.State.NEW)
+               manager.start();
+         }
 
-				public void onClose () {
-				}
+         public void onClose () {
+         }
 
-		}
+     }
 
     public ImageBackgroundJPanel(LayoutManager layout) {
         super(layout);
         setBackground(TRANSPARENT);
-				
+         
     }
 
     public ImageBackgroundJPanel() {

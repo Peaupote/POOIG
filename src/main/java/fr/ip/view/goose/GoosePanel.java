@@ -21,9 +21,9 @@ import java.util.HashMap;
 
 public class GoosePanel extends GameBoardPanel {
 
-		@Override
+    @Override
     public void onOpen (HashMap<String, Object> map) {
-				super.onOpen(map);
+        super.onOpen(map);
         GooseModalBox modal = new GooseModalBox(MainFrame.instance, "Add players", true);
         GooseModalBox.Output out = modal.showGameModalBox();
 

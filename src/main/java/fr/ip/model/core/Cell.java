@@ -76,8 +76,10 @@ public abstract class Cell {
         public TrapCell() {
             player = null;
             Cell.this.listener.add("enter", (Event.CellEvent event) -> {
-                if (player != null)
+                if (player != null) {
                     Game.getInstance().add(player);
+                    Facade.show(new Message("You are trapped"));                  
+                }
                 player = event.getPawn().getPlayer();
                 Game.getInstance().removePlayer();
             });
@@ -95,7 +97,7 @@ public abstract class Cell {
          */
         public JumpCell (int target) {
             Cell.this.listener.add("enter", (Event.CellEvent event) -> {
-                Facade.show(new Message("JUMP TO " + target, JOptionPane.INFORMATION_MESSAGE));
+                Facade.show(new Message("Jump to cell " + target, JOptionPane.INFORMATION_MESSAGE));
                 event.getPawn().goToCell(Cell.get(target));
                 event.stopPropagation();
             });
@@ -122,6 +124,7 @@ public abstract class Cell {
             Cell.this.listener.add("enter", (Event.CellEvent event) -> {
                 map.put(event.getPawn().getPlayer(), i);
                 Game.getInstance().removePlayer();
+                Facade.show(new Message("You must wait " + i + " turns"));
             });
 
             Cell.this.listener.add("stay", (Event.CellEvent event) -> {
@@ -149,7 +152,7 @@ public abstract class Cell {
         public QuestionCell (ActionEvent<Event.CellEvent> success, ActionEvent<Event.CellEvent> fail) {
             Cell.this.listener().add("enter", (Event.CellEvent event) -> {
                 Question q = BANK.getRandomQuestion();
-                String answer = Facade.read(q.question);
+                String answer = Facade.read("Question cell\n"+q.question);
                 if (q.test(answer)) success.run(event);
                 else fail.run(event);
             });

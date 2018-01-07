@@ -21,7 +21,7 @@ import java.util.HashMap;
 public class NumeriPanel extends GameBoardPanel {
 
     public void onOpen (HashMap<String, Object> map) {
-				super.onOpen(map);
+        super.onOpen(map);
         NumeriModalBox modal = new NumeriModalBox(MainFrame.instance, "Add players", true);
         NumeriModalBox.Output out = modal.showGameModalBox();
 

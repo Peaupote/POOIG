@@ -12,9 +12,9 @@ public class NumeriModalBox extends GameModalBox<NumeriPlayer> {
     public NumeriModalBox(Frame frame, String title, boolean modal) {
         super (frame, title, modal);
 
-				ActionListener max = getMax (Configuration.configuration.numeri);
-				form.add.addActionListener (max);
-				form.name.addActionListener (max);
+        ActionListener max = getMax (Configuration.configuration.numeri);
+        form.add.addActionListener (max);
+        form.name.addActionListener (max);
     }
 
     @Override

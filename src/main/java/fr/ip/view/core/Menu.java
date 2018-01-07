@@ -45,7 +45,7 @@ public class Menu extends ImageBackgroundJPanel.ImageBackgroundView {
 
     @Override
     public void onOpen(HashMap<String, Object> map) {
-				super.onOpen(map);
+        super.onOpen(map);
         MainFrame.canRestart(false);
     }
 
