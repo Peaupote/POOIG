@@ -18,26 +18,29 @@ public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("1 : Goose\n2 : Numeri\n3 : GUI test\n4 : Question test\n0 : Exit");
+        System.out.println("1 : Goose\n2 : Numeri\n3 : GUI test\n0 : Exit");
 
         switch (sc.nextInt()) {
             case 0 : System.exit(0); return;
-            case 1 : playInConsole(new GooseGame(15)); break;
-            case 2 : playInConsole(new NumeriGame(11)); break;
+            case 1 : playInConsole(0); break;
+            case 2 : playInConsole(1); break;
             case 3 : playGUI();break;
             default: System.exit(1); return;
         }
 
     }
 
-    public static void playInConsole (Game game) {
+    public static void playInConsole (int name) {
         new Facade.CommandLine();
 
-        if (game instanceof GooseGame) {
+        Game game;
+        if (name == 0) {
+            game = new GooseGame(15);
             game.addPlayer(new GoosePlayer("j1"));
             game.addPlayer(new GoosePlayer("j2"));
             game.addPlayer(new GoosePlayer("j3"));
-        } else if (game instanceof NumeriGame) {
+        } else {
+            game = new NumeriGame(11);
             game.addPlayer(new NumeriPlayer("j1"));
             game.addPlayer(new NumeriPlayer("j2"));
             game.addPlayer(new NumeriPlayer("j3"));

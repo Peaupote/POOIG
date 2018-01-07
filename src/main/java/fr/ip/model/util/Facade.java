@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public abstract class Facade {
 
-    private static Facade instance;
+    private static Facade instance = null;
 
     public static class CommandLine extends Facade {
 

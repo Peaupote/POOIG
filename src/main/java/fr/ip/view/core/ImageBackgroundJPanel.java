@@ -11,22 +11,51 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.lang.InterruptedException;
 import java.util.HashMap;
+import java.util.Arrays;
+import java.util.List;
 
 public class ImageBackgroundJPanel extends JPanel {
 
     protected BufferedImage image;
     public final static Color TRANSPARENT = new Color(0,0,0,0);
-		private final static Random rand = new Random();
+    private final static Random rand = new Random();
 
-		public static class ImageBackgroundView extends ImageBackgroundJPanel implements SingleView {
+    public static class ImageBackgroundView extends ImageBackgroundJPanel implements SingleView {
 
-				private class Cloud {
+        protected static int offset = 0;
+        protected static List<Meteor> meteors;
+        protected static ImageBackgroundView instance = null;
+
+        protected static Thread manager = new Thread(() -> {
+            while (true) {
+                offset = (offset + 1) % instance.getWidth();
+
+                for (Meteor meteor : meteors) {
+                    meteor.x += meteor.speed;
+                    meteor.y += meteor.speed;
+                    if (meteor.x >= instance.getWidth() || meteor.y >= instance.getHeight())
+                        meteor.initPosition();
+
+                }
+
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                instance.repaint();
+            }
+      });
+
+
+				private class Meteor {
 						
 						private BufferedImage image;
 						private int x, y, speed;
 						private final static int max = 350, maxSpeed = 4;
 
-						public Cloud (String path) {
+						public Meteor (String path) {
 								try {
 										image = ImageIO.read(new File(path));
 								} catch (IOException e) {
@@ -35,13 +64,13 @@ public class ImageBackgroundJPanel extends JPanel {
 
                 x = rand.nextInt(250) + 100;
                 y = - image.getHeight() - rand.nextInt(300);
-                speed = rand.nextInt(Cloud.maxSpeed - 1) + 1;
+                speed = rand.nextInt(Meteor.maxSpeed - 1) + 3;
 						}
 
             public void initPosition () {
                 x = rand.nextInt(getWidth() - 250);
                 y = - image.getHeight() - rand.nextInt(300);
-                speed = rand.nextInt(Cloud.maxSpeed - 1) + 3;
+                speed = rand.nextInt(Meteor.maxSpeed - 1) + 3;
             }
 
 						public void draw (Graphics graphics) {
@@ -50,48 +79,15 @@ public class ImageBackgroundJPanel extends JPanel {
 
 				}
 
-				protected ArrayList<Cloud> clouds;
-				protected Thread cloudManager, bkgManager; 
-        private int offset = 0;
 
 				public ImageBackgroundView (LayoutManager layout) {
 						super(layout);
-						clouds = new ArrayList<>();
-						clouds.add(new Cloud("./assets/meteor_groupe.png"));
-						clouds.add(new Cloud("./assets/meteor_seul.png"));
-						clouds.add(new Cloud("./assets/meteor_seul.png"));
-
-						cloudManager = new Thread(() -> {
-								while (true) {
-										for (Cloud cloud : clouds) {
-												cloud.x += cloud.speed;
-                        cloud.y += cloud.speed;
-												if (cloud.x >= getWidth() || cloud.y >= getHeight())
-                            cloud.initPosition();
-
-										}
-
-										try {
-												Thread.sleep(15);
-										} catch (InterruptedException e) {
-												e.printStackTrace();
-										}
-
-										repaint();
-								}
-						});
-
-            bkgManager = new Thread(() -> {
-                while(true) {
-                    offset = (offset + 1) % getWidth();
-
-                    try {
-                        Thread.sleep(25);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+            if (meteors == null) {
+                meteors = Arrays.asList(
+                  new Meteor("./assets/meteor_groupe.png"),
+                  new Meteor("./assets/meteor_seul.png"),
+                  new Meteor("./assets/meteor_seul.png"));
+            }
         }
 
 				public ImageBackgroundView () {
@@ -105,16 +101,18 @@ public class ImageBackgroundJPanel extends JPanel {
                 this.drawSafeResize(graphics, image, offset, 0);
                 this.drawSafeResize(graphics, image, offset - getWidth(), 0);
             }
-						for (Cloud cloud: clouds)
+						for (Meteor cloud: meteors)
 							cloud.draw(graphics);
 				}
+
+        protected void drawSafeResize(Graphics graphics, BufferedImage img, int x, int y) {
+            graphics.drawImage(img, x, y, getWidth(), getHeight(), this);
+        }
 				
 				public void onOpen (HashMap<String, Object> map) {
-						if (cloudManager.getState() == Thread.State.NEW)
-							cloudManager.start();
-
-						if (bkgManager.getState() == Thread.State.NEW)
-							bkgManager.start();
+            instance = this;
+						if (manager.getState() == Thread.State.NEW)
+							manager.start();
 				}
 
 				public void onClose () {
@@ -149,13 +147,13 @@ public class ImageBackgroundJPanel extends JPanel {
     protected void drawSafeResize(Graphics graphics, BufferedImage img, int x, int y) {
         int w = img.getWidth(), h = img.getHeight();
         if (getWidth() > w) {
-            w = getWidth();
             h *= getWidth() / w;
+            w = getWidth();
         }
 
         if (getHeight() > h) {
-            h = getHeight();
             w *= getHeight() / h;
+            h = getHeight();
         }
 
         graphics.drawImage(img, x, y, w, h, this);
