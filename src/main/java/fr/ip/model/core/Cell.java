@@ -76,10 +76,9 @@ public abstract class Cell {
         public TrapCell() {
             player = null;
             Cell.this.listener.add("enter", (Event.CellEvent event) -> {
-                if (player != null) {
+                if (player != null)
                     Game.getInstance().add(player);
-                    Facade.show(new Message("You are trapped"));                  
-                }
+                Facade.show(new Message("You are trapped"));                  
                 player = event.getPawn().getPlayer();
                 Game.getInstance().removePlayer();
             });
