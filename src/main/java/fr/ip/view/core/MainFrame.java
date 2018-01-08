@@ -73,7 +73,8 @@ public class MainFrame extends JFrame {
             clip.start();
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.err.println("Can play music: ./assets/theme.wav");
         }
     }
 
